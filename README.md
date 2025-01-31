@@ -9,7 +9,7 @@
 | Boru Jin      | boru1    | AK630M          |
 | Krystal Kim   | jueun2   | rlawndms        |
 | Chris Jang    | junwoo2  | Sddala          |
-| Ivan Mikrukov | mikrukov | [@username]     |
+| Ivan Mikrukov | mikrukov | PinkGluten     |
 
 ## Project Description
 
