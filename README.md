@@ -8,7 +8,7 @@
 | Esa Abuzar    | abuzar1  | Esa112233       |
 | Boru Jin      | boru1    | AK630M          |
 | Krystal Kim   | jueun2   | rlawndms        |
-| Chris Jang    | junwoo2  | [@username]     |
+| Chris Jang    | junwoo2  | Sddala          |
 | Ivan Mikrukov | mikrukov | [@username]     |
 
 ## Project Description
