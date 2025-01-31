@@ -1,15 +1,15 @@
-# CMPUT 301 W25 - Team [Team Name]
+# CMPUT 301 W25 - Team Error-404s
 
 ## Team Members
 
-| Name        | CCID   | GitHub Username |
-| ----------- | ------ | --------------- |
-| [Full Name] | [CCID] | [@username]     |
-| [Full Name] | [CCID] | [@username]     |
-| [Full Name] | [CCID] | [@username]     |
-| [Full Name] | [CCID] | [@username]     |
-| [Full Name] | [CCID] | [@username]     |
-| [Full Name] | [CCID] | [@username]     |
+| Name          | CCID     | GitHub Username |
+| -----------   | ------   | --------------- |
+| Aakarsh Gupta | aakarsh1 | Aakarsh211      |
+| Esa Abuzar    | abuzar1  | [@username]     |
+| Boru Jin      | boru1    | [@username]     |
+| Krystal Kim   | [jueun2  | [@username]     |
+| Chris Jang    | junwoo2  | [@username]     |
+| Ivan Mikrukov | mikrukov | [@username]     |
 
 ## Project Description
 
