@@ -7,7 +7,7 @@
 | Aakarsh Gupta | aakarsh1 | Aakarsh211      |
 | Esa Abuzar    | abuzar1  | [@username]     |
 | Boru Jin      | boru1    | [@username]     |
-| Krystal Kim   | [jueun2  | [@username]     |
+| Krystal Kim   | jueun2   | rlawndms        |
 | Chris Jang    | junwoo2  | [@username]     |
 | Ivan Mikrukov | mikrukov | [@username]     |
 
