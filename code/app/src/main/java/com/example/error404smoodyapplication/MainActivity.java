@@ -1,6 +1,9 @@
 package com.example.error404smoodyapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +24,77 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
+    @Override
+    public void updateEvent(Event event, String newTitle, String emotionalState, String trigger, String socialSituation) {
+        if (emotionalState == null || emotionalState.trim().isEmpty()) {
+            // Prevent saving if emotional state is removed
+            showErrorMessage("Emotional state cannot be empty.");
+            return;
+        }
+
+        if (!event.getTitle().equals(newTitle)) {
+            DocumentReference oldDocRef = eventRef.document(event.getTitle());
+            Event updatedEvent = new Event(newTitle, emotionalState, trigger, socialSituation);
+            DocumentReference newDocRef = eventRef.document(newTitle);
+            newDocRef.set(updatedEvent);
+        } else {
+            DocumentReference docRef = eventRef.document(event.getTitle());
+            docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
+        }
+
+        event.setTitle(newTitle);
+        event.setEmotionalState(emotionalState);
+        event.setTrigger(trigger);
+        event.setSocialSituation(socialSituation);
+        eventArrayAdapter.notifyDataSetChanged();
+    }
+
+    // Call this method when the user attempts to exit without saving
+    public void confirmExitWithoutSaving(Runnable onConfirm) {
+        new AlertDialog.Builder(context)
+                .setTitle("Unsaved Changes")
+                .setMessage("You have unsaved changes. Are you sure you want to exit?")
+                .setPositiveButton("Exit", (dialog, which) -> onConfirm.run())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    // Display error message when emotional state is removed
+    private void showErrorMessage(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+    
+    public void deleteEvent(Event event) {
+        // Show confirmation prompt before deleting
+        new AlertDialog.Builder(context)
+                .setTitle("Delete Event")
+                .setMessage("Are you sure you want to delete this event? This action cannot be undone.")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    // Get a reference to the document in Firestore
+                    DocumentReference docRef = eventRef.document(event.getTitle());
+
+                    // Delete from Firestore
+                    docRef.delete()
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("Firestore", "Event deleted successfully");
+
+                                // Remove from local list after successful deletion
+                                eventArrayList.remove(event);
+                                eventArrayAdapter.notifyDataSetChanged();
+
+                                // Navigate back to the mood history list
+                                Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, MoodHistoryActivity.class);
+                                context.startActivity(intent);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e("Firestore", "Error deleting event", e);
+                                Toast.makeText(context, "Failed to delete event. Please try again.", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 }
