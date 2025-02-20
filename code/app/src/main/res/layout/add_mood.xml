@@ -28,6 +28,12 @@
         android:layout_height="wrap_content"
         android:hint="Social Situation (Optional)" />
 
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Note (Optional)" />
+
     <Button
         android:id="@+id/Create_Mood_event"
         android:layout_width="match_parent"

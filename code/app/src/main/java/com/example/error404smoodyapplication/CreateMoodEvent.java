@@ -21,6 +21,7 @@ public class CreateMoodEvent extends AppCompatActivity {
     private Spinner emotionalStateSpinner;
     private EditText trigger;
     private EditText socialSituation;
+    private EditText note;
     private Button createMoodEventButton;
     Date currentDate;
 
@@ -34,6 +35,7 @@ public class CreateMoodEvent extends AppCompatActivity {
         trigger = findViewById(R.id.emotional_Trigger);
         socialSituation = findViewById(R.id.social_situation);
         createMoodEventButton = findViewById(R.id.Create_Mood_event);
+        note = findViewById(R.id.note);
 
         // get the current date and time and set it
         currentDate = new Date();
@@ -60,12 +62,22 @@ public class CreateMoodEvent extends AppCompatActivity {
         String selectedEmotion = emotionalStateSpinner.getSelectedItem().toString();
         String emotionalTrigger = trigger.getText().toString();
         String socialSituationCapture = socialSituation.getText().toString();
+        String noteText = note.getText().toString();     //is trim() necessary here?
         // validation for selecting emotional state
         if (selectedEmotion.equals("Select Emotion") || selectedEmotion.isEmpty()){
             Toast.makeText(this, "Select an Emotional State",Toast.LENGTH_LONG).show();
         }
+        // validation for selecting note
+        if (!noteText.isEmpty()){
+            //if has input, no longer than 20 char or 3 words.
+            String[] words = noteText.split("\\s+");
+            if (noteText.length()>= 20 || words.length >= 3 ){
+                Toast.makeText(this, "Note cannot exceed 20 characters or 3 words", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
 
-        MoodEvent moodEvent = new MoodEvent(selectedEmotion,emotionalTrigger,socialSituationCapture,currentDate);
+        MoodEvent moodEvent = new MoodEvent(selectedEmotion,emotionalTrigger,socialSituationCapture,currentDate, noteText);
         Toast.makeText(this, "Created Mood Event",Toast.LENGTH_LONG).show();
 
     }
