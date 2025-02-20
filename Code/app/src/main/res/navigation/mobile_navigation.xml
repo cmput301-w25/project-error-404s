@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.mood_pulse.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.mood_pulse.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
@@ -22,4 +28,11 @@
         android:name="com.example.mood_pulse.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.example.mood_pulse.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
 </navigation>

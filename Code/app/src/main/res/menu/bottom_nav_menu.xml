@@ -7,6 +7,11 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/magnifying_glass__streamline_phosphor"
+        android:title="@string/title_search" />
+
+    <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/plus_square__streamline_phosphor"
         android:title="@string/title_dashboard" />
@@ -15,5 +20,10 @@
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/heart__streamline_phosphor"
         android:title="@string/title_notifications" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/clock__streamline_phosphor"
+        android:title="@string/title_history" />
 
 </menu>

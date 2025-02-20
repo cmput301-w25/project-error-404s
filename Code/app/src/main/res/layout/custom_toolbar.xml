@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/custom_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@drawable/toolbar_background"
+    android:elevation="0dp">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/arrow_arc_left__streamline_phosphor"
+        android:contentDescription="@string/title_back"
+        android:layout_gravity="start|center_vertical"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Title"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center" />
+
+    <!-- Container for right-side buttons -->
+    <LinearLayout
+        android:id="@+id/right_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Chat Button (to the left) -->
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/title_chat"
+            android:src="@drawable/chat_circle_dots__streamline_phosphor"
+            android:scaleType="fitCenter" />
+
+        <!-- Settings Button (mirroring the back button) -->
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/title_settings"
+            android:src="@drawable/gear__streamline_phosphor"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>
