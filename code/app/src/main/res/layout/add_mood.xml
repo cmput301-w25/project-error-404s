@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <Spinner
+        android:id="@+id/emotionalState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"/>
+
+    <EditText
+        android:id="@+id/emotional_Trigger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Emotional Trigger (Optional)" />
+
+    <EditText
+        android:id="@+id/social_situation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Social Situation (Optional)" />
+
+    <Button
+        android:id="@+id/Create_Mood_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Mood Event" />
+</LinearLayout>
