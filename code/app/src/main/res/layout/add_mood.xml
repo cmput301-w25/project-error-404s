@@ -34,6 +34,14 @@
         android:layout_height="wrap_content"
         android:hint="Note (Optional)" />
 
+    <TextView
+        android:id="@+id/noteError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:visibility="gone"
+        android:text="No more than 20 characters or 3 words" />
+
     <Button
         android:id="@+id/Create_Mood_event"
         android:layout_width="match_parent"
