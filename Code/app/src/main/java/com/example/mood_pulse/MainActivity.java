@@ -1,78 +1,107 @@
 package com.example.mood_pulse;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import com.example.mood_pulse.databinding.ActivityMainBinding;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-
-    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Inflate and set the content view first!
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        // Find and set the custom toolbar
-        Toolbar customToolbar = findViewById(R.id.custom_toolbar);
-        setSupportActionBar(customToolbar);
-
-        // Disable the default title display
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-
-        // Set up the back button behavior
-        ImageButton backButton = findViewById(R.id.back_button);
-        if (backButton != null) {
-            backButton.setOnClickListener(view -> onBackPressed());
-        }
-
-        // Bottom navigation setup
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_search,
-                R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_history)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-
-        // **Update Toolbar Title Dynamically**
-        TextView toolbarTitle = findViewById(R.id.toolbar_title);
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (toolbarTitle != null && destination.getLabel() != null) {
-                toolbarTitle.setText(destination.getLabel());
-            }
-
-            // Show right-side buttons only on the home page (assuming home has id R.id.navigation_home)
-            LinearLayout rightButtons = findViewById(R.id.right_buttons_container);
-            if (destination.getId() == R.id.navigation_home) {
-                rightButtons.setVisibility(View.VISIBLE);
-            } else {
-                rightButtons.setVisibility(View.GONE);
-            }
-
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
-
-
-        View rootView = findViewById(android.R.id.content);
-        rootView.setBackgroundColor(getResources().getColor(R.color.app_background));
-
     }
+
+    // TODO: uncomment and adjust the code when database is implemented and functioning
+/*
+    @Override
+    public void updateEvent(MoodEvent moodEvent, Integer newID, String emotionalState, String trigger, String socialSituation, Date date, String note) {
+        if (emotionalState == null || emotionalState.trim().isEmpty()) {
+            // Prevent saving if emotional state is removed
+            showErrorMessage("Emotional state cannot be empty.");
+            return;
+        }
+
+
+        // TODO: change getTitle to correpsonding fucntion
+        if (!moodEvent.getMoodID().equals(newID)) {
+            DocumentReference oldDocRef = eventRef.document(moodEvent.getTitle());
+            MoodEvent updatedEvent = new MoodEvent(newID, emotionalState, trigger, socialSituation, date, note);
+            DocumentReference newDocRef = eventRef.document(newID);
+            newDocRef.set(updatedEvent);
+        } else {
+            DocumentReference docRef = eventRef.document(event.getTitle());
+            docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
+        }
+
+        moodEvent.setEmotionalState(emotionalState);
+        moodEvent.setTrigger(trigger);
+        moodEvent.setSocialSituation(socialSituation);
+        moodEvent.setDate(date);
+        moodEvent.setNote(note);
+        eventArrayAdapter.notifyDataSetChanged();
+    }
+
+    // Call this method when the user attempts to exit without saving
+    public void confirmExitWithoutSaving(Runnable onConfirm) {
+        new AlertDialog.Builder(context)
+                .setTitle("Unsaved Changes")
+                .setMessage("You have unsaved changes. Are you sure you want to exit?")
+                .setPositiveButton("Exit", (dialog, which) -> onConfirm.run())
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    // Display error message when emotional state is removed
+    private void showErrorMessage(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteEvent(MoodEvent moodEvent) {
+        // Show confirmation prompt before deleting
+        new AlertDialog.Builder(context)
+                .setTitle("Delete Event")
+                .setMessage("Are you sure you want to delete this event? This action cannot be undone.")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    // Get a reference to the document in Firestore
+                    DocumentReference docRef = eventRef.document(moodEvent.getMoodID());
+
+                    // Delete from Firestore
+                    docRef.delete()
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d("Firestore", "Event deleted successfully");
+
+                                // Remove from local list after successful deletion
+                                eventArrayList.remove(moodEvent);
+                                eventArrayAdapter.notifyDataSetChanged();
+
+                                // Navigate back to the mood history list
+                                Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(context, MoodHistoryActivity.class);
+                                context.startActivity(intent);
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e("Firestore", "Error deleting event", e);
+                                Toast.makeText(context, "Failed to delete event. Please try again.", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .show();
+    }*/
+
 }
