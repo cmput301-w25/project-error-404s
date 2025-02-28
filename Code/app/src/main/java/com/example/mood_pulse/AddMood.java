@@ -27,6 +27,12 @@ public class AddMood extends AppCompatActivity {
             finish(); // Automatically close AddMood when back is pressed
         }
 
+        // Find the left arrow button
+        ImageView leftArrow = findViewById(R.id.leftArrow);
+
+        // Set onClickListener to go back to the previous screen
+        leftArrow.setOnClickListener(v -> finish());
+
 
         // Initialize UI elements
         writeHereET = findViewById(R.id.writeHereET);
