@@ -17,11 +17,11 @@
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
-    <fragment
+    <activity
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.mood_pulse.ui.dashboard.DashboardFragment"
+        android:name="com.example.mood_pulse.AddMood"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        />
 
     <fragment
         android:id="@+id/navigation_notifications"
