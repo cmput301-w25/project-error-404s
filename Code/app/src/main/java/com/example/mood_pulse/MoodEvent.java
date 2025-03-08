@@ -23,7 +23,7 @@ public class MoodEvent implements Serializable {
     }
 
     // public Getters are required for the Serializable interface
-    public Integer getMoodID() { return moodID;}
+    public String getMoodID() { return moodID;}
     public String getEmotionalState() { return emotionalState; }
     public String getTrigger() { return trigger; }
     public String getSocialSituation() { return socialSituation; }
