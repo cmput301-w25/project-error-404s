@@ -11,9 +11,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    public CollectionReference eventRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: change getTitle to correpsonding fucntion
         if (!moodEvent.getMoodID().equals(newID)) {
-            DocumentReference oldDocRef = eventRef.document(moodEvent.getMoodID());
+            DocumentReference oldDocRef = eventRef.document(moodEvent.getMoodID().toString());
             MoodEvent updatedEvent = new MoodEvent(newID, emotionalState, trigger, socialSituation, date, note);
-            DocumentReference newDocRef = eventRef.document(newID);
+            DocumentReference newDocRef = eventRef.document(newID.toString());
             newDocRef.set(updatedEvent);
         } else {
-            DocumentReference docRef = eventRef.document(moodEvent.getMoodID());
+            DocumentReference docRef = eventRef.document(moodEvent.getMoodID().toString());
             docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
         }
 
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 // Navigate back to the mood history list
                                 Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(context, MoodHistoryActivity.class);
+                                Intent intent = new Intent(context, MoodHistory.class);
                                 context.startActivity(intent);
                             })
                             .addOnFailureListener(e -> {
