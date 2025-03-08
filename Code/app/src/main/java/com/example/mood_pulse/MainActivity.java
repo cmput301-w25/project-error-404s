@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: uncomment and adjust the code when database is implemented and functioning
-/*
     @Override
     public void updateEvent(MoodEvent moodEvent, Integer newID, String emotionalState, String trigger, String socialSituation, Date date, String note) {
         if (emotionalState == null || emotionalState.trim().isEmpty()) {
@@ -102,6 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                 .show();
-    }*/
+    }
 
 }
