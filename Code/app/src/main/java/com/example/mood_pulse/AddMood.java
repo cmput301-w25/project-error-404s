@@ -11,13 +11,82 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+/**
+ * This activity allows users to add a mood event by entering details such as
+ * a description, image, people they were with, and location.
+ * The user can expand/collapse different sections using up/down arrows.
+ * -----------------------------------------------------------------------------
+ * Handled in this class:
+ * - Writing a mood description
+ * - Uploading an image
+ * - Selecting anyone the user was with
+ * - Add a location
+ * - Can navigate back to the previous screen
+ *
+ */
 public class AddMood extends AppCompatActivity {
 
-    private EditText writeHereET, uploadImageET,locationET;
-    private ImageView downArrow1, upArrow1, downArrow2, upArrow2, placeHolderIV, upArrow3, downArrow3,upArrow4, downArrow4;
-    private TextView uploadPhotoTV;
-    private Button aloneBtn, with1personBTN, with2personBTN, crowdBTN;
+    /** EditText used for writing mood description */
+    private EditText writeHereET;
 
+    /** EditText used for uploading an image */
+    private EditText uploadImageET;
+
+    /** EditText used for entering the location */
+    private EditText locationET;
+
+    /** ImageView used for up/down arrows */
+    private ImageView downArrow1;
+
+    /** ImageView used for up/down arrows */
+    private ImageView upArrow1;
+
+    /** ImageView used for up/down arrows */
+    private ImageView downArrow2;
+
+    /** ImageView used for up/down arrows */
+    private ImageView upArrow2;
+
+    /** ImageView used for place holder */
+    private ImageView placeHolderIV;
+
+    /** ImageView used for up/down arrows */
+    private ImageView upArrow3;
+
+    /** ImageView used for up/down arrows */
+    private ImageView downArrow3;
+
+    /** ImageView used for up/down arrows */
+    private ImageView upArrow4;
+
+    /** ImageView used for up/down arrows */
+
+    private ImageView downArrow4;
+
+    /** TextView used for uploading a photo */
+    private TextView uploadPhotoTV;
+
+    /** Button used for selecting people */
+    private Button aloneBtn;
+
+    /** Button used for selecting people */
+    private Button with1personBTN;
+
+    /** Button used for selecting people */
+    private Button with2personBTN;
+
+    /** Button used for selecting people */
+    private Button crowdBTN;
+
+
+    /**
+     * This method is called when the activity is created.
+     * It instantiates the UI components, and sets up the click listeners.
+     * As well, it handles the expandable/collapsible behavior of different sections.
+     *
+     * @param savedInstanceState The saved instance state from previous session.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,7 +224,9 @@ public class AddMood extends AppCompatActivity {
         crowdBTN.setOnClickListener(buttonClickListener);
     }
 
-    // Reset all button styles to default
+    /**
+     * Resets the style of all buttons to the default state.
+     */
     private void resetButtonStyles() {
         for (Button button : new Button[]{aloneBtn, with1personBTN, with2personBTN, crowdBTN}) {
             button.setBackgroundResource(R.drawable.button_bg);
