@@ -18,6 +18,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Here, we allow  users to create a new mood event by entering details such as:
+ * - Their emotional state
+ * - The trigger for their emotion
+ * - The social situation they were in
+ * - An optional note about the mood event
+ *
+ * The user can navigate back to the previous screen using the left arrow.
+ * The "Note" field is adapted the requirements "Trigger" field
+ *
+ * Once valid inputs are provided, a new {@link MoodEvent} object is created.
+ *
+ *
+ */
 public class CreateMoodEvent extends AppCompatActivity {
 
     private TextView dateTime;
