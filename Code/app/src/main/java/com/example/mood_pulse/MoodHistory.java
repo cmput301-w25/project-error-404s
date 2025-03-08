@@ -2,8 +2,6 @@ package com.example.mood_pulse;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -12,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Locale;
 
 public class MoodHistory extends AppCompatActivity {
@@ -28,14 +25,14 @@ public class MoodHistory extends AppCompatActivity {
 
         // TODO: Match the views ID
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mood_history);
+        setContentView(R.layout.mood_history);
 
-        moodListView = findViewById(R.id.moodListView);
+        moodListView = findViewById(R.id.moodHistory);
         moodEvents = new ArrayList<>();
 
         // Dummy Data for Testing (Delete this (UI team))
-        moodEvents.add(new MoodEvent("Happy", "Sunshine", "With Friends", new Date()));
-        moodEvents.add(new MoodEvent("Sad", "Rain", "Alone", new Date()));
+        //moodEvents.add(new MoodEvent("Happy", "Sunshine", "With Friends", new Date()));
+        //moodEvents.add(new MoodEvent("Sad", "Rain", "Alone", new Date()));
 
         // Sort mood events by date (latest first)
         Collections.sort(moodEvents, (a, b) -> b.getDate().compareTo(a.getDate()));

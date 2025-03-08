@@ -1,10 +1,10 @@
 package com.example.mood_pulse;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-import android.content.Context;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-
 
 import java.util.Date;
 
@@ -37,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
 
     // TODO: uncomment and adjust the code when database is implemented and functioning

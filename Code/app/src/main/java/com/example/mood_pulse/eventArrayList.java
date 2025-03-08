@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class eventArrayList {
-    private List<MoodEvent> events;
+    private static List<MoodEvent> events;
 
     public eventArrayList() {
         this.events = new ArrayList<>();
