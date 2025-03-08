@@ -17,7 +17,7 @@ public class MoodDetails extends AppCompatActivity {
 
         // TODO: Change the ID
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mood_detail);
+        setContentView(R.layout.add_mood);
 
         moodDetailText = findViewById(R.id.moodDetailText);
 

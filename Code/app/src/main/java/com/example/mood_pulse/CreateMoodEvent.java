@@ -47,8 +47,8 @@ public class CreateMoodEvent extends AppCompatActivity {
     private TextView note;
     private Button createMoodEventButton;
     Date currentDate;
-    private FirebaseFirestore db;
-    private CollectionReference eventRef;
+    public FirebaseFirestore db;
+    public CollectionReference eventRef;
     private String selectedEmotion = "";
     private ImageView happyIcon, sadIcon, angerIcon, fearIcon, disgustIcon, confusedIcon, shameIcon, surprisedIcon, tiredIcon,anxiousIcon, proudIcon, boredIcon;
 
