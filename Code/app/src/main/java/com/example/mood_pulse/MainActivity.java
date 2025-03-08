@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     public CollectionReference eventRef;
 
+    public Context context;
+    private eventArrayAdapter adapter;
+    private eventArrayList eventList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // TODO: uncomment and adjust the code when database is implemented and functioning
-    @Override
     public void updateEvent(MoodEvent moodEvent, Integer newID, String emotionalState, String trigger, String socialSituation, Date date, String note) {
         if (emotionalState == null || emotionalState.trim().isEmpty()) {
             // Prevent saving if emotional state is removed
@@ -53,12 +58,16 @@ public class MainActivity extends AppCompatActivity {
             docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
         }
 
+        eventList = new eventArrayList();
+        adapter = new eventArrayAdapter(this, eventList.getEvents());
+
         moodEvent.setEmotionalState(emotionalState);
         moodEvent.setTrigger(trigger);
         moodEvent.setSocialSituation(socialSituation);
         moodEvent.setDate(date);
         moodEvent.setNote(note);
-        eventArrayAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+
     }
 
     // Call this method when the user attempts to exit without saving
@@ -92,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 // Remove from local list after successful deletion
                                 eventArrayList.remove(moodEvent);
-                                eventArrayAdapter.notifyDataSetChanged();
+                                adapter.notifyDataSetChanged();
 
                                 // Navigate back to the mood history list
                                 Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
