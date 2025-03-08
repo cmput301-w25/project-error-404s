@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: change getTitle to correpsonding fucntion
         if (!moodEvent.getMoodID().equals(newID)) {
-            DocumentReference oldDocRef = eventRef.document(moodEvent.getTitle());
+            DocumentReference oldDocRef = eventRef.document(moodEvent.getMoodID());
             MoodEvent updatedEvent = new MoodEvent(newID, emotionalState, trigger, socialSituation, date, note);
             DocumentReference newDocRef = eventRef.document(newID);
             newDocRef.set(updatedEvent);
         } else {
-            DocumentReference docRef = eventRef.document(event.getTitle());
+            DocumentReference docRef = eventRef.document(moodEvent.getMoodID());
             docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
         }
 
