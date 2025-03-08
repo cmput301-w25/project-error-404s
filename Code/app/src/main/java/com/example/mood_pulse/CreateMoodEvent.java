@@ -107,7 +107,7 @@ public class CreateMoodEvent extends AppCompatActivity {
                     noteError.setText("No more than 20  characters or 3 words");
                 } else {
                     noteError.setVisibility(View.GONE);
-                }
+                } //
             }
         });
         // get the current date and time and set it
