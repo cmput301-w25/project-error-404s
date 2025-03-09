@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class CreateMoodEvent extends AppCompatActivity {
     public CollectionReference eventRef;
     private String selectedEmotion = "";
     private ImageView happyIcon, sadIcon, angerIcon, fearIcon, disgustIcon, confusedIcon, shameIcon, surprisedIcon, tiredIcon,anxiousIcon, proudIcon, boredIcon;
+    LinearLayout happylayout;
 
     protected  void onCreate(Bundle savedInstanceState) {
 
@@ -75,6 +77,7 @@ public class CreateMoodEvent extends AppCompatActivity {
         TextView noteError = findViewById(R.id.noteError); //noteError helps display error message when you input more than 20chars or 3words in the note Editext
 
         happyIcon = findViewById(R.id.happyIcon);
+        happylayout = findViewById(R.id.linHappy);
         sadIcon = findViewById(R.id.sadIcon);
         angerIcon = findViewById(R.id.angerIcon);
         fearIcon = findViewById(R.id.fearIcon);
@@ -87,7 +90,8 @@ public class CreateMoodEvent extends AppCompatActivity {
         proudIcon = findViewById(R.id.proudIcon);
         boredIcon = findViewById(R.id.boredIcon);
         // if users click on icon, then assign the variable
-        happyIcon.setOnClickListener(v -> { selectedEmotion = "Happy"; });
+        happylayout.setOnClickListener(v -> { selectedEmotion = "Happy"; Toast.makeText(this, "This is a Toast message!", Toast.LENGTH_SHORT).show();
+        });
         sadIcon.setOnClickListener(v -> { selectedEmotion = "Sad"; });
         angerIcon.setOnClickListener(v -> { selectedEmotion = "Angry"; });
         fearIcon.setOnClickListener(v -> { selectedEmotion = "Fear"; });
@@ -151,6 +155,7 @@ public class CreateMoodEvent extends AppCompatActivity {
         // shows the time on the right
         timeTv = findViewById(R.id.timeTv);
         timeTv.setText(formatedTime);
+        //formatedTime
 
 
 
@@ -188,5 +193,6 @@ public class CreateMoodEvent extends AppCompatActivity {
         Toast.makeText(this, "Created Mood Event",Toast.LENGTH_LONG).show();
 
     }
+
 
 }
