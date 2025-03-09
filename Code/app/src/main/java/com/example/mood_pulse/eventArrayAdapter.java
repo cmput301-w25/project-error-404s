@@ -22,16 +22,18 @@ public class eventArrayAdapter extends ArrayAdapter<MoodEvent> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.add_mood, parent, false);
+            convertView = inflater.inflate(R.layout.item_mood_event, parent, false);
         }
 
         MoodEvent event = getItem(position);
         if (event != null) {
-            TextView emotionalState = convertView.findViewById(R.id.dateTv);
-            TextView date = convertView.findViewById(R.id.timeTv);
+            TextView emotionText = convertView.findViewById(R.id.emotionText);
+            TextView dateText = convertView.findViewById(R.id.dateText);
+            TextView noteText = convertView.findViewById(R.id.noteText);
 
-            emotionalState.setText(event.getEmotionalState());
-            date.setText(event.getDate().toString());
+            emotionText.setText(event.getEmotionalState());
+            dateText.setText(event.getDate().toString());
+            noteText.setText(event.getNote());
         }
 
         return convertView;

@@ -1,5 +1,6 @@
 package com.example.mood_pulse;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mood_pulse.ui.TestClass;
@@ -99,7 +100,7 @@ public class AddMood extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_mood); // Ensure this is the correct XML file name
+        setContentView(R.layout.add_mood);
 
         if (getIntent().getBooleanExtra("FROM_DASHBOARD", false)) {
             finish(); // Automatically close AddMood when back is pressed
@@ -111,9 +112,7 @@ public class AddMood extends AppCompatActivity {
         // Set onClickListener to go back to the previous screen
         leftArrow.setOnClickListener(v -> finish());
 
-
         writeHereET = findViewById(R.id.writeHereET);
-
 
         // Setup time
         TestClass test = new TestClass(this);
@@ -137,10 +136,24 @@ public class AddMood extends AppCompatActivity {
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-            if (test.submitValidation(this)){
-                MoodEvent mood = new MoodEvent(UUID.randomUUID().hashCode(), userEmotion, userNote, test.getSocialSituation(), test.getDate(), "hi");
-                Toast.makeText(this, test.getSocialSituation(), Toast.LENGTH_SHORT).show();
-            }
+
+            // Creating new mood event
+            MoodEvent moodEvent = new MoodEvent(
+                    UUID.randomUUID().hashCode(),
+                    userEmotion, // Emotion
+                    writeHereET.getText().toString().trim(), // Trigger (from writeHereET)
+                    socialSituation, // Social situation
+                    new Date(), // Current date
+                    ""
+            );
+
+            // Pass the mood event back to MainActivity
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("MoodEvent", moodEvent);
+            setResult(RESULT_OK, resultIntent);
+
+            // Closing screen
+            finish();
         });
 
 
@@ -266,6 +279,7 @@ public class AddMood extends AppCompatActivity {
         with2personBTN.setOnClickListener(buttonClickListener);
         crowdBTN.setOnClickListener(buttonClickListener);
     }
+
 
     /**
      * Resets the style of all buttons to the default state.

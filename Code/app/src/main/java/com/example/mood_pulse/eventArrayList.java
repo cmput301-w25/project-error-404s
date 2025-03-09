@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class eventArrayList {
-    private static List<MoodEvent> events;
+    private List<MoodEvent> events;
 
     public eventArrayList() {
         this.events = new ArrayList<>();
@@ -14,12 +14,8 @@ public class eventArrayList {
         events.add(event);
     }
 
-    public static void remove(MoodEvent event) {
-        events.remove(event);
-    }
-
     public List<MoodEvent> getEvents() {
-        return new ArrayList<>(events);
+        return events;
     }
 
     public void clearEvents() {
