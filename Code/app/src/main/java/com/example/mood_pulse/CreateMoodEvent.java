@@ -40,11 +40,12 @@ import java.util.UUID;
  */
 public class CreateMoodEvent extends AppCompatActivity {
 
-    private TextView dateTime, dateTv, timeTv, writeHereET;
+    private TextView dateTime, dateTv, timeTv;
+    private EditText writeHereET;
     private Spinner emotionalStateSpinner;
     private EditText trigger;
     private EditText socialSituation;
-    private TextView note;
+    private EditText note;
     private Button createMoodEventButton;
     Date currentDate;
     public FirebaseFirestore db;
@@ -69,9 +70,9 @@ public class CreateMoodEvent extends AppCompatActivity {
         //trigger = findViewById(R.id.);
         //socialSituation = findViewById(R.id.social_situation);
         createMoodEventButton = findViewById(R.id.addButton);
-        note = findViewById(R.id.noteTV);
+        note = findViewById(R.id.writeHereET);
         // temporarily add an id to test
-        TextView noteError = findViewById(R.id.uploadImageET); //noteError helps display error message when you input more than 20chars or 3words in the note Editext
+        TextView noteError = findViewById(R.id.noteError); //noteError helps display error message when you input more than 20chars or 3words in the note Editext
 
         happyIcon = findViewById(R.id.happyIcon);
         sadIcon = findViewById(R.id.sadIcon);
