@@ -8,8 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mood_pulse.ui.TestClass;
+
+import java.util.UUID;
 
 
 /**
@@ -78,6 +83,10 @@ public class AddMood extends AppCompatActivity {
 
     /** Button used for selecting people */
     private Button crowdBTN;
+    /** Button used for submitting mood */
+    private Button addMoodBTN;
+    private String userEmotion = "";
+    private String socialSituation = "";
 
 
     /**
@@ -103,6 +112,40 @@ public class AddMood extends AppCompatActivity {
         leftArrow.setOnClickListener(v -> finish());
 
 
+        writeHereET = findViewById(R.id.writeHereET);
+
+
+        // Setup time
+        TestClass test = new TestClass(this);
+        test.liveTime();
+
+
+        // Get emotion
+        test.emotionClickListners();
+        userEmotion = test.getEmotion();
+
+
+        // Collect user input for trigger
+        test.textWatcherNote(writeHereET, this);
+        String userNote = test.getInput();
+
+        // Collect social situation
+        test.socialSituationListeners(this);
+        socialSituation = test.getSocialSituation();
+
+
+        addMoodBTN = findViewById(R.id.addButton);
+
+        addMoodBTN.setOnClickListener(v -> {
+            if (test.submitValidation(this)){
+                MoodEvent mood = new MoodEvent(UUID.randomUUID().hashCode(), userEmotion, userNote, test.getSocialSituation(), test.getDate(), "hi");
+                Toast.makeText(this, test.getSocialSituation(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        // test
         // Initialize UI elements
         writeHereET = findViewById(R.id.writeHereET);
         uploadImageET = findViewById(R.id.uploadImageET); // FIXED: Initialized the missing view

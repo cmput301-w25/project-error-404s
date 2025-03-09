@@ -159,6 +159,7 @@
                         app:layout_constraintTop_toBottomOf="@id/feelingTV">
 
                         <LinearLayout
+                            android:id="@+id/linHappy"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
