@@ -141,11 +141,11 @@ public class AddMood extends AppCompatActivity {
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-            if (userEmotion == null||userEmotion.trim().isEmpty()){//// If no emotional state was selected, return, display an error message(aborted)
-//                moodError.setText("Required");
-//                moodError.setVisibility(View.VISIBLE);
-                return;
-            }
+//            if (userEmotion == null||userEmotion.trim().isEmpty()){//// If no emotional state was selected, return, display an error message(aborted)
+////                moodError.setText("Required");
+////                moodError.setVisibility(View.VISIBLE);
+//                return;
+//            }
             // Creating new mood event
             MoodEvent moodEvent = new MoodEvent(
                     UUID.randomUUID().hashCode(),
@@ -313,14 +313,14 @@ public class AddMood extends AppCompatActivity {
                 Log.d("TEXT_WATCHER", "Current text: " + s.toString());
             }
         });
-        if (userEmotion == null || userEmotion.trim().isEmpty()) {
-
-            moodError.setVisibility(View.VISIBLE);
-
-        } else {
-            //
-            moodError.setVisibility(View.GONE);
-        }
+//        if (userEmotion == null || userEmotion.trim().isEmpty()) {
+//
+//            moodError.setVisibility(View.VISIBLE);
+//
+//        } else {
+//            //
+//            moodError.setVisibility(View.GONE);
+//        }
     }
 
 
