@@ -2,8 +2,9 @@ package com.example.mood_pulse;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class MoodEvent implements Serializable {
+public class MoodEvent implements Comparable<MoodEvent>, Serializable {
 
     private String firestoreId; // Firebase auto-generated document ID
     private int moodId; // ID of the mood event
@@ -70,5 +71,23 @@ public class MoodEvent implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoodEvent moodEvent = (MoodEvent) o;
+        return moodId == moodEvent.moodId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(moodId);
+    }
+
+    @Override
+    public int compareTo(MoodEvent other) {
+        return this.date.compareTo(other.getDate());
     }
 }
