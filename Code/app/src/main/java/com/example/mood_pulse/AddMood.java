@@ -10,10 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mood_pulse.ui.TestClass;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.UUID;
 
@@ -129,27 +132,37 @@ public class AddMood extends AppCompatActivity {
         String userNote = test.getInput();
 
         // Collect social situation
-        test.socialSituationListeners(this);
-        socialSituation = test.getSocialSituation();
+        //test.socialSituationListeners(this);
+        // socialSituation = test.getSocialSituation();
 
 
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-            MoodEvent moodEvent = new MoodEvent(
-                    UUID.randomUUID().hashCode(),
-                    userEmotion, // Emotion
-                    writeHereET.getText().toString().trim(), // Trigger (optional)
-                    socialSituation, // Social situation
-                    new Date(),
-                    writeHereET.getText().toString().trim() // Use writeHereET for note
-            );
+            if (test.submitValidation(this)) {
+                // Creating new mood event
+                MoodEvent moodEvent = new MoodEvent(
+                        UUID.randomUUID().hashCode(),
+                        test.getEmotion(), // Emotion
+                        test.getInput(), // Trigger (from writeHereET)
+                        socialSituation, // Social situation
+                        new Date(), // Current date
+                        ""
+                );
 
-            // Pass the mood event back to MainActivity
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("MoodEvent", moodEvent);
-            setResult(RESULT_OK, resultIntent);
-            finish();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("MoodEvents")
+                        .document(String.valueOf(moodEvent.getFirestoreId()))
+                        .set(moodEvent);
+
+                // Pass the mood event back to MainActivity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("MoodEvent", moodEvent);
+                setResult(RESULT_OK, resultIntent);
+
+                // Closing screen
+                finish();
+            }
         });
 
 
@@ -262,6 +275,17 @@ public class AddMood extends AppCompatActivity {
             for (Button button : new Button[]{aloneBtn, with1personBTN, with2personBTN, crowdBTN}) {
                 if (button == clickedButton) {
                     button.getCompoundDrawables()[0].setTint(Color.WHITE);
+                    if (button == aloneBtn) {
+                        socialSituation = "Alone";
+                        Toast.makeText(this, socialSituation, Toast.LENGTH_SHORT).show();}
+                    if (button == with1personBTN)
+                        socialSituation = "With 1 Person";
+                    if (button == with2personBTN)
+                        socialSituation = "With 2 People";
+                    if (button == crowdBTN)
+                        socialSituation = "With crowd";
+//
+
                 } else {
                     button.getCompoundDrawables()[0].setTint(Color.BLACK);
                 }
