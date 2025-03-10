@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import com.example.mood_pulse.AddMood;
 import com.example.mood_pulse.databinding.FragmentDashboardBinding;
 
+import java.util.Objects;
+
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
@@ -25,7 +27,7 @@ public class DashboardFragment extends Fragment {
         startActivity(intent);
 
         // Finish the fragment's view to prevent going back to it
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
 
         return root;
     }
