@@ -48,15 +48,25 @@ public class MainActivity extends AppCompatActivity {
         ListView moodListView = findViewById(R.id.moodListView);
         moodListView.setAdapter(adapter);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        // Inside MainActivity.java's onCreate():
 
-        // Set up the button to open AddMood
-        Button addMoodButton = findViewById(R.id.addMoodButton);
-        addMoodButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddMood.class);
-            startActivityForResult(intent, ADD_MOOD_REQUEST);
+        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+// Set up navigation with NavController
+        NavigationUI.setupWithNavController(bottomNav, navController);
+
+// Override default behavior for "navigation_dashboard" to launch AddMood activity
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.navigation_dashboard) {
+                Intent intent = new Intent(MainActivity.this, AddMood.class);
+                startActivityForResult(intent, ADD_MOOD_REQUEST);
+                return true; // Consume the click event
+            } else {
+                // Let the default NavController handle other items
+                NavigationUI.onNavDestinationSelected(item, navController);
+                return true;
+            }
         });
     }
 

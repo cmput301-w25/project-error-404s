@@ -255,7 +255,6 @@ public class AddMood extends AppCompatActivity {
         View.OnClickListener buttonClickListener = v -> {
             Button clickedButton = (Button) v;
 
-            // Reset all buttons to default state
             resetButtonStyles();
 
             // Set selected button background and text color
@@ -266,9 +265,9 @@ public class AddMood extends AppCompatActivity {
             // Apply white tint to drawable
             for (Button button : new Button[]{aloneBtn, with1personBTN, with2personBTN, crowdBTN}) {
                 if (button == clickedButton) {
-                    button.getCompoundDrawables()[0].setTint(Color.WHITE); // Tint drawable to white
+                    button.getCompoundDrawables()[0].setTint(Color.WHITE);
                 } else {
-                    button.getCompoundDrawables()[0].setTint(Color.BLACK); // Reset others to black
+                    button.getCompoundDrawables()[0].setTint(Color.BLACK);
                 }
             }
         };
