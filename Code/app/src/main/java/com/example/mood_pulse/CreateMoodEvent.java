@@ -3,6 +3,7 @@ package com.example.mood_pulse;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -127,6 +128,7 @@ public class CreateMoodEvent extends AppCompatActivity {
                 } else {
                     noteError.setVisibility(View.GONE);
                 }//
+                Log.d("TEXT_WATCHER", "Current text: " + s.toString());
             }
         });
         // get the current date and time and set it
