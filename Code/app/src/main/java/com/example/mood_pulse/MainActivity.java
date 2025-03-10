@@ -22,8 +22,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         eventRef = FirebaseFirestore.getInstance().collection("MoodEvents");
         context = this;
 
+        updateEventsFromFirebase(); // Fetch and update events from Firestore
 
         // Initialize the event list and adapter
         ListView moodListView = findViewById(R.id.moodListView);
@@ -56,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             deleteEvent(event);
             return true;
         });
-
 
         // Inside MainActivity.java's onCreate():
 
@@ -108,6 +111,41 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Failed to add event to Firebase", Toast.LENGTH_SHORT).show();
                     });
         }
+    }
+
+    private void updateEventsFromFirebase() {
+        if (eventRef == null) {
+            Log.e("Firestore", "eventRef is null. Firestore not initialized properly.");
+            return;
+        }
+
+        eventRef.addSnapshotListener((snapshot, error) -> {
+            if (error != null) {
+                Log.e("Firestore", "Error fetching data: " + error.getMessage());
+                runOnUiThread(() ->
+                        Toast.makeText(this, "Failed to load events: " + error.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+                return;
+            }
+
+            if (snapshot != null && !snapshot.isEmpty()) {
+                List<MoodEvent> updatedEvents = new ArrayList<>();
+                for (QueryDocumentSnapshot document : snapshot) {
+                    try {
+                        MoodEvent event = document.toObject(MoodEvent.class);
+                        event.setFirestoreId(document.getId());
+                        updatedEvents.add(event);
+                    } catch (Exception e) {
+                        Log.e("Firestore", "Error parsing MoodEvent: " + e.getMessage());
+                    }
+                }
+
+                runOnUiThread(() -> {
+                    eventList.updateEvents(updatedEvents);
+                    adapter.updateData(updatedEvents);
+                });
+            }
+        });
     }
 
 

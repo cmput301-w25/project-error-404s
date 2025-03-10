@@ -14,6 +14,11 @@ public class eventArrayList {
         events.add(event);
     }
 
+    public void updateEvents(List<MoodEvent> newEvents) {
+        this.events.clear();
+        this.events.addAll(newEvents);
+    }
+
     public List<MoodEvent> getEvents() {
         return events;
     }
