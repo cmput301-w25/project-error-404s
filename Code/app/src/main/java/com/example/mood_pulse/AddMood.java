@@ -141,9 +141,9 @@ public class AddMood extends AppCompatActivity {
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-            if (userEmotion == null||userEmotion.trim().isEmpty()){
-                moodError.setText("Required");
-                moodError.setVisibility(View.VISIBLE);
+            if (userEmotion == null||userEmotion.trim().isEmpty()){//// If no emotional state was selected, return, display an error message(aborted)
+//                moodError.setText("Required");
+//                moodError.setVisibility(View.VISIBLE);
                 return;
             }
             // Creating new mood event
