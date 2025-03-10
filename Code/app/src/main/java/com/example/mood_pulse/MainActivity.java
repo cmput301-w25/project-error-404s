@@ -21,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -40,13 +41,25 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        eventRef = FirebaseFirestore.getInstance().collection("MoodEvents");
+        context = this;
+
+
         // Initialize the event list and adapter
         eventList = new eventArrayList();
         adapter = new eventArrayAdapter(this, eventList.getEvents());
 
+
         // Initialize the ListView and set the adapter
         ListView moodListView = findViewById(R.id.moodListView);
         moodListView.setAdapter(adapter);
+
+        moodListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            MoodEvent event = eventList.getEvents().get(position);
+            deleteEvent(event);
+            return true;
+        });
+
 
         // Inside MainActivity.java's onCreate():
 
@@ -77,45 +90,57 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_MOOD_REQUEST && resultCode == RESULT_OK) {
             MoodEvent moodEvent = (MoodEvent) data.getSerializableExtra("MoodEvent");
 
-            // Add the mood event to the list and update the adapter
-            eventList.addEvent(moodEvent);
-            adapter.notifyDataSetChanged();
+            // Write the event to Firestore
+            eventRef.add(moodEvent)
+                    .addOnSuccessListener(documentReference -> {
+                        // Get the Firebase-generated document ID
+                        String documentId = documentReference.getId();
+                        Log.d("Firestore", "Event added with ID: " + documentId);
 
-            Toast.makeText(this, "Mood event added!", Toast.LENGTH_SHORT).show();
+                        // Set the Firestore document ID in the MoodEvent object
+                        moodEvent.setFirestoreId(documentId);
+
+                        // Optionally, update the event in your local list and notify the adapter
+                        eventList.addEvent(moodEvent);
+                        adapter.notifyDataSetChanged();
+
+                        Toast.makeText(this, "Mood event added!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error adding event", e);
+                        Toast.makeText(this, "Failed to add event to Firebase", Toast.LENGTH_SHORT).show();
+                    });
         }
     }
 
+
     // TODO: uncomment and adjust the code when database is implemented and functioning
-    public void updateEvent(MoodEvent moodEvent, Integer newID, String emotionalState, String trigger, String socialSituation, Date date, String note) {
-        if (emotionalState == null || emotionalState.trim().isEmpty()) {
-            // Prevent saving if emotional state is removed
-            showErrorMessage("Emotional state cannot be empty.");
+    public void updateEvent(MoodEvent moodEvent, String emotionalState, String trigger, String socialSituation, Date date, String note) {
+        String documentId = moodEvent.getFirestoreId(); // Get Firestore document ID
+        if (documentId == null) {
+            Log.e("Firestore", "No Firestore ID stored for this event.");
+            Toast.makeText(context, "Cannot update event: missing ID", Toast.LENGTH_SHORT).show();
             return;
         }
 
-
-        // TODO: change getTitle to correpsonding fucntion
-        if (!moodEvent.getMoodID().equals(newID)) {
-            DocumentReference oldDocRef = eventRef.document(moodEvent.getMoodID().toString());
-            MoodEvent updatedEvent = new MoodEvent(newID, emotionalState, trigger, socialSituation, date, note);
-            DocumentReference newDocRef = eventRef.document(newID.toString());
-            newDocRef.set(updatedEvent);
-        } else {
-            DocumentReference docRef = eventRef.document(moodEvent.getMoodID().toString());
-            docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation);
-        }
-
-        eventList = new eventArrayList();
-        adapter = new eventArrayAdapter(this, eventList.getEvents());
-
-        moodEvent.setEmotionalState(emotionalState);
-        moodEvent.setTrigger(trigger);
-        moodEvent.setSocialSituation(socialSituation);
-        moodEvent.setDate(date);
-        moodEvent.setNote(note);
-        adapter.notifyDataSetChanged();
-
+        DocumentReference docRef = eventRef.document(documentId);
+        docRef.update("emotionalState", emotionalState, "trigger", trigger, "socialSituation", socialSituation, "date", date, "note", note)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "Event updated successfully");
+                    moodEvent.setEmotionalState(emotionalState);
+                    moodEvent.setTrigger(trigger);
+                    moodEvent.setSocialSituation(socialSituation);
+                    moodEvent.setDate(date);
+                    moodEvent.setNote(note);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(context, "Event updated successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error updating event", e);
+                    Toast.makeText(context, "Failed to update event. Please try again.", Toast.LENGTH_SHORT).show();
+                });
     }
+
 
     // Call this method when the user attempts to exit without saving
     public void confirmExitWithoutSaving(Runnable onConfirm) {
@@ -132,36 +157,41 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteEvent(MoodEvent moodEvent) {
-        // Show confirmation prompt before deleting
-        new AlertDialog.Builder(context)
-                .setTitle("Delete Event")
-                .setMessage("Are you sure you want to delete this event? This action cannot be undone.")
-                .setPositiveButton("Delete", (dialog, which) -> {
-                    // Get a reference to the document in Firestore
-                    DocumentReference docRef = eventRef.document(moodEvent.getMoodID());
-
-                    // Delete from Firestore
-                    docRef.delete()
-                            .addOnSuccessListener(aVoid -> {
-                                Log.d("Firestore", "Event deleted successfully");
-
-                                // Remove from local list after successful deletion
-                                //eventArrayList.remove(moodEvent);
-                                //adapter.notifyDataSetChanged();
-
-                                // Navigate back to the mood history list
-                                Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(context, MoodHistory.class);
-                                context.startActivity(intent);
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.e("Firestore", "Error deleting event", e);
-                                Toast.makeText(context, "Failed to delete event. Please try again.", Toast.LENGTH_SHORT).show();
-                            });
+    public void addMoodEvent(MoodEvent moodEvent) {
+        eventRef.add(moodEvent)
+                .addOnSuccessListener(documentReference -> {
+                    String documentId = documentReference.getId();
+                    Log.d("Firestore", "Event added with ID: " + documentId);
+                    // Save Firestore document ID in the MoodEvent object
+                    moodEvent.setFirestoreId(documentId);
                 })
-                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
-                .show();
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error adding event", e);
+                    Toast.makeText(this, "Failed to add event to Firebase", Toast.LENGTH_SHORT).show();
+                });
+
     }
+
+    public void deleteEvent(MoodEvent moodEvent) {
+        String documentId = moodEvent.getFirestoreId(); // Get the Firestore ID
+        if (documentId == null) {
+            Log.e("Firestore", "No Firestore ID stored for this event.");
+            Toast.makeText(context, "Cannot delete event: missing ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DocumentReference docRef = eventRef.document(documentId); // Reference the Firestore document by ID
+        docRef.delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("Firestore", "Event deleted successfully");
+                    eventList.getEvents().remove(moodEvent); // Remove from local list
+                    adapter.notifyDataSetChanged(); // Notify the adapter to update the ListView
+                    Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error deleting event", e);
+                    Toast.makeText(context, "Failed to delete event. Please try again.", Toast.LENGTH_SHORT).show();
+                });
+    }
+
 
 }
