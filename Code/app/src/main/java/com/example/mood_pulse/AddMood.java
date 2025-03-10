@@ -136,23 +136,19 @@ public class AddMood extends AppCompatActivity {
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-
-            // Creating new mood event
             MoodEvent moodEvent = new MoodEvent(
                     UUID.randomUUID().hashCode(),
                     userEmotion, // Emotion
-                    writeHereET.getText().toString().trim(), // Trigger (from writeHereET)
+                    writeHereET.getText().toString().trim(), // Trigger (optional)
                     socialSituation, // Social situation
-                    new Date(), // Current date
-                    ""
+                    new Date(),
+                    writeHereET.getText().toString().trim() // Use writeHereET for note
             );
 
             // Pass the mood event back to MainActivity
             Intent resultIntent = new Intent();
             resultIntent.putExtra("MoodEvent", moodEvent);
             setResult(RESULT_OK, resultIntent);
-
-            // Closing screen
             finish();
         });
 

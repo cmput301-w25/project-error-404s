@@ -46,12 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Initialize the event list and adapter
+        ListView moodListView = findViewById(R.id.moodListView);
         eventList = new eventArrayList();
         adapter = new eventArrayAdapter(this, eventList.getEvents());
-
-
-        // Initialize the ListView and set the adapter
-        ListView moodListView = findViewById(R.id.moodListView);
         moodListView.setAdapter(adapter);
 
         moodListView.setOnItemLongClickListener((parent, view, position, id) -> {
