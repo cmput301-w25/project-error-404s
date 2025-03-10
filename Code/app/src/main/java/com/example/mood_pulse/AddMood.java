@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mood_pulse.ui.TestClass;
+
+import org.w3c.dom.Text;
 
 import java.util.UUID;
 
@@ -131,12 +136,16 @@ public class AddMood extends AppCompatActivity {
         // Collect social situation
         test.socialSituationListeners(this);
         socialSituation = test.getSocialSituation();
-
-
+        TextView noteError = findViewById(R.id.noteError);
+        TextView moodError = findViewById(R.id.moodError);
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-
+            if (userEmotion == null||userEmotion.trim().isEmpty()){
+                moodError.setText("Required");
+                moodError.setVisibility(View.VISIBLE);
+                return;
+            }
             // Creating new mood event
             MoodEvent moodEvent = new MoodEvent(
                     UUID.randomUUID().hashCode(),
@@ -278,6 +287,40 @@ public class AddMood extends AppCompatActivity {
         with1personBTN.setOnClickListener(buttonClickListener);
         with2personBTN.setOnClickListener(buttonClickListener);
         crowdBTN.setOnClickListener(buttonClickListener);
+
+        //Real-time validation for edittext Note
+        writeHereET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String noteText = s.toString().trim();
+                int wordCount = noteText.isEmpty() ? 0 : noteText.split("\\s+").length;
+                if (noteText.length() > 20 || wordCount > 3) {
+                    noteError.setVisibility(View.VISIBLE);
+                    noteError.setText("No more than 20  characters or 3 words");
+                } else {
+                    noteError.setVisibility(View.GONE);
+                }//
+                Log.d("TEXT_WATCHER", "Current text: " + s.toString());
+            }
+        });
+        if (userEmotion == null || userEmotion.trim().isEmpty()) {
+
+            moodError.setVisibility(View.VISIBLE);
+
+        } else {
+            //
+            moodError.setVisibility(View.GONE);
+        }
     }
 
 
