@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,20 +32,47 @@ public class MainActivity extends AppCompatActivity {
     private eventArrayAdapter adapter;
     private eventArrayList eventList;
 
+    private static final int ADD_MOOD_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment_activity_main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        // Initialize the event list and adapter
+        eventList = new eventArrayList();
+        adapter = new eventArrayAdapter(this, eventList.getEvents());
+
+        // Initialize the ListView and set the adapter
+        ListView moodListView = findViewById(R.id.moodListView);
+        moodListView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        // Set up the button to open AddMood
+        Button addMoodButton = findViewById(R.id.addMoodButton);
+        addMoodButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddMood.class);
+            startActivityForResult(intent, ADD_MOOD_REQUEST);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ADD_MOOD_REQUEST && resultCode == RESULT_OK) {
+            MoodEvent moodEvent = (MoodEvent) data.getSerializableExtra("MoodEvent");
+
+            // Add the mood event to the list and update the adapter
+            eventList.addEvent(moodEvent);
+            adapter.notifyDataSetChanged();
+
+            Toast.makeText(this, "Mood event added!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // TODO: uncomment and adjust the code when database is implemented and functioning
@@ -108,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("Firestore", "Event deleted successfully");
 
                                 // Remove from local list after successful deletion
-                                eventArrayList.remove(moodEvent);
-                                adapter.notifyDataSetChanged();
+                                //eventArrayList.remove(moodEvent);
+                                //adapter.notifyDataSetChanged();
 
                                 // Navigate back to the mood history list
                                 Toast.makeText(context, "Event deleted successfully", Toast.LENGTH_SHORT).show();

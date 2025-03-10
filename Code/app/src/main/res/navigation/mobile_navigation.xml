@@ -21,6 +21,7 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.mood_pulse.AddMood"
         android:label="@string/title_dashboard"
+        tools:layout="@layout/add_mood"
         />
 
     <fragment
