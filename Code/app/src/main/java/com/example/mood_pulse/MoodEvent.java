@@ -16,6 +16,7 @@ public class MoodEvent implements Serializable {
     // Constructor with moodId
     public MoodEvent(int moodId, String emotionalState, String trigger, String socialSituation, Date date, String noteText) {
         this.moodId = moodId;
+        this.firestoreId = String.valueOf(moodId);
         this.emotionalState = emotionalState;
         this.trigger = trigger;
         this.socialSituation = socialSituation;
@@ -71,4 +72,5 @@ public class MoodEvent implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
 }

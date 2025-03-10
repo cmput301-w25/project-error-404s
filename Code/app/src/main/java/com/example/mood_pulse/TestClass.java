@@ -1,4 +1,4 @@
-package com.example.mood_pulse.ui;
+package com.example.mood_pulse;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,13 +11,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.example.mood_pulse.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ *
+ * The TestClass is responsible for handling logic for the AddMood functionality
+ * This class includes listeners for the emotions and social situations
+ *
+ *
+ */
 public class TestClass {
     private TextView dateTime, dateTv, timeTv, warningText;
     private ImageView happyIcon, sadIcon, angerIcon, fearIcon, disgustIcon, confusedIcon, shameIcon, surprisedIcon, tiredIcon,anxiousIcon, proudIcon, boredIcon;
@@ -66,12 +71,12 @@ public class TestClass {
         boredIcon.setOnClickListener(v -> { selectedEmotion = "Bored"; });
     }
 
-    public void socialSituationListeners(Context con) {
-        aloneBTN.setOnClickListener(v -> { socialSituation = "Alone"; Toast.makeText(con, socialSituation, Toast.LENGTH_SHORT).show();});
-        wth1PersonBTN.setOnClickListener(v -> { socialSituation = "With 1 other person"; });
-        wth2personBTN.setOnClickListener(v -> { socialSituation = "With 2 other people"; });
-        crowdBTN.setOnClickListener(v -> { socialSituation = "With a crowd"; });
-    }
+//    public void socialSituationListeners(Context con) {
+//        aloneBTN.setOnClickListener(v -> { socialSituation = "Alone"; Toast.makeText(con, socialSituation, Toast.LENGTH_SHORT).show();});
+//        wth1PersonBTN.setOnClickListener(v -> { socialSituation = "With 1 other person"; });
+//        wth2personBTN.setOnClickListener(v -> { socialSituation = "With 2 other people"; });
+//        crowdBTN.setOnClickListener(v -> { socialSituation = "With a crowd"; });
+//    }
 
         public void liveTime(){
             Calendar calendar = Calendar.getInstance();
@@ -113,7 +118,7 @@ public class TestClass {
                         writeHereET.setSelection(20);
                         if (!printErr) {
                             printErr = true;
-                            Toast.makeText(context, selectedEmotion, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context,"Up to 20 characters Allowed!", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {

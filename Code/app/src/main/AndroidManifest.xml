@@ -27,6 +27,11 @@
             android:name=".AddMood"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".CreateMoodEvent"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
 
         <activity
             android:name=".MoodHistory"
