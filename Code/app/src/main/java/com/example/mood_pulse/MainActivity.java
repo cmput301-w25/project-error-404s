@@ -28,16 +28,35 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This activity serves as the main screen of the app, displaying a list of mood events.
+ * -----------------------------------------------------------------------------
+ * Handled in this class:
+ * - Fetching and displaying mood events from Firestore
+ * - Adding, updating, and deleting mood events
+ * - Navigating between different app sections using Bottom Navigation
+ * - Handling results from the AddMood activity
+ */
 public class MainActivity extends AppCompatActivity {
 
-    public CollectionReference eventRef;
+    public CollectionReference eventRef;    // Firestore reference for mood events
 
-    public Context context;
+    public Context context;    // Context for UI interactions
     private eventArrayAdapter adapter;
     private eventArrayList eventList;
 
     private static final int ADD_MOOD_REQUEST = 1;
 
+    /**
+     * Initializes the main activity, sets up UI elements, and fetches mood events.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Sets up the UI layout and navigation bar
+     * - Fetches mood events from Firestore
+     * - Handles user interactions for adding new moods
+     *
+     * @param savedInstanceState The saved instance state from the previous session, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +102,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Handles the result from the AddMood activity and saves the new mood event to Firestore.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Retrieves the MoodEvent object returned from the AddMood activity
+     * - Saves the new mood event to Firestore
+     * - Updates the Firestore document ID in the MoodEvent object
+     * - Displays success or failure messages to the user
+     *
+     * @param requestCode The request code identifying the operation.
+     * @param resultCode  The result code indicating success or failure.
+     * @param data        The intent containing the new mood event.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -112,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     private void updateEventsFromFirebase() {
         if (eventRef == null) {
@@ -150,6 +183,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO: uncomment and adjust the code when database is implemented and functioning
+    /**
+     * Updates a specific mood event in Firestore with new details.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Updates the selected mood event with new information
+     * - Saves the updated data to Firestore
+     * - Displays success or failure messages to the user
+     *
+     * @param moodEvent       The mood event to be updated.
+     * @param emotionalState  The updated emotional state.
+     * @param trigger         The updated trigger (cause).
+     * @param socialSituation The updated social situation.
+     * @param date            The updated date and time.
+     * @param note            The updated note.
+     */
     public void updateEvent(MoodEvent moodEvent, String emotionalState, String trigger, String socialSituation, Date date, String note) {
         String documentId = moodEvent.getFirestoreId(); // Get Firestore document ID
         if (documentId == null) {
@@ -178,6 +226,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Call this method when the user attempts to exit without saving
+    /**
+     * Displays a confirmation dialog when the user attempts to exit without saving.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Shows an alert dialog to warn the user of unsaved changes
+     * - Provides options to either exit or cancel the action
+     *
+     * @param onConfirm A callback that runs if the user confirms the exit.
+     */
     public void confirmExitWithoutSaving(Runnable onConfirm) {
         new AlertDialog.Builder(context)
                 .setTitle("Unsaved Changes")
@@ -191,7 +248,17 @@ public class MainActivity extends AppCompatActivity {
     private void showErrorMessage(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
-
+    
+    /**
+     * Adds a new mood event to Firestore.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Saves a new mood event to the Firestore database
+     * - Retrieves the Firestore document ID after saving
+     * - Displays success or failure messages to the user
+     *
+     * @param moodEvent The mood event to be added.
+     */
     public void addMoodEvent(MoodEvent moodEvent) {
         eventRef.add(moodEvent)
                 .addOnSuccessListener(documentReference -> {
@@ -207,6 +274,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Deletes a mood event from Firestore.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Removes a mood event from Firestore
+     * - Displays success or failure messages to the user
+     *
+     * @param moodEvent The mood event to be deleted.
+     */
     public void deleteEvent(MoodEvent moodEvent) {
         String documentId = moodEvent.getFirestoreId(); // Get the Firestore ID
         if (documentId == null) {
