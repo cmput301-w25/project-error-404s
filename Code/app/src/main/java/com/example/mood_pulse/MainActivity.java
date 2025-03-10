@@ -8,7 +8,10 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +29,7 @@ import com.example.mood_pulse.databinding.ActivityMainBinding;
 import com.example.mood_pulse.model.EmojiModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -101,12 +105,45 @@ public class MainActivity extends AppCompatActivity implements OnEmojiClickListe
         emojiList = new ArrayList<>();
         setEmojiAdapter();
         setExpandedLayoutSection();
+
+        View expandableNoteView = findViewById(R.id.expandableNote); // Get included layout
+        TextInputEditText noteEditText = expandableNoteView.findViewById(R.id.noteEditText); // Get EditText from expandable_note.xml
+        TextView tvNoteError = findViewById(R.id.tvNoteError); // [CHANGE] Get error message from activity_main.xml
+
+
+        tvNoteError.setVisibility(View.GONE);
+
         binding.btnAdd.setOnClickListener(v -> {
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
         });
+        if (noteEditText != null) {
+            noteEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    validateNoteInput(s.toString().trim(), tvNoteError);
+                }
+            });
+        }
 
     }
+    private void validateNoteInput(String text, TextView tvNoteError) {
+        int wordCount = text.isEmpty() ? 0 : text.split("\\s+").length;
+        if (text.length() > 20 || wordCount > 3) {
+            tvNoteError.setVisibility(View.VISIBLE);
+            tvNoteError.setText("No more than 20 characters or 3 words");
+        } else {
+            tvNoteError.setVisibility(View.GONE);
+        }
+    }
+
+    private int selectedEmoji = -1;
+
 
     private void setExpandedLayoutSection() {
         binding.expandableNote.headerLayout.setOnClickListener(v -> {
@@ -188,8 +225,15 @@ public class MainActivity extends AppCompatActivity implements OnEmojiClickListe
 
     @Override
     public void onEmojiClick(int position) {
-        binding.btnAdd.setEnabled(true);
-        binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
-
+        if (position == -1) { // [CHANGE] If no emoji is selected (deselection case)
+            selectedEmoji = -1;
+            emojiAdapter.notifyDataSetChanged(); // [CHANGE] Refresh the adapter
+            binding.btnAdd.setEnabled(false); // Disable Add button
+            binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.light_purple)); // Reset button color
+        } else {
+            selectedEmoji = position; // [CHANGE] Store selected emoji position
+            binding.btnAdd.setEnabled(true);
+            binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
+        }
     }
 }

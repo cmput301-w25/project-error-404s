@@ -38,10 +38,8 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         EmojiModel emojiModel = emojiList.get(position);
         holder.binding.tvEmoji.setText(emojiModel.getName());
 
-
         if (position == selectedPosition) {
             holder.binding.cardEmoji.setCardBackgroundColor(emojiModel.getColor());
-
             holder.binding.ivEmoji.setImageResource(emojiModel.getEmojiPath());
         } else {
             holder.binding.cardEmoji.setCardBackgroundColor(Color.WHITE); // Default color
@@ -50,11 +48,17 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         }
 
         holder.binding.cardEmoji.setOnClickListener(v -> {
-            int previousPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            OnEmojiClickListener.onEmojiClick(selectedPosition);
-
-            notifyItemChanged(previousPosition); // Reset old selection
+            if (selectedPosition == position) {
+                // [CHANGE] Deselect if clicked again
+                selectedPosition = RecyclerView.NO_POSITION;
+                OnEmojiClickListener.onEmojiClick(-1); // Notify deselection
+            } else {
+                // [CHANGE] Select new emoji
+                int previousPosition = selectedPosition;
+                selectedPosition = position;
+                OnEmojiClickListener.onEmojiClick(selectedPosition);
+                notifyItemChanged(previousPosition); // Reset old selection
+            }
             notifyItemChanged(selectedPosition); // Update new selection
         });
 

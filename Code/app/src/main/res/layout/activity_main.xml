@@ -153,17 +153,30 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+
                         tools:listitem="@layout/emoji_layout"
                         android:layout_marginTop="8dp" />
 
 
                 </LinearLayout>
 
+
             </com.google.android.material.card.MaterialCardView>
 
             <include
                 android:id="@+id/expandableNote"
                 layout="@layout/expandable_note"></include>
+
+            <TextView
+                android:id="@+id/tvNoteError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="No more than 20 characters or 3 words"
+                android:textColor="@color/red"
+                android:textSize="13sp"
+                />
 
             <include
                 android:id="@+id/expandablePhoto"
@@ -183,17 +196,13 @@
                 android:id="@+id/btnAdd"
                 android:layout_marginTop="16dp"
                 android:enabled="false"
-                android:backgroundTint="@color/light_piurple"
+                android:backgroundTint="@color/light_purple"
                 android:padding="14dp"
                 android:text="Add"
                 android:textColor="@color/white"
                 app:cornerRadius="15dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
 
-                />
 
 
         </LinearLayout>
