@@ -460,6 +460,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="12sp" />
 
+
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -659,7 +660,16 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@id/noteTV"
                         app:layout_constraintTop_toBottomOf="@id/noteTV" />
-
+                    <TextView
+                        android:id="@+id/noteError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No more than 20 characters or 3 words"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/writeHereET"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

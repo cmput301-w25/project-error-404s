@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,7 +94,7 @@ public class AddMood extends AppCompatActivity {
     private Button addMoodBTN;
     private String userEmotion = "";
     private String socialSituation = "";
-
+    private TextView noteError;
 
     /**
      * This method is called when the activity is created.
@@ -134,7 +137,7 @@ public class AddMood extends AppCompatActivity {
         // Collect social situation
         //test.socialSituationListeners(this);
         // socialSituation = test.getSocialSituation();
-
+        noteError = findViewById(R.id.noteError);
 
         addMoodBTN = findViewById(R.id.addButton);
 
@@ -291,6 +294,29 @@ public class AddMood extends AppCompatActivity {
                 }
             }
         };
+        //
+        //Real-time validation for edittext Note
+        writeHereET.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s,int start, int count, int after){}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String noteText = s.toString().trim();
+                int wordCount = noteText.isEmpty() ? 0 : noteText.split("\\s+").length;
+                if (noteText.length() > 20 || wordCount > 3) {
+                    noteError.setVisibility(View.VISIBLE);
+                    noteError.setText("No more than 20  characters or 3 words");
+                } else {
+                    noteError.setVisibility(View.GONE);
+                }//
+                Log.d("TEXT_WATCHER", "Current text: " + s.toString());
+            }
+
+
+
+        });
 
         // Set click listeners for all buttons
         aloneBtn.setOnClickListener(buttonClickListener);
