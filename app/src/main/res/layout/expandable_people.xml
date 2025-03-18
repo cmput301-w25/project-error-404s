@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/card_background"
+    android:padding="12dp">
+    <!-- Header Section -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:id="@+id/headerLayout"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:text="People"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/optionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/titleText"
+            android:layout_marginStart="8dp"
+            android:text="(optional)"
+            android:textSize="14sp"
+            android:textColor="#888888" />
+
+        <ImageView
+            android:id="@+id/arrowIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/arrow___down_2"
+            app:tint="#666666" />
+    </RelativeLayout>
+
+    <!-- Expandable Content -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingBottom="10dp"
+        android:paddingTop="8dp">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                app:chipSpacing="8dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:checkable="false"
+                    android:text="Alone"
+                    app:chipBackgroundColor="@color/gray_primary"
+                    app:checkedIconTint="@color/white"
+                    app:chipCornerRadius="50dp"
+                    app:chipIcon="@drawable/profile2"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    android:textAppearance="@style/chipText"
+                    android:textSize="14sp"
+                    app:closeIconVisible="false"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:checkable="false"
+                    android:text="With 1 person"
+                    app:chipBackgroundColor="@color/gray_primary"
+                    app:checkedIconTint="@color/white"
+                    app:chipCornerRadius="50dp"
+                    app:chipIcon="@drawable/__user"
+                    android:textAppearance="@style/chipText"
+                    android:textSize="14sp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:chipIconVisible="true"
+                    app:closeIconVisible="false"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:checkable="false"
+                    android:text="with 2+ person"
+                    app:chipBackgroundColor="@color/gray_primary"
+                    app:chipCornerRadius="50dp"
+                    app:chipIcon="@drawable/user3"
+                    android:textAppearance="@style/chipText"
+                    android:textSize="14sp"
+                    app:chipIconEnabled="true"
+
+                    app:chipIconSize="20dp"
+                    app:checkedIconTint="@color/white"
+                    app:closeIconVisible="false"
+                    app:iconStartPadding="8dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    style="@style/CustomChipStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:checkable="false"
+                    android:text="Crowd"
+                    app:chipBackgroundColor="@color/gray_primary"
+                    app:checkedIconTint="@color/white"
+                    app:chipCornerRadius="50dp"
+                    app:chipIcon="@drawable/us4r"
+                    android:textAppearance="@style/chipText"
+                    android:textSize="14sp"
+                    app:chipIconEnabled="true"
+                    app:chipIconSize="20dp"
+                    app:closeIconVisible="false"
+                    app:iconStartPadding="8dp" />
+            </com.google.android.material.chip.ChipGroup>
+    </LinearLayout>
+</LinearLayout>

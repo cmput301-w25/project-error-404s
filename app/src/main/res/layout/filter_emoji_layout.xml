@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="18dp"
+    app:strokeWidth="0dp"
+    android:id="@+id/cardEmoji"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/gray_primary"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:id="@+id/ivEmoji"
+            android:layout_height="26dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/_emoji__smiling_face_with_smiling_eyes_" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:maxLines="1"
+
+            android:text="Surprised"
+            android:id="@+id/tvEmoji"
+            android:textSize="11sp"
+
+            />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
