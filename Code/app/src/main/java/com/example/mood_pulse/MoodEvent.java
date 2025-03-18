@@ -17,6 +17,7 @@ public class MoodEvent implements Comparable<MoodEvent>, Serializable {
     // Constructor with moodId
     public MoodEvent(int moodId, String emotionalState, String trigger, String socialSituation, Date date, String noteText) {
         this.moodId = moodId;
+        this.firestoreId = this.firestoreId = String.valueOf(moodId);
         this.emotionalState = emotionalState;
         this.trigger = trigger;
         this.socialSituation = socialSituation;

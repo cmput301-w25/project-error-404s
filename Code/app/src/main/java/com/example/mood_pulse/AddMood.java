@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Date;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mood_pulse.ui.TestClass;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.UUID;
 
@@ -88,7 +94,7 @@ public class AddMood extends AppCompatActivity {
     private Button addMoodBTN;
     private String userEmotion = "";
     private String socialSituation = "";
-
+    private TextView noteError;
 
     /**
      * This method is called when the activity is created.
@@ -129,27 +135,37 @@ public class AddMood extends AppCompatActivity {
         String userNote = test.getInput();
 
         // Collect social situation
-        test.socialSituationListeners(this);
-        socialSituation = test.getSocialSituation();
-
+        //test.socialSituationListeners(this);
+        // socialSituation = test.getSocialSituation();
+        noteError = findViewById(R.id.noteError);
 
         addMoodBTN = findViewById(R.id.addButton);
 
         addMoodBTN.setOnClickListener(v -> {
-            MoodEvent moodEvent = new MoodEvent(
-                    UUID.randomUUID().hashCode(),
-                    userEmotion, // Emotion
-                    writeHereET.getText().toString().trim(), // Trigger (optional)
-                    socialSituation, // Social situation
-                    new Date(),
-                    writeHereET.getText().toString().trim() // Use writeHereET for note
-            );
+            if (test.submitValidation(this)) {
+                // Creating new mood event
+                MoodEvent moodEvent = new MoodEvent(
+                        UUID.randomUUID().hashCode(),
+                        test.getEmotion(), // Emotion
+                        test.getInput(), // Trigger (from writeHereET)
+                        socialSituation, // Social situation
+                        new Date(), // Current date
+                        ""
+                );
 
-            // Pass the mood event back to MainActivity
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("MoodEvent", moodEvent);
-            setResult(RESULT_OK, resultIntent);
-            finish();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("MoodEvents")
+                        .document(String.valueOf(moodEvent.getFirestoreId()))
+                        .set(moodEvent);
+
+                // Pass the mood event back to MainActivity
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("MoodEvent", moodEvent);
+                setResult(RESULT_OK, resultIntent);
+
+                // Closing screen
+                finish();
+            }
         });
 
 
@@ -262,11 +278,45 @@ public class AddMood extends AppCompatActivity {
             for (Button button : new Button[]{aloneBtn, with1personBTN, with2personBTN, crowdBTN}) {
                 if (button == clickedButton) {
                     button.getCompoundDrawables()[0].setTint(Color.WHITE);
+                    if (button == aloneBtn) {
+                        socialSituation = "Alone";
+                        Toast.makeText(this, socialSituation, Toast.LENGTH_SHORT).show();}
+                    if (button == with1personBTN)
+                        socialSituation = "With 1 Person";
+                    if (button == with2personBTN)
+                        socialSituation = "With 2 People";
+                    if (button == crowdBTN)
+                        socialSituation = "With crowd";
+//
+
                 } else {
                     button.getCompoundDrawables()[0].setTint(Color.BLACK);
                 }
             }
         };
+        //
+        //Real-time validation for edittext Note
+        writeHereET.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void beforeTextChanged(CharSequence s,int start, int count, int after){}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count){}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String noteText = s.toString().trim();
+                int wordCount = noteText.isEmpty() ? 0 : noteText.split("\\s+").length;
+                if (noteText.length() > 20 || wordCount > 3) {
+                    noteError.setVisibility(View.VISIBLE);
+                    noteError.setText("No more than 20  characters or 3 words");
+                } else {
+                    noteError.setVisibility(View.GONE);
+                }//
+                Log.d("TEXT_WATCHER", "Current text: " + s.toString());
+            }
+
+
+
+        });
 
         // Set click listeners for all buttons
         aloneBtn.setOnClickListener(buttonClickListener);
