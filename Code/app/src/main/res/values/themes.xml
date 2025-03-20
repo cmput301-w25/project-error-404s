@@ -1,6 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.Mood_Pulse" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Change Background Color -->
-        <item name="android:windowBackground">@color/app_background</item>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Uiapp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- <item name="colorSecondary">@color/my_light_secondary</item> -->
+        <item name="fontFamily">@font/quicksand_bold</item>
     </style>
+
+    <style name="Theme.Uiapp" parent="Base.Theme.Uiapp" />
+
 </resources>

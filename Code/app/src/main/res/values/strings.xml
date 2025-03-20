@@ -1,11 +1,19 @@
 <resources>
-    <string name="app_name">Mood_Pulse</string>
+    <string name="app_name">uiapp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_history">History</string>
-    <string name="title_back">Back</string>
-    <string name="title_settings">Settings</string>
-    <string name="title_chat">Chat</string>
+    <string name="search">Search...</string>
+    <string name="edit_mode">Edit Mode</string>
+    <string name="_15_february">15 February</string>
+    <string name="welcome_krystal0819">Welcome, <b>krystal0819</b></string>
+    <string name="how_are_you_today">How are you today?</string>
+    <string name="profile">Profile</string>
+    <string name="today_s_check_in">Today’s check-in</string>
+    <string name="yesterday_s_mood">Yesterday’s mood</string>
+    <string name="edit">Edit</string>
+    <string name="todo">TODO</string>
 </resources>

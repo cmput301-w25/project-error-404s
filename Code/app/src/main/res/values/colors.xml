@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="app_background">#EDEBF3</color>
+    <color name="happy">#FCFCDE</color>
+    <color name="sad">#E0EDF4B2</color>
+    <color name="fear">#E9E5F3B2</color>
+    <color name="disgust">#F0F8E6</color>
+    <color name="angry">#FFCCCC</color>
+    <color name="confused">#E6FCFC</color>
+    <color name="shame">#FFF2CC</color>
+    <color name="surprized">#FEEEF5</color>
+    <color name="tired">#B3F2CAFF</color>
+    <color name="anxious">#99FF9E6D</color>
+    <color name="proud">#80AFFFA3</color>
+    <color name="bored">#CCE6E6E6</color>
+    <color name="gray_primary">#EFF1F5</color>
+    <color name="b3b3b3">#b3b3b3</color>
+    <color name="purple_primary">#9891F8</color>
+    <color name="light_piurple">#CFCCFB</color>
+
 </resources>

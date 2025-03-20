@@ -3,48 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@+id/homeModeFragment">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.mood_pulse.ui.home.HomeFragment"
+        android:name="com.example.uiapp.ui.history.HistoryFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_filtterBottomSheetFragment"
+            app:destination="@id/filtterBottomSheetFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_editModeFragment"
+            app:destination="@id/editModeFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.mood_pulse.ui.search.SearchFragment"
-        android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
-
-    <!-- Corrected Profile Fragment -->
-    <activity
-        android:id="@+id/navigation_profile"
-        android:name="com.example.mood_pulse.ui.profile.ProfilePage"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
-
-    <activity
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.mood_pulse.AddMood"
+        android:name="com.example.uiapp.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/add_mood" />
-
-    <!-- Fixed Navigation Action -->
-    <action
-        android:id="@+id/action_homeFragment_to_profileFragment"
-        app:destination="@id/navigation_profile" />
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.mood_pulse.ui.notifications.NotificationsFragment"
+        android:name="com.example.uiapp.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-
     <fragment
-        android:id="@+id/navigation_history"
-        android:name="com.example.mood_pulse.ui.history.HistoryFragment"
-        android:label="@string/title_history"
-        tools:layout="@layout/fragment_history" />
-
+        android:id="@+id/navigation_fragment_add"
+        android:name="com.example.uiapp.ui.AddModelFragment"
+        android:label="fragment_add_model"
+        tools:layout="@layout/fragment_add_model" />
+    <dialog
+        android:id="@+id/filtterBottomSheetFragment"
+        android:name="com.example.uiapp.ui.bottomsheet.FiltterBottomSheetFragment"
+        android:label="fragment_filtter_bottom_sheet"
+        tools:layout="@layout/fragment_filtter_bottom_sheet" />
+    <fragment
+        android:id="@+id/editModeFragment"
+        android:name="com.example.uiapp.ui.edit.EditModeFragment"
+        android:label="fragment_edit_mode"
+        tools:layout="@layout/fragment_edit_mode" />
+    <fragment
+        android:id="@+id/homeModeFragment"
+        android:name="com.example.uiapp.ui.home.HomeModeFragment"
+        android:label="fragment_home_mode"
+        tools:layout="@layout/fragment_home_mode" />
 </navigation>

@@ -2,28 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/house__streamline_phosphor"
+        android:id="@+id/homeModeFragment"
+        android:icon="@drawable/home"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/magnifying_glass__streamline_phosphor"
-        android:title="@string/title_search" />
-
-    <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/plus_square__streamline_phosphor"
+        android:icon="@drawable/search"
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/heart__streamline_phosphor"
+        android:id="@+id/navigation_fragment_add"
+        android:icon="@drawable/plus"
         android:title="@string/title_notifications" />
-
     <item
-        android:id="@+id/navigation_history"
-        android:icon="@drawable/clock__streamline_phosphor"
-        android:title="@string/title_history" />
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/heart"
+        android:title="@string/title_notifications" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/time_circle"
+        android:title="@string/title_notifications" />
 
 </menu>

@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Mood_Pulse"
+rootProject.name = "uiapp"
 include(":app")
+ 
