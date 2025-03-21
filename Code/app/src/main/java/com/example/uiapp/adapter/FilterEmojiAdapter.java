@@ -18,9 +18,7 @@ import java.util.List;
 public class FilterEmojiAdapter extends RecyclerView.Adapter<FilterEmojiAdapter.EmojiViewHolder> {
     private List<EmojiModel> emojiList;
     private FilterEmojiLayoutBinding binding;
-    private int selectedPosition = RecyclerView.NO_POSITION;
     private OnEmojiClickListener onEmojiClickListener;
-
 
     public FilterEmojiAdapter(List<EmojiModel> emojiList, OnEmojiClickListener onEmojiClickListener) {
         this.emojiList = emojiList;
@@ -39,27 +37,22 @@ public class FilterEmojiAdapter extends RecyclerView.Adapter<FilterEmojiAdapter.
         EmojiModel emojiModel = emojiList.get(position);
         holder.binding.tvEmoji.setText(emojiModel.getName());
 
-
-        if (position == selectedPosition) {
+        if (emojiModel.isSelected()) {
             holder.binding.cardEmoji.setCardBackgroundColor(emojiModel.getColor());
-
             holder.binding.ivEmoji.setImageResource(emojiModel.getEmojiPath());
+            holder.binding.tvEmoji.setTextColor(Color.WHITE);
         } else {
-            holder.binding.cardEmoji.setCardBackgroundColor(Color.WHITE); // Default color
-//            holder.binding.tvEmoji.setText("Default"); // Reset text
-            holder. binding.ivEmoji.setImageResource(R.drawable._emoji__smiling_face_with_smiling_eyes_);
+            holder.binding.cardEmoji.setCardBackgroundColor(Color.WHITE);
+            holder.binding.ivEmoji.setImageResource(emojiModel.getEmojiPath());
+            holder.binding.tvEmoji.setTextColor(Color.BLACK);
         }
 
         holder.binding.cardEmoji.setOnClickListener(v -> {
-            int previousPosition = selectedPosition;
-            selectedPosition = holder.getAdapterPosition();
-            onEmojiClickListener.onEmojiClick(selectedPosition);
-
-            notifyItemChanged(previousPosition); // Reset old selection
-            notifyItemChanged(selectedPosition); // Update new selection
+            int clickedPosition = holder.getAdapterPosition();
+            if (clickedPosition != RecyclerView.NO_POSITION) {
+                onEmojiClickListener.onEmojiClick(clickedPosition);
+            }
         });
-
-
     }
 
     @Override
@@ -68,11 +61,11 @@ public class FilterEmojiAdapter extends RecyclerView.Adapter<FilterEmojiAdapter.
     }
 
     public static class EmojiViewHolder extends RecyclerView.ViewHolder {
-        EmojiLayoutBinding binding;
+        FilterEmojiLayoutBinding binding;
 
         public EmojiViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = EmojiLayoutBinding.bind(itemView);
+            binding = FilterEmojiLayoutBinding.bind(itemView);
         }
     }
 }

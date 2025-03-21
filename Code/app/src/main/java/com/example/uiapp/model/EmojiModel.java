@@ -6,12 +6,13 @@ public class EmojiModel {
     private int emojiPath;
     private String name;
     private int color;
-
+    private boolean selected;
 
     public EmojiModel(int emojiPath, String name, int color) {
         this.emojiPath = emojiPath;
         this.name = name;
         this.color = color;
+        this.selected = false;
     }
 
     public int getEmojiPath() {
@@ -36,5 +37,13 @@ public class EmojiModel {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

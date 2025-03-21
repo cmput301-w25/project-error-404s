@@ -1,11 +1,10 @@
 package com.example.uiapp.ui.bottomsheet;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,24 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.uiapp.R;
-import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.FilterEmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.databinding.FragmentFiltterBottomSheetBinding;
 import com.example.uiapp.model.EmojiModel;
+import com.example.uiapp.ui.history.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltterBottomSheetFragment extends BottomSheetDialogFragment  implements OnEmojiClickListener {
+public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implements OnEmojiClickListener {
     private FragmentFiltterBottomSheetBinding binding;
     List<EmojiModel> emojiList;
     FilterEmojiAdapter emojiAdapter;
     private Chip[] chips = new Chip[2];
-    private Chip[] chipIds;
+    //private Chip[] chipIds;
+    private HomeViewModel homeViewModel;
+    private int selectedChipIndex = -1;
+    private String selectedMood = "";
 
 
     @Override
@@ -38,8 +39,7 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment  imple
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFiltterBottomSheetBinding.inflate(inflater, container, false);
-
-
+        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         emojiList = new ArrayList<>();
         setEmojiAdapter();
         chips[0] = binding.chip1;
@@ -62,6 +62,7 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment  imple
         binding.btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                applyMoodFilters();
                 dismiss();
             }
         });
@@ -73,6 +74,18 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment  imple
         });
 
         return binding.getRoot();
+    }
+
+    private void applyMoodFilters(){
+        //Apply date filter
+        String dateFilter = "";
+        if (selectedChipIndex == 0){
+            dateFilter = "24h";
+        }else if(selectedChipIndex == 1){
+            dateFilter = "7d";
+        }
+        //Pass to homeViewModel
+        homeViewModel.setFilters(selectedMood, dateFilter);
     }
     private void setEmojiAdapter() {
         emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));
@@ -88,16 +101,25 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment  imple
         emojiList.add(new EmojiModel(R.drawable.image_9, "Proud", getResources().getColor(R.color.proud)));
         emojiList.add(new EmojiModel(R.drawable.image_3, "Bored", getResources().getColor(R.color.bored)));
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        emojiAdapter = new FilterEmojiAdapter( emojiList,this::onEmojiClick);
+        //emojiAdapter = new FilterEmojiAdapter( emojiList,this::onEmojiClick);
+        emojiAdapter = new FilterEmojiAdapter( emojiList,this);
         binding.recyclerView.setAdapter(emojiAdapter);
     }
 
     @Override
     public void onEmojiClick(int position) {
         Log.d("TAG", "onEmojiClick: "+position);
-
+        //clear previous selection
+        for (int i = 0; i < emojiList.size(); i++){
+            emojiList.get(i).setSelected(i == position);
+        }
+        selectedMood = emojiList.get(position).getName();
+        emojiAdapter.notifyDataSetChanged();
     }
+
+    //handleChipSelection() is for controlling UI visual effects
     private void handleChipSelection(int selectedChip) {
+        selectedChipIndex = selectedChip;//
         for (int i = 0; i < chips.length; i++) {
             if (i == selectedChip) {
                 // Selected chip styling
