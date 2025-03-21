@@ -118,9 +118,9 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             String dateTime = binding.date.getText().toString();
             String mood = emojiAdapter.toString();
             // TODO: change this to the connecting variable
-            String note = "Example note"; // Collect from your UI
-            String people = "Alone"; // Example value
-            String location = "Some Location"; // Example value
+            String note = MoodEntry.getNote(); // Collect from your UI
+            String people = MoodEntry.getPeople(); // Example value
+            String location = MoodEntry.getLocation(); // Example value
             int moodIcon = R.drawable.happy; // Example drawable
             int imageUrl = 0; // or a valid image resource id
             MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);

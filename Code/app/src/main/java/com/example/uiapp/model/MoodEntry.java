@@ -2,9 +2,9 @@ package com.example.uiapp.model;
 public class MoodEntry {
     private String dateTime;
     private String mood;
-    private String note;
-    private String people;
-    private String location;
+    private static String note;
+    private static String people;
+    private static String location;
     private int moodIcon;
     private int imageUrl; // Nullable, only for entries with images
     private Boolean isHome; // Nullable field
@@ -53,7 +53,7 @@ public class MoodEntry {
         this.mood = mood;
     }
 
-    public String getNote() {
+    public static String getNote() {
         return note;
     }
 
@@ -61,7 +61,7 @@ public class MoodEntry {
         this.note = note;
     }
 
-    public String getPeople() {
+    public static String getPeople() {
         return people;
     }
 
@@ -69,7 +69,7 @@ public class MoodEntry {
         this.people = people;
     }
 
-    public String getLocation() {
+    public static String getLocation() {
         return location;
     }
 
