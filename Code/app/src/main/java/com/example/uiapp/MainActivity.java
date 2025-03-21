@@ -26,6 +26,8 @@ import com.example.uiapp.databinding.ActivityMainBinding;
 import com.example.uiapp.model.EmojiModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements OnEmojiClickListe
     private static final int PICK_IMAGE_REQUEST = 1;
     private Chip[] chips = new Chip[4];
     private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    private FirebaseFirestore db;
+    private CollectionReference eventRef;
 
 
     @Override
@@ -54,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements OnEmojiClickListe
         EdgeToEdge.enable(this);
 //        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+
+
+        // Initialize Firebase Firestore and reference the "MoodEvents" collection
+        db = FirebaseFirestore.getInstance();
+        eventRef = db.collection("MoodEvents");
 
         setContentView(binding.getRoot());
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());

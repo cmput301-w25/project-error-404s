@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.mood_pulse.databinding.FragmentSearchBinding;
+import com.example.uiapp.databinding.FragmentSearchBinding;
 import com.example.uiapp.ui.search.SearchViewModel;
 
 

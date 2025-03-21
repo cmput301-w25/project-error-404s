@@ -8,6 +8,7 @@ public class MoodEntry {
     private int moodIcon;
     private int imageUrl; // Nullable, only for entries with images
     private Boolean isHome; // Nullable field
+    private String moodID;
 
     // Constructor with isHome as an optional parameter
     public MoodEntry(String dateTime, String mood, String note, String people, String location, int moodIcon, int imageUrl, Boolean isHome) {
@@ -91,5 +92,9 @@ public class MoodEntry {
     public void setImageUrl(int imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void setFirestoreId(String ID) { this.moodID = ID;}
+
+    public String getFirestoreId() {return moodID;}
 }
 
