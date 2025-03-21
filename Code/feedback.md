@@ -29,4 +29,3 @@ no login or signup page yet
 ## Relative Quality
 Somewhat above average relative quality, overall
 comprehensiveness, creativity, attractiveness, and innovation 
-## Score => 7/8
