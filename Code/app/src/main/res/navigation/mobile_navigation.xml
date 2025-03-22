@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_navigation_home_to_editModeFragment"
             app:destination="@id/editModeFragment" />
+
+        <action
+            android:id="@+id/action_addModelFragment_to_homeModeFragment"
+            app:destination="@id/homeModeFragment" />
+
     </fragment>
 
     <fragment

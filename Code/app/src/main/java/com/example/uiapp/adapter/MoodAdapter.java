@@ -1,6 +1,7 @@
 package com.example.uiapp.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.uiapp.R;
 import com.example.uiapp.model.MoodEntry;
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder> {
 
+
     private final Context context;
-    private final List<MoodEntry> moodList;
+    private List<MoodEntry> moodList = new ArrayList<>();
     private final OnItemDeleteClickListener onItemDeleteClickListener;
     private final OnItemEditClickListener onItemEditClickListener;
 
@@ -54,8 +58,10 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         holder.txtPeople.setText(entry.getPeople());
         holder.txtLocation.setText(entry.getLocation());
         holder.imgMood.setImageResource(entry.getMoodIcon());
+
         holder.btnDelete.setOnClickListener(v -> onItemDeleteClickListener.onClickDelete(position));
         holder.btnEdit.setOnClickListener(v -> onItemEditClickListener.onClickEdit(position));
+
         if (entry.getIsHome() == null) {
             holder.btnEdit.setVisibility(View.VISIBLE);
             holder.btnDelete.setVisibility(View.VISIBLE);
@@ -64,14 +70,23 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             holder.btnDelete.setVisibility(View.GONE);
         }
 
-        if (entry.getImageUrl() != 0) {
+        if (!entry.getImageUrl().isEmpty()) {
             holder.centerImg.setVisibility(View.VISIBLE);
-            holder.imgMoodEntry.setImageResource(entry.getImageUrl());
+            Glide.with(context)
+                    .load(Uri.parse(entry.getImageUrl()))
+                    .centerCrop()
+                    .into(holder.imgMoodEntry);
         } else {
             holder.centerImg.setVisibility(View.GONE);
         }
 
 
+    }
+
+    public void updateList(List<MoodEntry> newList) {
+        moodList.clear();
+        moodList.addAll(newList);
+        notifyDataSetChanged(); // Refresh the entire list
     }
 
     @Override

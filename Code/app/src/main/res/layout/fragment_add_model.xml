@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/quicksand_bold"
-                android:text="Add Mode"
+                android:text="Add Mood"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
@@ -155,8 +155,8 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        tools:listitem="@layout/emoji_layout" />
+                        tools:listitem="@layout/emoji_layout"
+                        android:layout_marginTop="8dp" />
 
 
                 </LinearLayout>

@@ -16,7 +16,7 @@ public class MoodViewModel extends ViewModel {
         List<MoodEntry> currentList = moodList.getValue();
         if (currentList != null) {
             currentList.add(0, entry);
-            moodList.setValue(currentList);
+            moodList.postValue(currentList);
         }
     }
 
