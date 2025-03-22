@@ -116,11 +116,14 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             filteredMoodList.addAll(filteredByMoodAndDate);
         } else {
             String searchText = currentSearchText.toLowerCase();
+            // Iterate through each entry of filteredByMoodAndDate 
             for (MoodEntry entry : filteredByMoodAndDate) {
-                if (entry.getMood().toLowerCase().contains(searchText) ||
-                entry.getNote().toLowerCase().contains(searchText) ||
-                entry.getLocation().toLowerCase().contains(searchText) ||
-                        entry.getPeople().toLowerCase().contains(searchText)) {
+                // Check if the search text exists in any of the entry's text fields:
+                if (entry.getMood().toLowerCase().contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
+                entry.getNote().toLowerCase().contains(searchText) ||               // 2. Mood's reason "Note"
+                entry.getLocation().toLowerCase().contains(searchText) ||           // 3. GeoLoaction (Not used in the current version)
+                        entry.getPeople().toLowerCase().contains(searchText)) {     // 4. People
+                    // If any of the fields contain the search text, add this entry to the filtered list
                     filteredMoodList.add(entry);
                 }
             }
@@ -141,11 +144,11 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     @Override
     public void onClickDelete(int position) {
-        showDeleteDialog();
+        showDeleteDialog(position);
 
     }
 
-    private void showDeleteDialog() {
+    private void showDeleteDialog(int position) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_delete_confirmation);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -159,7 +162,14 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
         // Delete button click listener
         btnDelete.setOnClickListener(view -> {
-            // Perform delete action here
+            // Model/Data Layer: Update the data
+            MoodEntry entryToDelete = filteredMoodList.get(position);               // Referring the mood gonna be deleted by (int position)
+            moodList.remove(entryToDelete);                                         // Remove from the original list to delete
+            filteredMoodList.remove(position);                                      // Remove from the filtered list
+            // View/UI Layer: Update the view
+            moodAdapter.notifyItemRemoved(position);                                // Notify the item removed to adapter
+            moodAdapter.notifyItemRangeChanged(position, filteredMoodList.size());  // Notify data changed to adpter
+            // View/UI Layer: Close the confirmation dialog
             dialog.dismiss();
         });
 
