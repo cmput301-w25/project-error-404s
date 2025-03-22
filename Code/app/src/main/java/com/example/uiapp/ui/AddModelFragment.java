@@ -1,6 +1,7 @@
 package com.example.uiapp.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,13 +14,16 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import android.Manifest;
 import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.model.EmojiModel;
@@ -61,6 +65,11 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private Uri selectedImageUri;
     private boolean hasSelectedImage = false;
+
+    /// ///////////////////////////////
+    private LocationHelper locationHelper;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private String currentLocation = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,21 +132,15 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             TextInputEditText editText = binding.expandableNote.editText;
             String note = editText.getText().toString();
 
-            String people = getSelectedChipText(); // Get selected chip text
-            String location = ""; // Add logic to capture location
+            String people = getSelectedChipText(); // Getting text from 4 options
             int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
             String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
 
-            // Create a new MoodEntry object
-            MoodEntry moodEntry = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUri);
+            // Creating a new MoodEntry object
+            MoodEntry moodEntry = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri);
 
-//            // Pass the mood entry to the Home Fragment
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("moodEntry", moodEntry);
             moodViewModel.addMoodEntry(moodEntry);
 
-            // Navigate back to the Home Fragment
-            // Navigation.findNavController(v).navigate(R.id.action_addModelFragment_to_homeModeFragment, bundle);
             Navigation.findNavController(v).navigateUp();
 
             Toast.makeText(getContext(), "Mood Added", Toast.LENGTH_SHORT).show();
@@ -152,22 +155,73 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             binding.expandableNote.contentLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
             binding.expandableNote.arrowIcon.setRotation(isExpanded ? 180 : 0);
         });
+
         binding.expandablePhoto.headerLayout.setOnClickListener(v -> {
             isExpandedPhoto = !isExpandedPhoto;
             binding.expandablePhoto.contentLayout.setVisibility(isExpandedPhoto ? View.VISIBLE : View.GONE);
             binding.expandablePhoto.arrowIcon.setRotation(isExpandedPhoto ? 180 : 0);
             binding.expandablePhoto.imageButton.setOnClickListener(v1 -> openGallery());
         });
+
         binding.expandablePeople.headerLayout.setOnClickListener(v -> {
             isExpandedPeople = !isExpandedPeople;
             binding.expandablePeople.contentLayout.setVisibility(isExpandedPeople ? View.VISIBLE : View.GONE);
             binding.expandablePeople.arrowIcon.setRotation(isExpandedPeople ? 180 : 0);
         });
+
         binding.expandableLocation.headerLayout.setOnClickListener(v -> {
             isExpandedLocation = !isExpandedLocation;
             binding.expandableLocation.contentLayout.setVisibility(isExpandedLocation ? View.VISIBLE : View.GONE);
             binding.expandableLocation.arrowIcon.setRotation(isExpandedLocation ? 180 : 0);
+
+            binding.expandableLocation.btnGetLocation.setOnClickListener(v1 -> {
+                if (checkLocationPermission()) {
+                    getLocation();
+                }
+            });
         });
+    }
+
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        else {
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST_CODE
+            );
+            return false;
+        }
+    }
+
+    private void getLocation() {
+        locationHelper.getCurrentLocation(new LocationHelper.LocationCallback() {
+            @Override
+            public void onLocationResult(String address) {
+                currentLocation = address;
+                binding.expandableLocation.txtLocation.setText(address);
+                Toast.makeText(getContext(), "Location updated", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLocationError(String error) {
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLocation();
+            }
+            else {
+                Toast.makeText(getContext(), "Not able to get location permission...", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setEmojiAdapter() {
@@ -219,6 +273,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Register the activity result launcher
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -246,6 +301,8 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         }
                     }
                 });
+
+        locationHelper = new LocationHelper(requireContext());
     }
 
     private void openGallery() {
@@ -260,6 +317,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             Toast.makeText(requireContext(), "No file picker available", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 //    @Override

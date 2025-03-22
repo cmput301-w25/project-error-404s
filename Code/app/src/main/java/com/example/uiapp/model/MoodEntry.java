@@ -8,6 +8,9 @@ public class MoodEntry implements Serializable {
     private String note;
     private String people;
     private String location;
+    private String username;
+    private double latitude;
+    private double longitude;
     private int moodIcon;
     private String imageUri;
     private Boolean isHome;
@@ -55,4 +58,11 @@ public class MoodEntry implements Serializable {
     public void setLocation(String location) { this.location = location; }
     public int getMoodIcon() { return moodIcon; }
     public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }
+
+
+    public boolean hasLocation() {
+        return latitude != 0 && longitude != 0;
+    }
+
+
 }
