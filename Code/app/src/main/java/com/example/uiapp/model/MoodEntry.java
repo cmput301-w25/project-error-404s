@@ -27,6 +27,10 @@ public class MoodEntry {
         this(dateTime, mood, note, people, location, moodIcon, imageUrl, null);
     }
 
+    public MoodEntry(){
+
+    }
+
     // Getter and Setter for isHome
     public Boolean getIsHome() {
         return isHome;
