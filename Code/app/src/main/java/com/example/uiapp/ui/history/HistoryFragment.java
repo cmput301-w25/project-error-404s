@@ -54,6 +54,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
      */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+//        HomeViewModel homeViewModel =
+//                new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         recyclerView = binding.historyRecycler;
@@ -91,12 +93,16 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             }
         });
 
+        moodList = new ArrayList<>();
+        filteredMoodList = new ArrayList<>(); // Initialize filtered list to avoid NullPointerException
+
         // Sample data for testing - can remove later
 //        moodList.add(new MoodEntry("Yesterday, Feb 13, 2025 | 22:10", "Bored", "Trip, Calgary", "With 1+ person", "Calgary, Alberta", R.drawable.sad_emoji, 0));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, 0));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
+//        moodAdapter = new MoodAdapter(getContext(), moodList, this,this);
 
         // Initialize adapter with proper listeners
         moodAdapter = new MoodAdapter(getContext(), filteredMoodList, this, this);
@@ -125,18 +131,18 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         if (moodList == null || filteredMoodList == null) {
             return;
         }
-        
+
         // First apply the mood and date filters from ViewModel
         List<MoodEntry> filteredByMoodAndDate = homeViewModel.applyFilters(moodList);
 
         // Then apply the search text filter
         filteredMoodList.clear();
-        
+
         if (filteredByMoodAndDate == null) {
             // If the ViewModel returns null, use the original list
             filteredByMoodAndDate = new ArrayList<>(moodList);
         }
-        
+
         if (currentSearchText.isEmpty()) {
             filteredMoodList.addAll(filteredByMoodAndDate);
         } else {
@@ -148,18 +154,18 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
                 String note = entry.getNote() != null ? entry.getNote().toLowerCase() : "";
                 String location = entry.getLocation() != null ? entry.getLocation().toLowerCase() : "";
                 String people = entry.getPeople() != null ? entry.getPeople().toLowerCase() : "";
-                
+
                 // Check if the search text exists in any of the entry's text fields:
-                if (mood.contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
-                    note.contains(searchText) ||           // 2. Mood's reason "Note"
-                    location.contains(searchText) ||       // 3. GeoLoaction (Not used in the current version)
-                    people.contains(searchText)) {         // 4. People
+                if (entry.getMood().toLowerCase().contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
+                entry.getNote().toLowerCase().contains(searchText) ||               // 2. Mood's reason "Note"
+                entry.getLocation().toLowerCase().contains(searchText) ||           // 3. GeoLoaction (Not used in the current version)
+                        entry.getPeople().toLowerCase().contains(searchText)) {     // 4. People
                     // If any of the fields contain the search text, add this entry to the filtered list
                     filteredMoodList.add(entry);
                 }
             }
         }
-        
+
         // Notify adapter only if it's initialized
         if (moodAdapter != null) {
             moodAdapter.notifyDataSetChanged();
@@ -187,6 +193,7 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
     @Override
     public void onClickDelete(int position) {
         showDeleteDialog(position);
+
     }
 
     /**
@@ -227,6 +234,17 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
      */
     @Override
     public void onClickEdit(int position) {
-        Navigation.findNavController(this.getView()).navigate(R.id.action_navigation_home_to_editModeFragment);
+        // Get the selected mood entry by position
+        MoodEntry selectedEntry = filteredMoodList.get(position);
+
+        // Create a bundle to pass data to EditModeFragment
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("MoodEvent", selectedEntry);
+
+        // Navigate to edit fragment with the selected mood entry data
+        Navigation.findNavController(requireView()).navigate(
+            R.id.action_navigation_home_to_editModeFragment,
+            bundle
+        );
     }
 }
