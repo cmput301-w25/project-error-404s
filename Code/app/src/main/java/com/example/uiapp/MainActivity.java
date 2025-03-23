@@ -84,24 +84,22 @@ public class MainActivity extends AppCompatActivity {
 //        Toast.makeText(this, "after username", Toast.LENGTH_SHORT).show();
 
 
-//        if (true) {
-//            Toast.makeText(this, "MainToast", Toast.LENGTH_SHORT).show();
-//            // Not logged in, redirect to signup/login screen
-//            Intent intent = new Intent(this, SignupActivity.class);
-//            startActivity(intent);
-//            finish(); // Prevent user from going back here
-//            return;
-//        }
+        if (true) {
+            Toast.makeText(this, "MainToast", Toast.LENGTH_SHORT).show();
+            // Not logged in, redirect to signup/login screen
+            Intent intent = new Intent(this, SignupActivity.class);
+            startActivity(intent);
+            finish(); // Prevent user from going back here
+            return;
+        }
 
 
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_bottom_nav);
         Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
 
         eventRef = FirebaseFirestore.getInstance().collection("MoodEvents");
         context = this;
 
-
-        // Fetch and update events from Firestore
 
 
 //        if (savedInstanceState == null) {
