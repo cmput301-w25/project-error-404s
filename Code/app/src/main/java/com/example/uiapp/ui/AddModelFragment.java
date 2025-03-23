@@ -3,13 +3,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,7 +30,7 @@ import com.example.uiapp.ui.home.MoodViewModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,7 +64,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
-    private Uri selectedImageUri;
+    private Uri selectedImageUrl;
     private boolean hasSelectedImage = false;
 
     /// ///////////////////////////////
@@ -149,10 +146,10 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
             String people = getSelectedChipText(); // Getting text from 4 options
             int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
-            String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
+            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : "";
 
             // Creating a new MoodEntry object
-            MoodEntry moodEntry = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri);
+            MoodEntry moodEntry = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUrl);
 
             moodViewModel.addMoodEntry(moodEntry);
 
@@ -170,8 +167,11 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             String people = MoodEntry.getPeople(); // Example value
             String location = MoodEntry.getLocation(); // Example value
             int moodIcon = R.drawable.happy; // Example drawable
-            int imageUrl = 0; // or a valid image resource id
-            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, selectedImageUri.toString(), false);
+            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : ""; // or a valid image resource id
+            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);
+
+            // Add to ViewModel
+            moodViewModel.addMoodEntry(newEvent);
 
             // Add the mood event to Firestore
             moodEventsRef.add(newEvent)
@@ -179,6 +179,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         //set the Firestore-generated ID in your model
                         newEvent.setFirestoreId(documentReference.getId());
                         Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(v).navigateUp();
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -317,22 +318,22 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                       Uri uri = result.getData().getData();
-                        if (uri != null) {
+                       Uri url = result.getData().getData();
+                        if (url != null) {
                             try {
 
                                 requireContext().getContentResolver().takePersistableUriPermission(
-                                        uri,
+                                        url,
                                         Intent.FLAG_GRANT_READ_URI_PERMISSION
                                 );
 
                                 binding.expandablePhoto.imgSelected.setVisibility(View.VISIBLE);
                                 binding.expandablePhoto.uploadPlaceholder.setVisibility(View.GONE);
                                 Glide.with(requireContext())
-                                        .load(uri)
+                                        .load(url)
                                         .centerCrop()
                                         .into(binding.expandablePhoto.imgSelected);
-                                selectedImageUri = uri;
+                                selectedImageUrl = url;
 
                             } catch (SecurityException e) {
                                 Toast.makeText(requireContext(), "Permission error: " + e.getMessage(), Toast.LENGTH_SHORT).show();

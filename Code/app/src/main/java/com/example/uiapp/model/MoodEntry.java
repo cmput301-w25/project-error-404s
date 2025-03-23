@@ -13,7 +13,7 @@ public class MoodEntry implements Serializable {
     private double latitude;
     private double longitude;
     private int moodIcon;
-    private String imageUri;
+    private String imageUrl;
     private Boolean isHome;
     private String moodID;
 
@@ -26,7 +26,7 @@ public class MoodEntry implements Serializable {
         this.people = people;
         this.location = location;
         this.moodIcon = moodIcon;
-        this.imageUri = imageUri;
+        this.imageUrl = imageUri;
 
 //        this.isHome = isHome; // Nullable field
 //    }
@@ -59,15 +59,15 @@ public class MoodEntry implements Serializable {
 
     // Add the missing getter/setter for imageUri
     public String getImageUrl() {
-        return imageUri;
+        return imageUrl;
 
 // Save the following functions in case  
 //    public static String getNote() {
 //        return note;
     }
 
-    public void setImageUrl(String imageUri) {
-        this.imageUri = imageUri;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
 //    public static String getPeople() {
