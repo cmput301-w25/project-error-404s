@@ -28,6 +28,7 @@ import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.model.EmojiModel;
 import com.example.uiapp.model.MoodEntry;
+
 import com.example.uiapp.ui.home.MoodViewModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -45,7 +46,10 @@ import android.view.ViewGroup;
 
 import com.example.uiapp.R;
 import com.example.uiapp.databinding.FragmentAddModelBinding;
+
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
@@ -71,10 +75,21 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private String currentLocation = "";
 
+    // Firebase instance and collection reference
+    private FirebaseFirestore db;
+    private CollectionReference moodEventsRef;
+
+    @SuppressLint("SetTextI18n")
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentAddModelBinding.inflate(inflater, container, false);
+
+        // Initialize Firebase Firestore and reference the "MoodEvents" collection
+        db = FirebaseFirestore.getInstance();
+        moodEventsRef = db.collection("MoodEvents");
+
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
         String currentDateTime = sdf.format(new Date());
@@ -144,6 +159,30 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             Navigation.findNavController(v).navigateUp();
 
             Toast.makeText(getContext(), "Mood Added", Toast.LENGTH_SHORT).show();
+        });
+        // add to firebase when the add button is clicked:
+        binding.btnAdd.setOnClickListener(v -> {
+            // Gather data from your UI elements
+            String dateTime = binding.date.getText().toString();
+            String mood = emojiAdapter.toString();
+            // TODO: change this to the connecting variable
+            String note = MoodEntry.getNote(); // Collect from your UI
+            String people = MoodEntry.getPeople(); // Example value
+            String location = MoodEntry.getLocation(); // Example value
+            int moodIcon = R.drawable.happy; // Example drawable
+            int imageUrl = 0; // or a valid image resource id
+            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);
+
+            // Add the mood event to Firestore
+            moodEventsRef.add(newEvent)
+                    .addOnSuccessListener(documentReference -> {
+                        //set the Firestore-generated ID in your model
+                        newEvent.setFirestoreId(documentReference.getId());
+                        Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
         });
 
         return binding.getRoot();

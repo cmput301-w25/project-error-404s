@@ -26,8 +26,10 @@ import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.databinding.FragmentEditModeBinding;
 import com.example.uiapp.model.EmojiModel;
+import com.example.uiapp.model.MoodEntry;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -48,11 +50,17 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Chip[] chips = new Chip[4];
     private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    // Firebase instance
+    private FirebaseFirestore db;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // Initialize Firebase Firestore
+        db = FirebaseFirestore.getInstance();
+
         // Inflate the layout for this fragment
         binding = FragmentEditModeBinding.inflate(inflater, container, false);
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
@@ -102,6 +110,32 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         binding.btnAdd.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
         });
+
+        // Example: When user clicks the "Save" (btnAdd) button, update the event.
+        binding.btnAdd.setOnClickListener(v -> {
+            // Gather updated data from the UI
+            String updatedMood = "Edited Mood"; // Replace with actual value
+            String updatedNote = "Updated note"; // Replace with actual value
+
+            // Assume you have the existing MoodEntry object with its Firestore document ID
+            // For example, if you passed it as an argument:
+            MoodEntry currentEvent = (MoodEntry) getArguments().getSerializable("MoodEvent");
+            if (currentEvent != null && currentEvent.getFirestoreId() != null) {
+                db.collection("MoodEvents")
+                        .document(currentEvent.getFirestoreId())
+                        .update("mood", updatedMood, "note", updatedNote)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Mood event updated successfully!", Toast.LENGTH_SHORT).show();
+                            // Optionally, navigate back or refresh UI.
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), "Error updating event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Toast.makeText(getContext(), "Cannot update event: missing document ID.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding.btnBack.setOnClickListener(v -> {
             Navigation.findNavController(this.getView()).navigateUp();
 

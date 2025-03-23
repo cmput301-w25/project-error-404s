@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class MoodEntry implements Serializable {
     private String dateTime;
     private String mood;
+
     private String note;
     private String people;
     private String location;
@@ -12,8 +13,9 @@ public class MoodEntry implements Serializable {
     private double latitude;
     private double longitude;
     private int moodIcon;
-    private String imageUri;
+    private String imageUrl;
     private Boolean isHome;
+    private String moodID;
 
     // Main constructor
     public MoodEntry(String dateTime, String mood, String note, String people,
@@ -25,6 +27,26 @@ public class MoodEntry implements Serializable {
         this.location = location;
         this.moodIcon = moodIcon;
         this.imageUri = imageUri;
+
+//        this.isHome = isHome; // Nullable field
+//    }
+
+    // Overloaded constructor without isHome (default to null)
+//    public MoodEntry(String dateTime, String mood, String note, String people, String location, int moodIcon, int imageUrl) {
+//        this(dateTime, mood, note, people, location, moodIcon, imageUrl, null);
+//    }
+
+//    public MoodEntry(){
+
+//    }
+
+    // Getter and Setter for isHome
+//    public Boolean getIsHome() {
+//        return isHome;
+//    }
+
+//    public void setIsHome(Boolean isHome) {
+
         this.isHome = isHome;
     }
 
@@ -34,14 +56,23 @@ public class MoodEntry implements Serializable {
         this(dateTime, mood, note, people, location, moodIcon, imageUri, null);
     }
 
+
     // Add the missing getter/setter for imageUri
     public String getImageUrl() {
         return imageUri;
+
+// Save the following functions in case  
+//    public static String getNote() {
+//        return note;
     }
 
     public void setImageUrl(String imageUri) {
         this.imageUri = imageUri;
     }
+
+//    public static String getPeople() {
+//        return people;
+//    }
 
 
     public Boolean getIsHome() { return isHome; }
@@ -60,9 +91,35 @@ public class MoodEntry implements Serializable {
     public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }
 
 
+//    public static String getLocation() {
+//        return location;
+//    }
+
     public boolean hasLocation() {
         return latitude != 0 && longitude != 0;
     }
 
+
+// saving the functions below in case it is needed  
+//    public int getMoodIcon() {
+//        return moodIcon;
+//    }
+
+//    public void setMoodIcon(int moodIcon) {
+//        this.moodIcon = moodIcon;
+//    }
+
+//    public int getImageUrl() {
+//        return imageUrl;
+//    }
+
+//    public void setImageUrl(int imageUrl) {
+//        this.imageUrl = imageUrl;
+//    }
+
+//    public void setFirestoreId(String ID) { this.moodID = ID;}
+
+//    public String getFirestoreId() {return moodID;}
+//}
 
 }

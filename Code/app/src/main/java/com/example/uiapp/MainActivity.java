@@ -1,174 +1,67 @@
 package com.example.uiapp;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
-import com.example.uiapp.adapter.EmojiAdapter;
-import com.example.uiapp.adapter.OnEmojiClickListener;
-import com.example.uiapp.databinding.ActivityMainBinding;
-import com.example.uiapp.model.EmojiModel;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
+import com.example.uiapp.ui.profile.SignupActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements OnEmojiClickListener {
-  ActivityMainBinding binding;
-  List<EmojiModel> emojiList;
-  EmojiAdapter emojiAdapter;
-  RecyclerView recyclerViewEmojis;
-    private boolean isExpanded = false;
-    private boolean isExpandedPhoto = false;
-    private boolean isExpandedPeople = false;
-    private boolean isExpandedLocation = false;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Chip[] chips = new Chip[4];
-    private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+/**
+ * This activity serves as the main screen of the app, displaying a list of mood events.
+ * -----------------------------------------------------------------------------
+ * Handled in this class:
+ * - Fetching and displaying mood events from Firestore
+ * - Adding, updating, and deleting mood events
+ * - Navigating between different app sections using Bottom Navigation
+ * - Handling results from the AddMood activity
+ */
+public class MainActivity extends AppCompatActivity {
 
+    public CollectionReference eventRef;    // Firestore reference for mood events
 
+    public Context context;    // Context for UI interactions
+
+    private static final int ADD_MOOD_REQUEST = 1;
+
+    /**
+     * Initializes the main activity, sets up UI elements, and fetches mood events.
+     * -----------------------------------------------------------------------------
+     * Handled in this method:
+     * - Sets up the UI layout and navigation bar
+     * - Fetches mood events from Firestore
+     * - Handles user interactions for adding new moods
+     *
+     * @param savedInstanceState The saved instance state from the previous session, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-//        setContentView(R.layout.activity_main);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        Toast.makeText(this, "Toastig", Toast.LENGTH_SHORT).show();
 
-        setContentView(binding.getRoot());
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
-        String currentDateTime = sdf.format(new Date());
-        String currentTime = time.format(new Date().getTime());
-        ChipGroup chipGroup = binding.expandablePeople.chipGroup;
-
-        // Initialize chips
-
-        binding.expandablePeople.chip1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleChipSelection(0);
-            }
-        });
-        binding.expandablePeople.chip2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleChipSelection(1);
-            }
-        });
-        binding.expandablePeople.chip3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleChipSelection(2);
-            }
-        });
-        binding.expandablePeople.chip4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleChipSelection(3);
-            }
-        });
-        chips[0] = binding.expandablePeople.chip1;
-        chips[1] = binding.expandablePeople.chip2;
-        chips[2] = binding.expandablePeople.chip3;
-        chips[3] = binding.expandablePeople.chip4;
-
-
-
-        binding.date.setText("Today, "+currentDateTime);
-        binding.tvTime.setText(currentTime);
-        recyclerViewEmojis = binding.recyclerView;
-        emojiList = new ArrayList<>();
-        setEmojiAdapter();
-        setExpandedLayoutSection();
-        binding.btnAdd.setOnClickListener(v -> {
-            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
-        });
-
-
-    }
-
-    private void setExpandedLayoutSection() {
-        binding.expandableNote.headerLayout.setOnClickListener(v -> {
-            isExpanded = !isExpanded;
-            binding.expandableNote.contentLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-            binding.expandableNote. arrowIcon.setRotation(isExpanded ? 180 : 0);
-        });
-        binding.expandablePhoto.headerLayout.setOnClickListener(v -> {
-            isExpandedPhoto = !isExpandedPhoto;
-            binding.expandablePhoto.contentLayout.setVisibility(isExpandedPhoto ? View.VISIBLE : View.GONE);
-            binding.expandablePhoto. arrowIcon.setRotation(isExpandedPhoto ? 180 : 0);
-            binding.expandablePhoto.imageButton.setOnClickListener(v1 -> openGallery());
-        });
-        binding.expandablePeople.headerLayout.setOnClickListener(v -> {
-            isExpandedPeople = !isExpandedPeople;
-            binding.expandablePeople.contentLayout.setVisibility(isExpandedPeople ? View.VISIBLE : View.GONE);
-            binding.expandablePeople. arrowIcon.setRotation(isExpandedPeople ? 180 : 0);
-        });
-        binding.expandableLocation.headerLayout.setOnClickListener(v -> {
-            isExpandedLocation = !isExpandedLocation;
-            binding.expandableLocation.contentLayout.setVisibility(isExpandedLocation ? View.VISIBLE : View.GONE);
-            binding.expandableLocation. arrowIcon.setRotation(isExpandedLocation ? 180 : 0);
-        });
-    }
-
-    private void setEmojiAdapter() {
-        emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));
-        emojiList.add(new EmojiModel(R.drawable.sad_emoji, "Sad", getResources().getColor(R.color.sad)));
-        emojiList.add(new EmojiModel(R.drawable.disgust_emoji, "Fear", getResources().getColor(R.color.fear)));
-        emojiList.add(new EmojiModel(R.drawable.image_4, "Disgust", getResources().getColor(R.color.disgust)));
-        emojiList.add(new EmojiModel(R.drawable.image_5, "Anger", getResources().getColor(R.color.angry)));
-        emojiList.add(new EmojiModel(R.drawable.image_6, "Confused", getResources().getColor(R.color.confused)));
-        emojiList.add(new EmojiModel(R.drawable.image_7, "Shame", getResources().getColor(R.color.shame)));
-        emojiList.add(new EmojiModel(R.drawable.image_10, "Surprised", getResources().getColor(R.color.surprized)));
-        emojiList.add(new EmojiModel(R.drawable.image_11, "Tired", getResources().getColor(R.color.tired)));
-        emojiList.add(new EmojiModel(R.drawable.image_12, "Anxious", getResources().getColor(R.color.anxious)));
-        emojiList.add(new EmojiModel(R.drawable.image_9, "Proud", getResources().getColor(R.color.proud)));
-        emojiList.add(new EmojiModel(R.drawable.image_3, "Bored", getResources().getColor(R.color.bored)));
-        recyclerViewEmojis.setLayoutManager(new GridLayoutManager(this, 4));
-        emojiAdapter = new EmojiAdapter( emojiList,this::onEmojiClick);
-        recyclerViewEmojis.setAdapter(emojiAdapter);
-    }
-
-    private void handleChipSelection(int selectedChip) {
-    for (int i = 0; i < chips.length; i++) {
-        if (i == selectedChip) {
-            // Selected chip styling
-            chips[i].setChipBackgroundColorResource(R.color.purple_primary);
-            chips[i].setChipIconTint(ColorStateList.valueOf(Color.WHITE));
-            chips[i].setTextColor(Color.WHITE);
-        } else {
-            // Reset other chips
-            chips[i].setChipBackgroundColorResource(R.color.gray_primary);
-            chips[i].setChipIconTint(ColorStateList.valueOf(Color.BLACK));
-            chips[i].setTextColor(Color.BLACK);
-        }
-    }
-}
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -186,10 +79,50 @@ public class MainActivity extends AppCompatActivity implements OnEmojiClickListe
 //        }
 //    }
 
-    @Override
-    public void onEmojiClick(int position) {
-        binding.btnAdd.setEnabled(true);
-        binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
+//        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+//                .getString("USERNAME", null);
+//        Toast.makeText(this, "after username", Toast.LENGTH_SHORT).show();
 
-    }
-}
+
+//        if (true) {
+//            Toast.makeText(this, "MainToast", Toast.LENGTH_SHORT).show();
+//            // Not logged in, redirect to signup/login screen
+//            Intent intent = new Intent(this, SignupActivity.class);
+//            startActivity(intent);
+//            finish(); // Prevent user from going back here
+//            return;
+//        }
+
+
+        setContentView(R.layout.activity_signup);
+        Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+
+        eventRef = FirebaseFirestore.getInstance().collection("MoodEvents");
+        context = this;
+
+
+        // Fetch and update events from Firestore
+
+
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id, new SignupFragment())
+//                    .commit();
+//        }
+//        SignupFragment signupFragment = new SignupFragment();
+//        signupFragment.show(getSupportFragmentManager(), "SignupFragment");
+
+
+        // Initialize the event list and adapter
+
+
+        // Inside MainActivity.java's onCreate():
+
+        //
+        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+
+// Set up navigation with NavController
+
+
+// Override default behavior for "navigation_dashboard" to launch AddMood activity
+    }}
