@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class EditModeFragment extends Fragment implements OnEmojiClickListener {
+    private static final String TAG = "EditModeFragment";
     public FragmentEditModeBinding binding;
     List<EmojiModel> emojiList;
     EmojiAdapter emojiAdapter;
@@ -77,8 +79,22 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         binding = FragmentEditModeBinding.inflate(inflater, container, false);
         
         // Get the MoodEntry passed from HistoryFragment
-        if (getArguments() != null && getArguments().containsKey("moodEntry")) {
-            moodEntryToEdit = (MoodEntry) getArguments().getSerializable("moodEntry");
+        if (getArguments() != null) {
+            Log.d(TAG, "Arguments bundle exists");
+            if (getArguments().containsKey("moodEntry")) {
+                Log.d(TAG, "moodEntry key found in arguments");
+                moodEntryToEdit = (MoodEntry) getArguments().getSerializable("moodEntry");
+                if (moodEntryToEdit != null) {
+                    Log.d(TAG, "Successfully retrieved MoodEntry: " + moodEntryToEdit.getMood());
+                    Log.d(TAG, "Firestore ID: " + moodEntryToEdit.getFirestoreId());
+                } else {
+                    Log.e(TAG, "MoodEntry is null after deserialization");
+                }
+            } else {
+                Log.e(TAG, "moodEntry key not found in arguments. Available keys: " + getArguments().keySet());
+            }
+        } else {
+            Log.e(TAG, "No arguments bundle provided");
         }
         
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
@@ -136,57 +152,81 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         // Example: When user clicks the "Save" (btnAdd) button, update the event.
         binding.btnAdd.setOnClickListener(v -> {
             if (moodEntryToEdit != null) {
-                // Get updated values from UI
-                String updatedNote = binding.expandableNote.editText.getText().toString();
-                String updatedLocation = binding.expandableLocation.txtLocation.getText().toString();
-                
-                // Update the mood entry with new values
-                if (selectedMood != null) {
-                    moodEntryToEdit.setMood(selectedMood);
-                }
-                if (selectedMoodIcon != 0) {
-                    moodEntryToEdit.setMoodIcon(selectedMoodIcon);
-                }
-                if (!TextUtils.isEmpty(updatedNote)) {
-                    moodEntryToEdit.setNote(updatedNote);
-                }
-                if (selectedPeople != null) {
-                    moodEntryToEdit.setPeople(selectedPeople);
-                }
-                if (!TextUtils.isEmpty(updatedLocation)) {
-                    moodEntryToEdit.setLocation(updatedLocation);
-                }
-                if (selectedImageUri != null) {
-                    moodEntryToEdit.setImageUrl(selectedImageUri.toString());
-                }
-                
-                // If the mood has a Firestore ID, update it in Firebase
-                if (moodEntryToEdit.getFirestoreId() != null) {
-                    db.collection("MoodEvents")
-                        .document(moodEntryToEdit.getFirestoreId())
-                        .update(
-                            "mood", moodEntryToEdit.getMood(),
-                            "note", moodEntryToEdit.getNote(),
-                            "people", moodEntryToEdit.getPeople(),
-                            "location", moodEntryToEdit.getLocation(),
-                            "moodIcon", moodEntryToEdit.getMoodIcon(),
-                            "imageUri", moodEntryToEdit.getImageUrl()
-                        )
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Mood updated successfully!", Toast.LENGTH_SHORT).show();
+                try {
+                    Log.d(TAG, "Save button clicked, updating mood entry");
+                    
+                    // Get updated values from UI
+                    String updatedNote = binding.expandableNote.editText.getText().toString();
+                    String updatedLocation = binding.expandableLocation.txtLocation.getText().toString();
+                    
+                    // Log before update
+                    Log.d(TAG, "Before update - Mood: " + moodEntryToEdit.getMood() + 
+                          ", Note: " + moodEntryToEdit.getNote() + 
+                          ", People: " + moodEntryToEdit.getPeople());
+                    
+                    // Update the mood entry with new values
+                    if (selectedMood != null) {
+                        moodEntryToEdit.setMood(selectedMood);
+                    }
+                    if (selectedMoodIcon != 0) {
+                        moodEntryToEdit.setMoodIcon(selectedMoodIcon);
+                    }
+                    if (!TextUtils.isEmpty(updatedNote)) {
+                        moodEntryToEdit.setNote(updatedNote);
+                    }
+                    if (selectedPeople != null) {
+                        moodEntryToEdit.setPeople(selectedPeople);
+                    }
+                    if (!TextUtils.isEmpty(updatedLocation)) {
+                        moodEntryToEdit.setLocation(updatedLocation);
+                    }
+                    if (selectedImageUri != null) {
+                        moodEntryToEdit.setImageUrl(selectedImageUri.toString());
+                    }
+                    
+                    // Log after update
+                    Log.d(TAG, "After update - Mood: " + moodEntryToEdit.getMood() + 
+                          ", Note: " + moodEntryToEdit.getNote() + 
+                          ", People: " + moodEntryToEdit.getPeople());
+                    
+                    // If the mood has a Firestore ID, update it in Firebase
+                    if (moodEntryToEdit.getFirestoreId() != null && !moodEntryToEdit.getFirestoreId().isEmpty()) {
+                        try {
+                            db.collection("MoodEvents")
+                                .document(moodEntryToEdit.getFirestoreId())
+                                .update(
+                                    "mood", moodEntryToEdit.getMood(),
+                                    "note", moodEntryToEdit.getNote(),
+                                    "people", moodEntryToEdit.getPeople(),
+                                    "location", moodEntryToEdit.getLocation(),
+                                    "moodIcon", moodEntryToEdit.getMoodIcon(),
+                                    "imageUrl", moodEntryToEdit.getImageUrl()
+                                )
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(getContext(), "Mood updated successfully!", Toast.LENGTH_SHORT).show();
+                                    Navigation.findNavController(binding.getRoot()).navigateUp();
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Even if Firebase update fails, we can still update local data
+                                    Toast.makeText(getContext(), "Cloud update failed, but local data updated", Toast.LENGTH_SHORT).show();
+                                    Navigation.findNavController(binding.getRoot()).navigateUp();
+                                });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             Navigation.findNavController(binding.getRoot()).navigateUp();
-                        })
-                        .addOnFailureListener(e -> {
-                            // Even if Firebase update fails, we can still update local data
-                            Toast.makeText(getContext(), "Cloud update failed, but local data updated", Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(binding.getRoot()).navigateUp();
-                        });
-                } else {
-                    // Just local update if no Firestore ID
-                    Toast.makeText(getContext(), "Mood updated successfully!", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(binding.getRoot()).navigateUp();
+                        }
+                    } else {
+                        // Just local update if no Firestore ID
+                        Toast.makeText(getContext(), "Mood updated successfully!", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(binding.getRoot()).navigateUp();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error updating mood entry: " + e.getMessage());
+                    Toast.makeText(getContext(), "Update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             } else {
+                Log.e(TAG, "Cannot update: moodEntryToEdit is null");
                 Toast.makeText(getContext(), "No mood entry to update", Toast.LENGTH_SHORT).show();
             }
         });

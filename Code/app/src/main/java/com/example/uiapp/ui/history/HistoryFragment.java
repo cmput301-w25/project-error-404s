@@ -276,19 +276,41 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
                 // Get the selected mood entry by position
                 MoodEntry selectedEntry = filteredMoodList.get(position);
                 
+                if (selectedEntry == null) {
+                    Log.e(TAG, "Selected entry is null");
+                    Toast.makeText(getContext(), "Error: Selected mood entry is null", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                Log.d(TAG, "Editing mood: " + selectedEntry.getMood() + 
+                      ", ID: " + selectedEntry.getFirestoreId() + 
+                      ", Note: " + selectedEntry.getNote());
+                
                 // Create a bundle to pass data to EditModeFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("moodEntry", selectedEntry);
+                
+                // Verify the bundle contains the data
+                if (bundle.getSerializable("moodEntry") == null) {
+                    Log.e(TAG, "Failed to add moodEntry to bundle");
+                    Toast.makeText(getContext(), "Error: Failed to prepare edit data", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                Log.d(TAG, "Navigating to edit screen with bundle");
                 
                 // Navigate to edit fragment with the selected mood entry data
                 Navigation.findNavController(requireView()).navigate(
                     R.id.action_navigation_home_to_editModeFragment, 
                     bundle
                 );
+            } else {
+                Log.e(TAG, "Invalid position: " + position + ", list size: " + filteredMoodList.size());
+                Toast.makeText(getContext(), "Invalid selection", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error navigating to edit: " + e.getMessage());
-            Toast.makeText(getContext(), "Failed to open edit screen", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Error navigating to edit: " + e.getMessage(), e);
+            Toast.makeText(getContext(), "Failed to open edit screen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
