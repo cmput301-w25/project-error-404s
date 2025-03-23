@@ -1,21 +1,30 @@
 package com.example.uiapp.ui.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uiapp.MainActivity;
 import com.example.uiapp.R;
+import com.example.uiapp.adapter.EmojiAdapter;
+import com.example.uiapp.adapter.MoodAdapter;
+import com.example.uiapp.model.MoodEntry;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
@@ -95,15 +104,37 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    private void switchToMainLayout() {
+        // Change the content view to activity_main.xml
+        setContentView(R.layout.activity_main);
+
+        // Now reinitialize all UI elements from activity_main.xml.
+        // For example, if activity_main.xml contains a Toolbar and a RecyclerView:
+        @SuppressLint("WrongViewCast") Toolbar toolbar = findViewById(R.id.main); // Make sure the IDs match activity_main.xml
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+        // Initialize any adapters, listeners, etc.
+        // For instance, set up your RecyclerView:
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<MoodEntry> MoodEntry;
+        // MoodAdapter adapter = new MoodAdapter(this, MoodEntry, null, null);
+        // recyclerView.setAdapter(adapter);
+
+
+        // You might also want to perform any logic that MainActivity normally does.
+    }
+
+
     private void goToMainActivity(String username) {
-        // Save username to SharedPreferences
         getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
                 .edit()
                 .putString("USERNAME", username)
                 .apply();
-
-        startActivity(new Intent(this, MainActivity.class));
-        finish(); // Close SignupActivity
+        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
+
 
 }
