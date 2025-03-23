@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
         //
         //Inside MainActivity.java's onCreate():
         //
-        //        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
-        //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
         //
         // Set up navigation with NavController
-        //        NavigationUI.setupWithNavController(bottomNav, navController);
+        NavigationUI.setupWithNavController(bottomNav, navController);
         //
         // Override default behavior for "navigation_dashboard" to launch AddMood activity
         //        bottomNav.setOnNavigationItemSelectedListener(item -> {
