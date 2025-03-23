@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+
 import static android.app.Activity.RESULT_OK;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -142,32 +144,14 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             String mood = emojiAdapter.getSelectedEmoji().getName(); // Get selected emoji
 
             TextInputEditText editText = binding.expandableNote.editText;
-            String note = editText.getText().toString();
+            String note = Objects.requireNonNull(editText.getText()).toString();
 
             String people = getSelectedChipText(); // Getting text from 4 options
+            String location = MoodEntry.getLocation();
             int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
             String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : "";
 
             // Creating a new MoodEntry object
-            MoodEntry moodEntry = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUrl);
-
-            moodViewModel.addMoodEntry(moodEntry);
-
-            Navigation.findNavController(v).navigateUp();
-
-            Toast.makeText(getContext(), "Mood Added", Toast.LENGTH_SHORT).show();
-        });
-        // add to firebase when the add button is clicked:
-        binding.btnAdd.setOnClickListener(v -> {
-            // Gather data from your UI elements
-            String dateTime = binding.date.getText().toString();
-            String mood = emojiAdapter.toString();
-            // TODO: change this to the connecting variable
-            String note = MoodEntry.getNote(); // Collect from your UI
-            String people = MoodEntry.getPeople(); // Example value
-            String location = MoodEntry.getLocation(); // Example value
-            int moodIcon = R.drawable.happy; // Example drawable
-            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : ""; // or a valid image resource id
             MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);
 
             // Add to ViewModel
@@ -185,6 +169,19 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
+        // add to firebase when the add button is clicked:
+//        binding.btnAdd.setOnClickListener(v -> {
+//            // Gather data from your UI elements
+//            String dateTime = binding.date.getText().toString();
+//            String mood = emojiAdapter.toString();
+//            // TODO: change this to the connecting variable
+//            String note = MoodEntry.getNote(); // Collect from your UI
+//            String people = MoodEntry.getPeople(); // Example value
+//            String location = MoodEntry.getLocation(); // Example value
+//            int moodIcon = R.drawable.happy; // Example drawable
+//            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : ""; // or a valid image resource id
+//
+//        });
 
         return binding.getRoot();
     }

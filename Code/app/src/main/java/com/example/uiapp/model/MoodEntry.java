@@ -6,7 +6,7 @@ public class MoodEntry implements Serializable {
     private String dateTime;
     private String mood;
 
-    private static String note;
+    private String note;
     private static String people;
     private static String location;
     private String username;
@@ -81,7 +81,7 @@ public class MoodEntry implements Serializable {
     public void setDateTime(String dateTime) { this.dateTime = dateTime; }
     public String getMood() { return mood; }
     public void setMood(String mood) { this.mood = mood; }
-    public static String getNote() { return note; }
+    public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
     public static String getPeople() { return people; }
     public void setPeople(String people) { this.people = people; }
