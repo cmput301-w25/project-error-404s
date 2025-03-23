@@ -82,6 +82,7 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         });
 
         moodList = new ArrayList<>();
+        filteredMoodList = new ArrayList<>(); // Initialize filtered list to avoid NullPointerException
 
 //        moodList.add(new MoodEntry("Yesterday, Feb 13, 2025 | 22:10", "Bored", "Trip, Calgary", "With 1+ person", "Calgary, Alberta", R.drawable.sad_emoji, 0));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
@@ -90,6 +91,7 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
 //        moodAdapter = new MoodAdapter(getContext(), moodList, this,this);
 
+        moodAdapter = new MoodAdapter(getContext(), filteredMoodList, this, this);
         recyclerView.setAdapter(moodAdapter);
 
         //Observe filter changges
@@ -177,6 +179,17 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     @Override
     public void onClickEdit(int position) {
-        Navigation.findNavController(this.getView()).navigate(R.id.action_navigation_home_to_editModeFragment);
+        // Get the selected mood entry by position
+        MoodEntry selectedEntry = filteredMoodList.get(position);
+        
+        // Create a bundle to pass data to EditModeFragment
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("MoodEvent", selectedEntry);
+        
+        // Navigate to edit fragment with the selected mood entry data
+        Navigation.findNavController(requireView()).navigate(
+            R.id.action_navigation_home_to_editModeFragment, 
+            bundle
+        );
     }
 }
