@@ -8,7 +8,7 @@ public class MoodEntry implements Serializable {
 
     private String note;
     private static String people;
-    private static String location;
+    private String location;
     private String username;
     private double latitude;
     private double longitude;
@@ -85,7 +85,7 @@ public class MoodEntry implements Serializable {
     public void setNote(String note) { this.note = note; }
     public static String getPeople() { return people; }
     public void setPeople(String people) { this.people = people; }
-    public static String getLocation() { return location; }
+    public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
     public int getMoodIcon() { return moodIcon; }
     public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }

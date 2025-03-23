@@ -50,6 +50,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import android.util.Log;
+
 public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
     private MoodViewModel moodViewModel;
@@ -66,7 +68,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
-    private Uri selectedImageUrl;
+    private Uri selectedImageUri;
     private boolean hasSelectedImage = false;
 
     /// ///////////////////////////////
@@ -139,49 +141,50 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         // ====================================================================================
         // ADDING MOOD
         binding.btnAdd.setOnClickListener(v -> {
+            try {
+                // Validate emoji selection
+                if (emojiAdapter.getSelectedEmoji() == null) {
+                    Toast.makeText(getContext(), "Please select a mood first", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            String dateTime = binding.date.getText().toString() + " | " + binding.tvTime.getText().toString();
-            String mood = emojiAdapter.getSelectedEmoji().getName(); // Get selected emoji
+                String dateTime = binding.date.getText().toString() + " | " + binding.tvTime.getText().toString();
+                String mood = emojiAdapter.getSelectedEmoji().getName(); // Get selected emoji
 
-            TextInputEditText editText = binding.expandableNote.editText;
-            String note = Objects.requireNonNull(editText.getText()).toString();
+                // Get note text safely
+                String note = "";
+                TextInputEditText editText = binding.expandableNote.editText;
+                if (editText != null && editText.getText() != null) {
+                    note = editText.getText().toString();
+                }
 
-            String people = getSelectedChipText(); // Getting text from 4 options
-            String location = MoodEntry.getLocation();
-            int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
-            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : "";
+                String people = getSelectedChipText(); // Getting text from 4 options
+                int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
+                String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
 
-            // Creating a new MoodEntry object
-            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);
+                // Creating a new MoodEntry object
+                MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri, false);
 
-            // Add to ViewModel
-            moodViewModel.addMoodEntry(newEvent);
+                // Add to ViewModel
+                moodViewModel.addMoodEntry(newEvent);
 
-            // Add the mood event to Firestore
-            moodEventsRef.add(newEvent)
-                    .addOnSuccessListener(documentReference -> {
-                        //set the Firestore-generated ID in your model
-                        newEvent.setFirestoreId(documentReference.getId());
-                        Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(v).navigateUp();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                // Add the mood event to Firestore
+                moodEventsRef.add(newEvent)
+                        .addOnSuccessListener(documentReference -> {
+                            // Set the Firestore-generated ID in the model
+                            newEvent.setFirestoreId(documentReference.getId());
+                            Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
+                            Navigation.findNavController(v).navigateUp();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } catch (Exception e) {
+                Log.e("AddModelFragment", "Error adding mood: " + e.getMessage());
+                Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
         });
-        // add to firebase when the add button is clicked:
-//        binding.btnAdd.setOnClickListener(v -> {
-//            // Gather data from your UI elements
-//            String dateTime = binding.date.getText().toString();
-//            String mood = emojiAdapter.toString();
-//            // TODO: change this to the connecting variable
-//            String note = MoodEntry.getNote(); // Collect from your UI
-//            String people = MoodEntry.getPeople(); // Example value
-//            String location = MoodEntry.getLocation(); // Example value
-//            int moodIcon = R.drawable.happy; // Example drawable
-//            String imageUrl = (selectedImageUrl != null) ? selectedImageUrl.toString() : ""; // or a valid image resource id
-//
-//        });
 
         return binding.getRoot();
     }
@@ -315,7 +318,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                       Uri url = result.getData().getData();
+                        Uri url = result.getData().getData();
                         if (url != null) {
                             try {
 
@@ -330,7 +333,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                                         .load(url)
                                         .centerCrop()
                                         .into(binding.expandablePhoto.imgSelected);
-                                selectedImageUrl = url;
+                                selectedImageUri = url;
 
                             } catch (SecurityException e) {
                                 Toast.makeText(requireContext(), "Permission error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -369,10 +372,10 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 //    }
 
 
-        @Override
-        public void onEmojiClick ( int position){
-            binding.btnAdd.setEnabled(true);
-            binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
+    @Override
+    public void onEmojiClick ( int position){
+        binding.btnAdd.setEnabled(true);
+        binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
 
-        }
     }
+}
