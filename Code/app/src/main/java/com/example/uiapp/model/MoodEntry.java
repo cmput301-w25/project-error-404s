@@ -1,104 +1,125 @@
 package com.example.uiapp.model;
-public class MoodEntry {
+
+import java.io.Serializable;
+
+public class MoodEntry implements Serializable {
     private String dateTime;
     private String mood;
-    private static String note;
-    private static String people;
-    private static String location;
+
+    private String note;
+    private String people;
+    private String location;
+    private String username;
+    private double latitude;
+    private double longitude;
     private int moodIcon;
-    private int imageUrl; // Nullable, only for entries with images
-    private Boolean isHome; // Nullable field
+    private String imageUrl;
+    private Boolean isHome;
     private String moodID;
 
-    // Constructor with isHome as an optional parameter
-    public MoodEntry(String dateTime, String mood, String note, String people, String location, int moodIcon, int imageUrl, Boolean isHome) {
+    // Main constructor
+    public MoodEntry(String dateTime, String mood, String note, String people,
+                     String location, int moodIcon, String imageUri, Boolean isHome) {
         this.dateTime = dateTime;
         this.mood = mood;
         this.note = note;
         this.people = people;
         this.location = location;
         this.moodIcon = moodIcon;
-        this.imageUrl = imageUrl;
-        this.isHome = isHome; // Nullable field
-    }
+        this.imageUri = imageUri;
+
+//        this.isHome = isHome; // Nullable field
+//    }
 
     // Overloaded constructor without isHome (default to null)
-    public MoodEntry(String dateTime, String mood, String note, String people, String location, int moodIcon, int imageUrl) {
-        this(dateTime, mood, note, people, location, moodIcon, imageUrl, null);
-    }
+//    public MoodEntry(String dateTime, String mood, String note, String people, String location, int moodIcon, int imageUrl) {
+//        this(dateTime, mood, note, people, location, moodIcon, imageUrl, null);
+//    }
 
-    public MoodEntry(){
+//    public MoodEntry(){
 
-    }
+//    }
 
     // Getter and Setter for isHome
-    public Boolean getIsHome() {
-        return isHome;
-    }
+//    public Boolean getIsHome() {
+//        return isHome;
+//    }
 
-    public void setIsHome(Boolean isHome) {
+//    public void setIsHome(Boolean isHome) {
+
         this.isHome = isHome;
     }
 
-    // Other getters and setters
-    public String getDateTime() {
-        return dateTime;
+    // Overloaded constructor without isHome
+    public MoodEntry(String dateTime, String mood, String note, String people,
+                     String location, int moodIcon, String imageUri) {
+        this(dateTime, mood, note, people, location, moodIcon, imageUri, null);
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+
+    // Add the missing getter/setter for imageUri
+    public String getImageUrl() {
+        return imageUri;
+
+// Save the following functions in case  
+//    public static String getNote() {
+//        return note;
     }
 
-    public String getMood() {
-        return mood;
+    public void setImageUrl(String imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public void setMood(String mood) {
-        this.mood = mood;
+//    public static String getPeople() {
+//        return people;
+//    }
+
+
+    public Boolean getIsHome() { return isHome; }
+    public void setIsHome(Boolean isHome) { this.isHome = isHome; }
+    public String getDateTime() { return dateTime; }
+    public void setDateTime(String dateTime) { this.dateTime = dateTime; }
+    public String getMood() { return mood; }
+    public void setMood(String mood) { this.mood = mood; }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
+    public String getPeople() { return people; }
+    public void setPeople(String people) { this.people = people; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+    public int getMoodIcon() { return moodIcon; }
+    public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }
+
+
+//    public static String getLocation() {
+//        return location;
+//    }
+
+    public boolean hasLocation() {
+        return latitude != 0 && longitude != 0;
     }
 
-    public static String getNote() {
-        return note;
-    }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
+// saving the functions below in case it is needed  
+//    public int getMoodIcon() {
+//        return moodIcon;
+//    }
 
-    public static String getPeople() {
-        return people;
-    }
+//    public void setMoodIcon(int moodIcon) {
+//        this.moodIcon = moodIcon;
+//    }
 
-    public void setPeople(String people) {
-        this.people = people;
-    }
+//    public int getImageUrl() {
+//        return imageUrl;
+//    }
 
-    public static String getLocation() {
-        return location;
-    }
+//    public void setImageUrl(int imageUrl) {
+//        this.imageUrl = imageUrl;
+//    }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+//    public void setFirestoreId(String ID) { this.moodID = ID;}
 
-    public int getMoodIcon() {
-        return moodIcon;
-    }
+//    public String getFirestoreId() {return moodID;}
+//}
 
-    public void setMoodIcon(int moodIcon) {
-        this.moodIcon = moodIcon;
-    }
-
-    public int getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setFirestoreId(String ID) { this.moodID = ID;}
-
-    public String getFirestoreId() {return moodID;}
 }
-

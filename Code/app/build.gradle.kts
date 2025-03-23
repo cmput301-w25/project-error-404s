@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.google.firebase.firestore)
     testImplementation(libs.junit)
+    implementation(libs.play.services.location)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 }

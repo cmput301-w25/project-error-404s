@@ -62,19 +62,37 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         Toast.makeText(this, "Toastig", Toast.LENGTH_SHORT).show();
 
-        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-                .getString("USERNAME", null);
-        Toast.makeText(this, "after username", Toast.LENGTH_SHORT).show();
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+//            Uri imageUri = data.getData();
+//
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//                binding.expandablePhoto.imgSelected.setImageBitmap(bitmap);  // Set image to ImageView inside CardView
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+//        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+//                .getString("USERNAME", null);
+//        Toast.makeText(this, "after username", Toast.LENGTH_SHORT).show();
 
 
-        if (true) {
-            Toast.makeText(this, "MainToast", Toast.LENGTH_SHORT).show();
-            // Not logged in, redirect to signup/login screen
-            Intent intent = new Intent(this, SignupActivity.class);
-            startActivity(intent);
-            finish(); // Prevent user from going back here
-            return;
-        }
+//        if (true) {
+//            Toast.makeText(this, "MainToast", Toast.LENGTH_SHORT).show();
+//            // Not logged in, redirect to signup/login screen
+//            Intent intent = new Intent(this, SignupActivity.class);
+//            startActivity(intent);
+//            finish(); // Prevent user from going back here
+//            return;
+//        }
+
 
         setContentView(R.layout.activity_signup);
         Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();

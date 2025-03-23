@@ -62,6 +62,13 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
 
     }
 
+    public EmojiModel getSelectedEmoji() {
+        if (selectedPosition != RecyclerView.NO_POSITION) {
+            return emojiList.get(selectedPosition);
+        }
+        return null; // No emoji selected
+    }
+
     @Override
     public int getItemCount() {
         return emojiList.size();
