@@ -8,11 +8,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -29,6 +31,9 @@ import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.model.MoodEntry;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment implements OnItemDeleteClickListener, OnItemEditClickListener {
 
+    private static final String TAG = "HistoryFragment";
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private MoodAdapter moodAdapter;
@@ -43,15 +49,21 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
     private List<MoodEntry> filteredMoodList;
     private HomeViewModel homeViewModel;
     private String currentSearchText = "";
+    
+    // Firebase reference
+    private FirebaseFirestore db;
+    private CollectionReference moodEventsRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        HomeViewModel homeViewModel =
-//                new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         recyclerView = binding.historyRecycler;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance();
+        moodEventsRef = db.collection("MoodEvents");
 
         // Set up search functionality
         EditText searchInput = binding.searchLayout.getEditText();
@@ -67,9 +79,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    //filter(s.toString());
                     currentSearchText = s.toString();
-                    applySearchAndFilters();//
+                    applySearchAndFilters();
                 }
             });
         }
@@ -84,52 +95,109 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         moodList = new ArrayList<>();
         filteredMoodList = new ArrayList<>(); // Initialize filtered list to avoid NullPointerException
 
-//        moodList.add(new MoodEntry("Yesterday, Feb 13, 2025 | 22:10", "Bored", "Trip, Calgary", "With 1+ person", "Calgary, Alberta", R.drawable.sad_emoji, 0));
-//        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
-//        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
-//        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, 0));
-//        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
-//        moodAdapter = new MoodAdapter(getContext(), moodList, this,this);
-
+        // Initialize adapter with empty list
         moodAdapter = new MoodAdapter(getContext(), filteredMoodList, this, this);
         recyclerView.setAdapter(moodAdapter);
 
-        //Observe filter changges
+        // Load data from Firebase
+        loadMoodEntriesFromFirebase();
+
+        // Observe filter changes
         homeViewModel.getFiltersApplied().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 applySearchAndFilters();
             }
         });
-        View root = binding.getRoot();
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        
+        return binding.getRoot();
+    }
+
+    private void loadMoodEntriesFromFirebase() {
+        moodEventsRef.get()
+            .addOnSuccessListener(queryDocumentSnapshots -> {
+                moodList.clear();
+                
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    try {
+                        // Get data from document
+                        String dateTime = document.getString("dateTime");
+                        String mood = document.getString("mood");
+                        String note = document.getString("note");
+                        String people = document.getString("people");
+                        String location = document.getString("location");
+                        Long moodIconLong = document.getLong("moodIcon");
+                        String imageUrl = document.getString("imageUrl");
+                        Boolean isHome = document.getBoolean("isHome");
+                        
+                        // Create MoodEntry with retrieved data
+                        if (dateTime != null && mood != null) {
+                            int moodIcon = moodIconLong != null ? moodIconLong.intValue() : 0;
+                            MoodEntry entry = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, isHome);
+                            entry.setFirestoreId(document.getId());
+                            moodList.add(entry);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error parsing document: " + e.getMessage());
+                    }
+                }
+                
+                // Apply filters and update UI
+                applySearchAndFilters();
+                
+                // Show empty state or content
+                updateEmptyState();
+            })
+            .addOnFailureListener(e -> {
+                Log.e(TAG, "Error getting documents: " + e.getMessage());
+                Toast.makeText(getContext(), "Failed to load mood history", Toast.LENGTH_SHORT).show();
+            });
+    }
+    
+    private void updateEmptyState() {
+        // Show empty state if no data
+        if (moodList.isEmpty()) {
+            // If you have an empty state view, show it here
+            // binding.emptyStateView.setVisibility(View.VISIBLE);
+            // binding.recyclerView.setVisibility(View.GONE);
+        } else {
+            // binding.emptyStateView.setVisibility(View.GONE);
+            // binding.recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void applySearchAndFilters() {
-        // First apply the mood and date filters from ViewModel
-        List<MoodEntry> filteredByMoodAndDate = homeViewModel.applyFilters(moodList);
+        try {
+            // First apply the mood and date filters from ViewModel
+            List<MoodEntry> filteredByMoodAndDate = homeViewModel.applyFilters(moodList);
 
-        // Then apply the search text filter
-        filteredMoodList.clear();
-        if (currentSearchText.isEmpty()) {
-            filteredMoodList.addAll(filteredByMoodAndDate);
-        } else {
-            String searchText = currentSearchText.toLowerCase();
-            // Iterate through each entry of filteredByMoodAndDate 
-            for (MoodEntry entry : filteredByMoodAndDate) {
-                // Check if the search text exists in any of the entry's text fields:
-                if (entry.getMood().toLowerCase().contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
-                entry.getNote().toLowerCase().contains(searchText) ||               // 2. Mood's reason "Note"
-                entry.getLocation().toLowerCase().contains(searchText) ||           // 3. GeoLoaction (Not used in the current version)
-                        entry.getPeople().toLowerCase().contains(searchText)) {     // 4. People
-                    // If any of the fields contain the search text, add this entry to the filtered list
-                    filteredMoodList.add(entry);
+            // Then apply the search text filter
+            filteredMoodList.clear();
+            if (currentSearchText.isEmpty()) {
+                filteredMoodList.addAll(filteredByMoodAndDate);
+            } else {
+                String searchText = currentSearchText.toLowerCase();
+                // Iterate through each entry of filteredByMoodAndDate 
+                for (MoodEntry entry : filteredByMoodAndDate) {
+                    // Check if the search text exists in any of the entry's text fields with null checks
+                    boolean moodMatches = entry.getMood() != null && entry.getMood().toLowerCase().contains(searchText);
+                    boolean noteMatches = entry.getNote() != null && entry.getNote().toLowerCase().contains(searchText);
+                    boolean locationMatches = entry.getLocation() != null && entry.getLocation().toLowerCase().contains(searchText);
+                    boolean peopleMatches = entry.getPeople() != null && entry.getPeople().toLowerCase().contains(searchText);
+                    
+                    if (moodMatches || noteMatches || locationMatches || peopleMatches) {
+                        // If any of the fields contain the search text, add this entry to the filtered list
+                        filteredMoodList.add(entry);
+                    }
                 }
             }
+            
+            if (moodAdapter != null) {
+                moodAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error applying filters: " + e.getMessage());
         }
-        moodAdapter.notifyDataSetChanged();
     }
 
     private void filter(String text){
@@ -145,8 +213,9 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     @Override
     public void onClickDelete(int position) {
-        showDeleteDialog(position);
-
+        if (position >= 0 && position < filteredMoodList.size()) {
+            showDeleteDialog(position);
+        }
     }
 
     private void showDeleteDialog(int position) {
@@ -163,14 +232,37 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
         // Delete button click listener
         btnDelete.setOnClickListener(view -> {
-            // Model/Data Layer: Update the data
-            MoodEntry entryToDelete = filteredMoodList.get(position);               // Referring the mood gonna be deleted by (int position)
-            moodList.remove(entryToDelete);                                         // Remove from the original list to delete
-            filteredMoodList.remove(position);                                      // Remove from the filtered list
-            // View/UI Layer: Update the view
-            moodAdapter.notifyItemRemoved(position);                                // Notify the item removed to adapter
-            moodAdapter.notifyItemRangeChanged(position, filteredMoodList.size());  // Notify data changed to adpter
-            // View/UI Layer: Close the confirmation dialog
+            try {
+                // Model/Data Layer: Update the data
+                MoodEntry entryToDelete = filteredMoodList.get(position);
+                
+                // Delete from Firestore if it has an ID
+                if (entryToDelete.getFirestoreId() != null && !entryToDelete.getFirestoreId().isEmpty()) {
+                    moodEventsRef.document(entryToDelete.getFirestoreId())
+                        .delete()
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Mood entry deleted from Firestore");
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Error deleting from Firestore: " + e.getMessage());
+                        });
+                }
+                
+                // Remove from local lists
+                moodList.remove(entryToDelete);
+                filteredMoodList.remove(position);
+                
+                // View/UI Layer: Update the view
+                moodAdapter.notifyItemRemoved(position);
+                moodAdapter.notifyItemRangeChanged(position, filteredMoodList.size());
+                
+                // Update empty state
+                updateEmptyState();
+            } catch (Exception e) {
+                Log.e(TAG, "Error during delete: " + e.getMessage());
+            }
+            
+            // Close the confirmation dialog
             dialog.dismiss();
         });
 
@@ -179,17 +271,24 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     @Override
     public void onClickEdit(int position) {
-        // Get the selected mood entry by position
-        MoodEntry selectedEntry = filteredMoodList.get(position);
-        
-        // Create a bundle to pass data to EditModeFragment
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("MoodEvent", selectedEntry);
-        
-        // Navigate to edit fragment with the selected mood entry data
-        Navigation.findNavController(requireView()).navigate(
-            R.id.action_navigation_home_to_editModeFragment, 
-            bundle
-        );
+        try {
+            if (position >= 0 && position < filteredMoodList.size()) {
+                // Get the selected mood entry by position
+                MoodEntry selectedEntry = filteredMoodList.get(position);
+                
+                // Create a bundle to pass data to EditModeFragment
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("moodEntry", selectedEntry);
+                
+                // Navigate to edit fragment with the selected mood entry data
+                Navigation.findNavController(requireView()).navigate(
+                    R.id.action_navigation_home_to_editModeFragment, 
+                    bundle
+                );
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error navigating to edit: " + e.getMessage());
+            Toast.makeText(getContext(), "Failed to open edit screen", Toast.LENGTH_SHORT).show();
+        }
     }
 }
