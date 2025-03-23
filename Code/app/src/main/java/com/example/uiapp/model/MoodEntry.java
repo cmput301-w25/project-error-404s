@@ -6,14 +6,14 @@ public class MoodEntry implements Serializable {
     private String dateTime;
     private String mood;
 
-    private String note;
-    private String people;
-    private String location;
+    private static String note;
+    private static String people;
+    private static String location;
     private String username;
     private double latitude;
     private double longitude;
     private int moodIcon;
-    private String imageUrl;
+    private String imageUri;
     private Boolean isHome;
     private String moodID;
 
@@ -81,11 +81,11 @@ public class MoodEntry implements Serializable {
     public void setDateTime(String dateTime) { this.dateTime = dateTime; }
     public String getMood() { return mood; }
     public void setMood(String mood) { this.mood = mood; }
-    public String getNote() { return note; }
+    public static String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
-    public String getPeople() { return people; }
+    public static String getPeople() { return people; }
     public void setPeople(String people) { this.people = people; }
-    public String getLocation() { return location; }
+    public static String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
     public int getMoodIcon() { return moodIcon; }
     public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }
@@ -117,9 +117,9 @@ public class MoodEntry implements Serializable {
 //        this.imageUrl = imageUrl;
 //    }
 
-//    public void setFirestoreId(String ID) { this.moodID = ID;}
+    public void setFirestoreId(String ID) { this.moodID = ID;}
 
-//    public String getFirestoreId() {return moodID;}
+    public String getFirestoreId() {return moodID;}
 //}
 
 }

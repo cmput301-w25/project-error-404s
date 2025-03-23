@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-//        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-//                .getString("USERNAME", null);
+        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+               .getString("USERNAME", null);
 //        Toast.makeText(this, "after username", Toast.LENGTH_SHORT).show();
 
 

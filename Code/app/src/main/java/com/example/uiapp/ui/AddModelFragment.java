@@ -171,7 +171,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             String location = MoodEntry.getLocation(); // Example value
             int moodIcon = R.drawable.happy; // Example drawable
             int imageUrl = 0; // or a valid image resource id
-            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, false);
+            MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, location, moodIcon, selectedImageUri.toString(), false);
 
             // Add the mood event to Firestore
             moodEventsRef.add(newEvent)
