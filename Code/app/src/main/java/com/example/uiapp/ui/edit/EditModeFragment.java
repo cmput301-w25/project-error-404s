@@ -77,8 +77,8 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         binding = FragmentEditModeBinding.inflate(inflater, container, false);
         
         // Get the MoodEntry passed from HistoryFragment
-        if (getArguments() != null && getArguments().containsKey("MoodEvent")) {
-            moodEntryToEdit = (MoodEntry) getArguments().getSerializable("MoodEvent");
+        if (getArguments() != null && getArguments().containsKey("moodEntry")) {
+            moodEntryToEdit = (MoodEntry) getArguments().getSerializable("moodEntry");
         }
         
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
