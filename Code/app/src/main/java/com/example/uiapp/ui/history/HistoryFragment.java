@@ -153,6 +153,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
                                 int moodIcon = moodIconLong != null ? moodIconLong.intValue() : 0;
                                 MoodEntry entry = new MoodEntry(dateTime, mood, note, people, location, moodIcon, imageUrl, isHome);
                                 entry.setFirestoreId(document.getId());
+                                // Force isHome to null to ensure buttons are visible
+                                entry.setIsHome(null);
                                 moodList.add(entry);
                             }
                         } catch (Exception e) {
