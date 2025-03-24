@@ -14,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * ViewModel for managing mood history data and filtering operations.
+ * Handles mood and date filters, and maintains the UI state.
+ */
 public class HomeViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
@@ -30,6 +34,9 @@ public class HomeViewModel extends ViewModel {
         return mText;
     }
 
+    /**
+     * Updates mood and date filters and marks filters as applied.
+     */
     public void setFilters(String mood, String date) {
         moodFilter.setValue(mood);
         dateFilter.setValue(date);
@@ -48,23 +55,45 @@ public class HomeViewModel extends ViewModel {
         return filtersApplied;
     }
 
+    /**
+     * Resets all filters to their default empty state.
+     */
     public void clearFilters() {
         moodFilter.setValue("");
         dateFilter.setValue("");
         filtersApplied.setValue(false);
     }
 
+    /**
+     * Applies mood and date filters to the provided list of mood entries.
+     * Includes null safety checks and handles empty filter cases.
+     * Returns filtered list or original list if no filters are applied.
+     */
     public List<MoodEntry> applyFilters(List<MoodEntry> originalList) {
-        if (!filtersApplied.getValue()) {
+        // Handle null input list
+        if (originalList == null) {
+            return new ArrayList<>();
+        }
+        
+        // If no filters are applied, return the original list
+        if (filtersApplied == null || !filtersApplied.getValue()) {
             return originalList;
         }
 
         List<MoodEntry> filteredList = new ArrayList<>();
-        String mood = moodFilter.getValue();
-        String date = dateFilter.getValue();
+        String mood = moodFilter.getValue() != null ? moodFilter.getValue() : "";
+        String date = dateFilter.getValue() != null ? dateFilter.getValue() : "";
 
         for (MoodEntry entry : originalList) {
-            boolean moodMatches = mood.isEmpty() || entry.getMood().equals(mood);
+            // Skip null entries
+            if (entry == null) {
+                continue;
+            }
+            
+            // Get mood safely
+            String entryMood = entry.getMood() != null ? entry.getMood() : "";
+            
+            boolean moodMatches = mood.isEmpty() || entryMood.equals(mood);
             boolean dateMatches = isDateInRange(entry.getDateTime(), date);
 
             if (moodMatches && dateMatches) {
@@ -75,8 +104,14 @@ public class HomeViewModel extends ViewModel {
         return filteredList;
     }
 
+    /**
+     * Checks if a given date falls within the selected date filter range.
+     * Handles both "Yesterday" and standard date formats.
+     * Returns true if date is in range or if any input is invalid.
+     */
     private boolean isDateInRange(String dateTimeStr, String dateFilter) {
-        if (dateFilter.isEmpty()) {
+        // Handle null or empty inputs
+        if (dateTimeStr == null || dateTimeStr.isEmpty() || dateFilter == null || dateFilter.isEmpty()) {
             return true;
         }
 

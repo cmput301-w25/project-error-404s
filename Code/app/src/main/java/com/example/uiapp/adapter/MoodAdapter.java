@@ -59,8 +59,19 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         holder.txtLocation.setText(entry.getLocation());
         holder.imgMood.setImageResource(entry.getMoodIcon());
 
-        holder.btnDelete.setOnClickListener(v -> onItemDeleteClickListener.onClickDelete(position));
-        holder.btnEdit.setOnClickListener(v -> onItemEditClickListener.onClickEdit(position));
+        // Check if delete listener is null to prevent NullPointerException
+        if (onItemDeleteClickListener != null) {
+            holder.btnDelete.setOnClickListener(v -> onItemDeleteClickListener.onClickDelete(position));
+        } else {
+            holder.btnDelete.setOnClickListener(null);
+        }
+        
+        // Check if edit listener is null to prevent NullPointerException
+        if (onItemEditClickListener != null) {
+            holder.btnEdit.setOnClickListener(v -> onItemEditClickListener.onClickEdit(position));
+        } else {
+            holder.btnEdit.setOnClickListener(null);
+        }
 
         if (entry.getIsHome() == null) {
             holder.btnEdit.setVisibility(View.VISIBLE);

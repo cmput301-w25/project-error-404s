@@ -34,6 +34,10 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment responsible for displaying the mood history list.
+ * Implements delete and edit functionality for mood entries.
+ */
 public class HistoryFragment extends Fragment implements OnItemDeleteClickListener, OnItemEditClickListener {
 
     private FragmentHomeBinding binding;
@@ -44,14 +48,20 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
     private HomeViewModel homeViewModel;
     private String currentSearchText = "";
 
+    /**
+     * Creates and initializes the history view.
+     * Sets up UI components, search functionality, and data observers.
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        HomeViewModel homeViewModel =
-//                new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         recyclerView = binding.historyRecycler;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize lists
+        moodList = new ArrayList<>();
+        filteredMoodList = new ArrayList<>();
 
         // Set up search functionality
         EditText searchInput = binding.searchLayout.getEditText();
@@ -81,18 +91,18 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             }
         });
 
-        moodList = new ArrayList<>();
-
+        // Sample data for testing - can remove later
 //        moodList.add(new MoodEntry("Yesterday, Feb 13, 2025 | 22:10", "Bored", "Trip, Calgary", "With 1+ person", "Calgary, Alberta", R.drawable.sad_emoji, 0));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, 0));
 //        moodList.add(new MoodEntry("Sun, Feb 9, 2025 | 15:32", "Happy", "Family, trip, Banff", "With 2+ person", "Banff, Alberta", R.drawable.happy, R.drawable.example_image));
-//        moodAdapter = new MoodAdapter(getContext(), moodList, this,this);
 
+        // Initialize adapter with proper listeners
+        moodAdapter = new MoodAdapter(getContext(), filteredMoodList, this, this);
         recyclerView.setAdapter(moodAdapter);
 
-        //Observe filter changges
+        //Observe filter changes
         homeViewModel.getFiltersApplied().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -105,31 +115,60 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         return root;
     }
 
+    /**
+     * Applies both search text and filter criteria to the mood list.
+     * Handles both filtering by mood/date from ViewModel and text searching.
+     * Includes safety checks for null values to prevent crashes.
+     */
     private void applySearchAndFilters() {
+        // Check if lists are initialized
+        if (moodList == null || filteredMoodList == null) {
+            return;
+        }
+        
         // First apply the mood and date filters from ViewModel
         List<MoodEntry> filteredByMoodAndDate = homeViewModel.applyFilters(moodList);
 
         // Then apply the search text filter
         filteredMoodList.clear();
+        
+        if (filteredByMoodAndDate == null) {
+            // If the ViewModel returns null, use the original list
+            filteredByMoodAndDate = new ArrayList<>(moodList);
+        }
+        
         if (currentSearchText.isEmpty()) {
             filteredMoodList.addAll(filteredByMoodAndDate);
         } else {
             String searchText = currentSearchText.toLowerCase();
             // Iterate through each entry of filteredByMoodAndDate 
             for (MoodEntry entry : filteredByMoodAndDate) {
+                // Check for null values in entry fields
+                String mood = entry.getMood() != null ? entry.getMood().toLowerCase() : "";
+                String note = entry.getNote() != null ? entry.getNote().toLowerCase() : "";
+                String location = entry.getLocation() != null ? entry.getLocation().toLowerCase() : "";
+                String people = entry.getPeople() != null ? entry.getPeople().toLowerCase() : "";
+                
                 // Check if the search text exists in any of the entry's text fields:
-                if (entry.getMood().toLowerCase().contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
-                entry.getNote().toLowerCase().contains(searchText) ||               // 2. Mood's reason "Note"
-                entry.getLocation().toLowerCase().contains(searchText) ||           // 3. GeoLoaction (Not used in the current version)
-                        entry.getPeople().toLowerCase().contains(searchText)) {     // 4. People
+                if (mood.contains(searchText) ||           // 1. Mood, ("Happy", "Sad")
+                    note.contains(searchText) ||           // 2. Mood's reason "Note"
+                    location.contains(searchText) ||       // 3. GeoLoaction (Not used in the current version)
+                    people.contains(searchText)) {         // 4. People
                     // If any of the fields contain the search text, add this entry to the filtered list
                     filteredMoodList.add(entry);
                 }
             }
         }
-        moodAdapter.notifyDataSetChanged();
+        
+        // Notify adapter only if it's initialized
+        if (moodAdapter != null) {
+            moodAdapter.notifyDataSetChanged();
+        }
     }
 
+    /**
+     *  Helper method to filter by text and trigger search/filter application.
+     */
     private void filter(String text){
         currentSearchText = text;
         applySearchAndFilters();
@@ -141,12 +180,19 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         binding = null;
     }
 
+    /**
+     * Implementation of OnItemDeleteClickListener interface.
+     * Shows a confirmation dialog when delete is requested.
+     */
     @Override
     public void onClickDelete(int position) {
         showDeleteDialog(position);
-
     }
 
+    /**
+     * Displays a confirmation dialog for deleting a mood entry.
+     * Handles both UI updates and data model changes on confirmation.
+     */
     private void showDeleteDialog(int position) {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_delete_confirmation);
@@ -175,6 +221,10 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         dialog.show();
     }
 
+    /**
+     * Implementation of OnItemEditClickListener interface.
+     * Navigates to the edit fragment when edit is requested.
+     */
     @Override
     public void onClickEdit(int position) {
         Navigation.findNavController(this.getView()).navigate(R.id.action_navigation_home_to_editModeFragment);
