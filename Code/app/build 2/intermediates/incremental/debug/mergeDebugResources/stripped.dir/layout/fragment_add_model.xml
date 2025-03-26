@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    tools:context=".ui.AddModelFragment">
+
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/round_arrow_back_ios_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Add Mood"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+
+        </RelativeLayout>
+    </Toolbar>
+
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp"
+                app:strokeWidth="0dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="8dp"
+
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar" />
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="6dp"
+                        android:text="Today, Feb 14, 2025"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:src="@drawable/time_circle"
+                        android:textColor="@color/black"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="6dp"
+                        android:text="22:10"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+
+                        />
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp"
+                app:strokeWidth="0dp"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="6dp"
+                        android:text="How are you feeling today?"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/emoji_layout"
+                        android:layout_marginTop="8dp" />
+
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <include
+                android:id="@+id/expandableNote"
+                layout="@layout/expandable_note" />
+
+            <include
+                android:id="@+id/expandablePhoto"
+                layout="@layout/expandable_photo" />
+
+            <include
+                android:id="@+id/expandablePeople"
+                layout="@layout/expandable_people" />
+
+            <include
+                android:id="@+id/expandableLocation"
+                layout="@layout/expandable_location" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/light_piurple"
+                android:enabled="false"
+                android:padding="14dp"
+                android:text="Add"
+                android:textColor="@color/white"
+                app:cornerRadius="15dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

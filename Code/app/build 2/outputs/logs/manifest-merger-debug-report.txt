@@ -1,0 +1,718 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:2:1-40:12
+MERGED from [androidx.databinding:viewbinding:8.9.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fa76079a3053350dc4538014f6f13833/transformed/viewbinding-8.9.1/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-common:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6699a8dc4ebeddda526410041f347425/transformed/navigation-common-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/890cd7f2bc2481036b30a5a3db00c23a/transformed/navigation-runtime-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-fragment:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/811993ebfa4fe99e44ec266db5419669/transformed/navigation-fragment-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-ui:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/762b84187dff450e7fe8ea777976fcbd/transformed/navigation-ui-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.material:material:1.12.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6b9c1bec33104b53638a2f8781732137/transformed/material-1.12.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6f468b914be738ba719271c863984a7c/transformed/constraintlayout-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/9419604d7720607cba3b3971e228c526/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.appcompat:appcompat:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/77aae6b9367313766296e817633f27b8/transformed/appcompat-1.7.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:17:1-75:12
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/34f6389ec11072e068ea8108443e5c4a/transformed/glide-4.16.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3a1abe1d96f0fd5cfe661c1a9bcc8aec/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fc00957da6c033aa62eaeb01f3004759/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72e0b47f570649021274540ac84fd04f/transformed/play-services-location-21.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/14f10c4a402bc8c4995cc83ad1d01d25/transformed/credentials-1.2.0-rc01/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:17:1-44:12
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/309027c49725a72a03221c4d4a49083e/transformed/play-services-auth-api-phone-18.0.2/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.play:integrity:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b963fe7bffe107aa9b28cf2ad2a15976/transformed/integrity-1.3.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c1f3deafaadc30c2334095418b4fc766/transformed/firebase-appcheck-interop-17.0.0/AndroidManifest.xml:15:1-25:12
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f403576cd9c0283dc2bdd5253f879d04/transformed/firebase-auth-interop-20.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:2:1-18:12
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:15:1-41:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8f98adb89677fa4ce5da0189f2a9c27b/transformed/firebase-database-collection-18.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bb5f3f894d7b558489e701c72b1df5f4/transformed/play-services-fido-20.1.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7a79b1b8a091135f8a9e69c8220c8821/transformed/play-services-auth-base-18.0.4/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:16:1-24:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f299aec991460f0397076fc2b4dc62d2/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.activity:activity-ktx:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/230e0bc46a74061290c788e3d1de62f4/transformed/activity-ktx-1.10.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0380a13763967c1ba53cd137a43c2e29/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4a377e86f0d9ad58640d87658260101d/transformed/savedstate-1.2.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/37847aaa3f9181c115e0a8abe1582ea9/transformed/core-ktx-1.13.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bd0e0ca061356c939c666e764f43f02b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cca6621279dc37dd5d060200c41ad698/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2ef5c6b668caae8c38c1661f388e00e/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.5.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fca39eee60dde0191336870c13d79722/transformed/transition-1.5.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/da8b97942350eea21315ae3fce46225c/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2ea2c20865d53275d09d029b15d87008/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a67e8579112416730ae0177413ad4fdf/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3ab0a711a31df3bd56c4371f3ca2d229/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/11b20c0a6e0990496e57bf21ed3364a1/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fde065103da6697045bbd6762fbb3a9e/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/1acc09a3aae0efab08e8f1b95afe1fa1/transformed/browser-1.4.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe4e504402e01917c343311aec0bcb63/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2f89f2e40ac5ed516d2a20252d282e6/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a560c48db272bc25d2c7087d96a1346e/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/95230c750c8f56d264ba175647d5b69f/transformed/lifecycle-viewmodel-2.8.7/AndroidManifest.xml:2:1-5:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b86c35152282dcfb38121d33f4d4bfbe/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f9e2f2b8d4a05615121183a8aa984581/transformed/lifecycle-runtime-release/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/16107b71b1d60bfb68c8b672de4669f5/transformed/lifecycle-livedata-core-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/57b6b73ac713017c210d13431f9f7e43/transformed/lifecycle-livedata-core-ktx-2.8.7/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3b5a77580aa17ef156a843541a868595/transformed/lifecycle-livedata-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c051207881f3172214331c7dc7864f9d/transformed/lifecycle-viewmodel-savedstate-2.8.7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/dd508e48707069cb0a61f5533969aeea/transformed/lifecycle-livedata-ktx-2.8.7/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d63fdb7b0158d241d79a1fbfa4407e21/transformed/lifecycle-viewmodel-ktx-2.8.7/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/afd40cd8c549aa7258dc64db89b2e8e8/transformed/play-services-tasks-18.2.0/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.fragment:fragment:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/efe78028736b8664d6e47af9340a996e/transformed/fragment-1.6.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29f769c460bfead9946a419de9726e31/transformed/activity-1.10.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/5e499a61462040e4ad35b6d811bb2793/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f04d4fec347a9890d6ea3f52d6ee28bf/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4d42090342f09e0d4ac589b5b70d7e02/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/12f1f8d404f1be5cb3b77a7e1f2154aa/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4cc0ac1d2f5ba436cbcb46ebc6f03387/transformed/firebase-components-18.0.0/AndroidManifest.xml:15:1-20:12
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ebe415ecf75422b89de6435942083e6f/transformed/gifdecoder-4.16.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6af2e37a790365bd84e5e0f39ea38006/transformed/exifinterface-1.3.6/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe5d9c40eda53ef9f7fff81ec8acecd3/transformed/core-runtime-2.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2683f45966699db3ed6dbd92d166dae0/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/924da798f431e1bbbd0a0fd9a535d967/transformed/sqlite-2.4.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/e3fd8dbd76d0fd589f2d66cef33bdfe6/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c46f9b945bf37b615b28b9f28b8f6142/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3044b4a742a6f5344c46f0dce4ccfa5a/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b1e5d0841a20e6489e65d6fe1f5738a8/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cdf662e788b9c8d4874a7637692d2bf9/transformed/annotation-experimental-1.4.1/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c3b82699b3e82f0ec1b03239aefca423/transformed/googleid-1.1.0/AndroidManifest.xml:2:1-7:12
+MERGED from [io.grpc:grpc-android:1.62.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0a0953a53a553760e8816b46d9614769/transformed/grpc-android-1.62.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72eac6e732d45ef4b26b2ed786598765/transformed/protolite-well-known-types-18.0.1/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:2:1-21:12
+	package
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:5:5-80
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:5:22-77
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:6:5-81
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:6:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:7:22-76
+application
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:9:5-38:19
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:9:5-38:19
+MERGED from [com.google.android.material:material:1.12.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6b9c1bec33104b53638a2f8781732137/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.12.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6b9c1bec33104b53638a2f8781732137/transformed/material-1.12.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6f468b914be738ba719271c863984a7c/transformed/constraintlayout-2.2.0/AndroidManifest.xml:7:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6f468b914be738ba719271c863984a7c/transformed/constraintlayout-2.2.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72e0b47f570649021274540ac84fd04f/transformed/play-services-location-21.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72e0b47f570649021274540ac84fd04f/transformed/play-services-location-21.0.1/AndroidManifest.xml:7:5-20
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:23:5-42:19
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:23:5-42:19
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.play:integrity:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b963fe7bffe107aa9b28cf2ad2a15976/transformed/integrity-1.3.0/AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.android.play:integrity:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b963fe7bffe107aa9b28cf2ad2a15976/transformed/integrity-1.3.0/AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c1f3deafaadc30c2334095418b4fc766/transformed/firebase-appcheck-interop-17.0.0/AndroidManifest.xml:23:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c1f3deafaadc30c2334095418b4fc766/transformed/firebase-appcheck-interop-17.0.0/AndroidManifest.xml:23:5-20
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f403576cd9c0283dc2bdd5253f879d04/transformed/firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f403576cd9c0283dc2bdd5253f879d04/transformed/firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:22:5-39:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:22:5-39:19
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bb5f3f894d7b558489e701c72b1df5f4/transformed/play-services-fido-20.1.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bb5f3f894d7b558489e701c72b1df5f4/transformed/play-services-fido-20.1.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:19:5-23:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
+MERGED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/afd40cd8c549aa7258dc64db89b2e8e8/transformed/play-services-tasks-18.2.0/AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/afd40cd8c549aa7258dc64db89b2e8e8/transformed/play-services-tasks-18.2.0/AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:5:5-7:19
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:5:5-7:19
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c46f9b945bf37b615b28b9f28b8f6142/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c46f9b945bf37b615b28b9f28b8f6142/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:24:5-25:19
+MERGED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:11:5-19:19
+MERGED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:11:5-19:19
+	android:extractNativeLibs
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:16:9-35
+	android:label
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:14:9-41
+	android:windowSoftInputMode
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:18:9-51
+	android:fullBackupContent
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:12:9-54
+	android:roundIcon
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:15:9-54
+	tools:targetApi
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:19:9-29
+	android:icon
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:13:9-43
+	android:allowBackup
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:10:9-35
+	android:theme
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:17:9-43
+	android:dataExtractionRules
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:11:9-65
+activity#com.example.uiapp.MainActivity
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:22:9-30:20
+	android:label
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:25:13-62
+	android:exported
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:24:13-36
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:23:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:26:13-29:29
+action#android.intent.action.MAIN
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:27:17-69
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:27:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:28:17-77
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:28:27-74
+activity#com.example.uiapp.ui.profile.SignupActivity
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:31:9-63
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:31:19-60
+activity#com.example.uiapp.BottomNavActivity
+ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:35:9-37:40
+	android:exported
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:37:13-37
+	android:name
+		ADDED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml:36:13-46
+uses-sdk
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:8.9.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fa76079a3053350dc4538014f6f13833/transformed/viewbinding-8.9.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.9.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fa76079a3053350dc4538014f6f13833/transformed/viewbinding-8.9.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-common:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6699a8dc4ebeddda526410041f347425/transformed/navigation-common-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6699a8dc4ebeddda526410041f347425/transformed/navigation-common-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/890cd7f2bc2481036b30a5a3db00c23a/transformed/navigation-runtime-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/890cd7f2bc2481036b30a5a3db00c23a/transformed/navigation-runtime-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/811993ebfa4fe99e44ec266db5419669/transformed/navigation-fragment-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/811993ebfa4fe99e44ec266db5419669/transformed/navigation-fragment-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-ui:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/762b84187dff450e7fe8ea777976fcbd/transformed/navigation-ui-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-ui:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/762b84187dff450e7fe8ea777976fcbd/transformed/navigation-ui-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6b9c1bec33104b53638a2f8781732137/transformed/material-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6b9c1bec33104b53638a2f8781732137/transformed/material-1.12.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6f468b914be738ba719271c863984a7c/transformed/constraintlayout-2.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6f468b914be738ba719271c863984a7c/transformed/constraintlayout-2.2.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/9419604d7720607cba3b3971e228c526/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/9419604d7720607cba3b3971e228c526/transformed/appcompat-resources-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/77aae6b9367313766296e817633f27b8/transformed/appcompat-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/77aae6b9367313766296e817633f27b8/transformed/appcompat-1.7.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:21:5-23:151
+MERGED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:21:5-23:151
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/34f6389ec11072e068ea8108443e5c4a/transformed/glide-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:glide:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/34f6389ec11072e068ea8108443e5c4a/transformed/glide-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3a1abe1d96f0fd5cfe661c1a9bcc8aec/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3a1abe1d96f0fd5cfe661c1a9bcc8aec/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fc00957da6c033aa62eaeb01f3004759/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fc00957da6c033aa62eaeb01f3004759/transformed/fragment-ktx-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72e0b47f570649021274540ac84fd04f/transformed/play-services-location-21.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72e0b47f570649021274540ac84fd04f/transformed/play-services-location-21.0.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/14f10c4a402bc8c4995cc83ad1d01d25/transformed/credentials-1.2.0-rc01/AndroidManifest.xml:5:5-44
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/14f10c4a402bc8c4995cc83ad1d01d25/transformed/credentials-1.2.0-rc01/AndroidManifest.xml:5:5-44
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:21:5-44
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:21:5-44
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/309027c49725a72a03221c4d4a49083e/transformed/play-services-auth-api-phone-18.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/309027c49725a72a03221c4d4a49083e/transformed/play-services-auth-api-phone-18.0.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.play:integrity:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b963fe7bffe107aa9b28cf2ad2a15976/transformed/integrity-1.3.0/AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.play:integrity:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b963fe7bffe107aa9b28cf2ad2a15976/transformed/integrity-1.3.0/AndroidManifest.xml:4:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c1f3deafaadc30c2334095418b4fc766/transformed/firebase-appcheck-interop-17.0.0/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c1f3deafaadc30c2334095418b4fc766/transformed/firebase-appcheck-interop-17.0.0/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f403576cd9c0283dc2bdd5253f879d04/transformed/firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f403576cd9c0283dc2bdd5253f879d04/transformed/firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8f98adb89677fa4ce5da0189f2a9c27b/transformed/firebase-database-collection-18.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8f98adb89677fa4ce5da0189f2a9c27b/transformed/firebase-database-collection-18.0.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bb5f3f894d7b558489e701c72b1df5f4/transformed/play-services-fido-20.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bb5f3f894d7b558489e701c72b1df5f4/transformed/play-services-fido-20.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7a79b1b8a091135f8a9e69c8220c8821/transformed/play-services-auth-base-18.0.4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7a79b1b8a091135f8a9e69c8220c8821/transformed/play-services-auth-base-18.0.4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:18:5-43
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f299aec991460f0397076fc2b4dc62d2/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f299aec991460f0397076fc2b4dc62d2/transformed/emoji2-views-helper-1.3.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.activity:activity-ktx:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/230e0bc46a74061290c788e3d1de62f4/transformed/activity-ktx-1.10.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/230e0bc46a74061290c788e3d1de62f4/transformed/activity-ktx-1.10.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0380a13763967c1ba53cd137a43c2e29/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0380a13763967c1ba53cd137a43c2e29/transformed/savedstate-ktx-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4a377e86f0d9ad58640d87658260101d/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4a377e86f0d9ad58640d87658260101d/transformed/savedstate-1.2.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/37847aaa3f9181c115e0a8abe1582ea9/transformed/core-ktx-1.13.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/37847aaa3f9181c115e0a8abe1582ea9/transformed/core-ktx-1.13.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bd0e0ca061356c939c666e764f43f02b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/bd0e0ca061356c939c666e764f43f02b/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cca6621279dc37dd5d060200c41ad698/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cca6621279dc37dd5d060200c41ad698/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2ef5c6b668caae8c38c1661f388e00e/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2ef5c6b668caae8c38c1661f388e00e/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.5.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fca39eee60dde0191336870c13d79722/transformed/transition-1.5.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.transition:transition:1.5.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fca39eee60dde0191336870c13d79722/transformed/transition-1.5.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/da8b97942350eea21315ae3fce46225c/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/da8b97942350eea21315ae3fce46225c/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2ea2c20865d53275d09d029b15d87008/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2ea2c20865d53275d09d029b15d87008/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a67e8579112416730ae0177413ad4fdf/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a67e8579112416730ae0177413ad4fdf/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3ab0a711a31df3bd56c4371f3ca2d229/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3ab0a711a31df3bd56c4371f3ca2d229/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/11b20c0a6e0990496e57bf21ed3364a1/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/11b20c0a6e0990496e57bf21ed3364a1/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fde065103da6697045bbd6762fbb3a9e/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fde065103da6697045bbd6762fbb3a9e/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/1acc09a3aae0efab08e8f1b95afe1fa1/transformed/browser-1.4.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/1acc09a3aae0efab08e8f1b95afe1fa1/transformed/browser-1.4.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe4e504402e01917c343311aec0bcb63/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe4e504402e01917c343311aec0bcb63/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.loader:loader:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2f89f2e40ac5ed516d2a20252d282e6/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d2f89f2e40ac5ed516d2a20252d282e6/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a560c48db272bc25d2c7087d96a1346e/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/a560c48db272bc25d2c7087d96a1346e/transformed/lifecycle-runtime-ktx-release/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/95230c750c8f56d264ba175647d5b69f/transformed/lifecycle-viewmodel-2.8.7/AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/95230c750c8f56d264ba175647d5b69f/transformed/lifecycle-viewmodel-2.8.7/AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b86c35152282dcfb38121d33f4d4bfbe/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b86c35152282dcfb38121d33f4d4bfbe/transformed/lifecycle-viewmodel-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f9e2f2b8d4a05615121183a8aa984581/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f9e2f2b8d4a05615121183a8aa984581/transformed/lifecycle-runtime-release/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/16107b71b1d60bfb68c8b672de4669f5/transformed/lifecycle-livedata-core-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/16107b71b1d60bfb68c8b672de4669f5/transformed/lifecycle-livedata-core-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/57b6b73ac713017c210d13431f9f7e43/transformed/lifecycle-livedata-core-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/57b6b73ac713017c210d13431f9f7e43/transformed/lifecycle-livedata-core-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3b5a77580aa17ef156a843541a868595/transformed/lifecycle-livedata-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3b5a77580aa17ef156a843541a868595/transformed/lifecycle-livedata-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c051207881f3172214331c7dc7864f9d/transformed/lifecycle-viewmodel-savedstate-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c051207881f3172214331c7dc7864f9d/transformed/lifecycle-viewmodel-savedstate-2.8.7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/dd508e48707069cb0a61f5533969aeea/transformed/lifecycle-livedata-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/dd508e48707069cb0a61f5533969aeea/transformed/lifecycle-livedata-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d63fdb7b0158d241d79a1fbfa4407e21/transformed/lifecycle-viewmodel-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d63fdb7b0158d241d79a1fbfa4407e21/transformed/lifecycle-viewmodel-ktx-2.8.7/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/afd40cd8c549aa7258dc64db89b2e8e8/transformed/play-services-tasks-18.2.0/AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/afd40cd8c549aa7258dc64db89b2e8e8/transformed/play-services-tasks-18.2.0/AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:3:5-44
+MERGED from [androidx.fragment:fragment:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/efe78028736b8664d6e47af9340a996e/transformed/fragment-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.6.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/efe78028736b8664d6e47af9340a996e/transformed/fragment-1.6.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29f769c460bfead9946a419de9726e31/transformed/activity-1.10.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.10.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29f769c460bfead9946a419de9726e31/transformed/activity-1.10.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:21:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/5e499a61462040e4ad35b6d811bb2793/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/5e499a61462040e4ad35b6d811bb2793/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f04d4fec347a9890d6ea3f52d6ee28bf/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/f04d4fec347a9890d6ea3f52d6ee28bf/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4d42090342f09e0d4ac589b5b70d7e02/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4d42090342f09e0d4ac589b5b70d7e02/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/12f1f8d404f1be5cb3b77a7e1f2154aa/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/12f1f8d404f1be5cb3b77a7e1f2154aa/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4cc0ac1d2f5ba436cbcb46ebc6f03387/transformed/firebase-components-18.0.0/AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-components:18.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/4cc0ac1d2f5ba436cbcb46ebc6f03387/transformed/firebase-components-18.0.0/AndroidManifest.xml:18:5-44
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ebe415ecf75422b89de6435942083e6f/transformed/gifdecoder-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ebe415ecf75422b89de6435942083e6f/transformed/gifdecoder-4.16.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6af2e37a790365bd84e5e0f39ea38006/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.3.6] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/6af2e37a790365bd84e5e0f39ea38006/transformed/exifinterface-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe5d9c40eda53ef9f7fff81ec8acecd3/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/fe5d9c40eda53ef9f7fff81ec8acecd3/transformed/core-runtime-2.2.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2683f45966699db3ed6dbd92d166dae0/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2683f45966699db3ed6dbd92d166dae0/transformed/sqlite-framework-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/924da798f431e1bbbd0a0fd9a535d967/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/924da798f431e1bbbd0a0fd9a535d967/transformed/sqlite-2.4.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/e3fd8dbd76d0fd589f2d66cef33bdfe6/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/e3fd8dbd76d0fd589f2d66cef33bdfe6/transformed/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c46f9b945bf37b615b28b9f28b8f6142/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c46f9b945bf37b615b28b9f28b8f6142/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3044b4a742a6f5344c46f0dce4ccfa5a/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/3044b4a742a6f5344c46f0dce4ccfa5a/transformed/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b1e5d0841a20e6489e65d6fe1f5738a8/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b1e5d0841a20e6489e65d6fe1f5738a8/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cdf662e788b9c8d4874a7637692d2bf9/transformed/annotation-experimental-1.4.1/AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/cdf662e788b9c8d4874a7637692d2bf9/transformed/annotation-experimental-1.4.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c3b82699b3e82f0ec1b03239aefca423/transformed/googleid-1.1.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/c3b82699b3e82f0ec1b03239aefca423/transformed/googleid-1.1.0/AndroidManifest.xml:5:5-44
+MERGED from [io.grpc:grpc-android:1.62.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0a0953a53a553760e8816b46d9614769/transformed/grpc-android-1.62.2/AndroidManifest.xml:5:5-44
+MERGED from [io.grpc:grpc-android:1.62.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0a0953a53a553760e8816b46d9614769/transformed/grpc-android-1.62.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72eac6e732d45ef4b26b2ed786598765/transformed/protolite-well-known-types-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/72eac6e732d45ef4b26b2ed786598765/transformed/protolite-well-known-types-18.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:23:9-148
+	android:targetSdkVersion
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/pinkgluten/Desktop/CMPUT_301/MoodPulse/project-error-404s/Code/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:25:5-67
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:25:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:8:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0a0953a53a553760e8816b46d9614769/transformed/grpc-android-1.62.2/AndroidManifest.xml:7:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/0a0953a53a553760e8816b46d9614769/transformed/grpc-android-1.62.2/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:26:22-76
+activity#com.google.firebase.auth.internal.GenericIdpActivity
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:29:9-46:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:31:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:33:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:32:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:34:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:30:13-80
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:genericidp
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:35:13-45:29
+action#android.intent.action.VIEW
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:36:25-66
+category#android.intent.category.DEFAULT
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:38:17-76
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:38:27-73
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:39:17-78
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:39:27-75
+data
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:41:17-44:51
+	android:path
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:43:21-37
+	android:host
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:42:21-49
+	android:scheme
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:44:21-48
+activity#com.google.firebase.auth.internal.RecaptchaActivity
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:47:9-64:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:49:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:51:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:50:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:52:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:48:13-79
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:recaptcha
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:53:13-63:29
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:30:9-38:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:30:9-38:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:68:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:34:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:67:13-84
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:69:13-71:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:71:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/2479313219133ec227c8b220300ac4cf/transformed/firebase-auth-23.2.0/AndroidManifest.xml:70:17-109
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar
+ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:17:13-19:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:19:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:18:17-122
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
+ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:20:13-22:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:25.1.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/171acdaac6f3decd648e8cd5d552cb15/transformed/firebase-firestore-25.1.3/AndroidManifest.xml:21:17-111
+service#androidx.credentials.playservices.CredentialProviderMetadataHolder
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:24:9-32:19
+	android:enabled
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:26:13-35
+	android:exported
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:28:13-60
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:25:13-94
+meta-data#androidx.credentials.CREDENTIAL_PROVIDER_KEY
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:29:13-31:104
+	android:value
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:31:17-101
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:30:17-76
+activity#androidx.credentials.playservices.HiddenActivity
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:34:9-41:20
+	android:fitsSystemWindows
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:39:13-45
+	android:enabled
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:38:13-37
+	android:configChanges
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:36:13-87
+	android:theme
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:40:13-48
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/48d07e6fb1e09f86de005f4a092b53a7/transformed/credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:35:13-76
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:33:9-37:51
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:35:13-36
+	android:visibleToInstantApps
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:37:13-48
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8e6a612c5869b944461feea165e74c03/transformed/play-services-auth-20.7.0/AndroidManifest.xml:34:13-89
+uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
+ADDED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:9:5-98
+	android:name
+		ADDED from [com.google.android.recaptcha:recaptcha:18.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/29474dbab1f3fd28c89d1ad9eb976258/transformed/recaptcha-18.6.1/AndroidManifest.xml:9:22-95
+meta-data#com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar
+ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/8022ea656a2499c8296ecf8a6bc241ff/transformed/firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+meta-data#com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar
+ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common:21.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/620dfc41391b3e85979b7ebfd5f15bef/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/de9bde4e8d5dee6fa910f183358290a2/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d6b7ad8135866591d891b87e93b956f4/transformed/startup-runtime-1.1.1/AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.3.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/70ae7465a6d8a18b408af49c6ff6b3e8/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
+	android:required
+		ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [androidx.window:window:1.0.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b38117fe1501855a19902998dfb99fbd/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+permission#com.example.uiapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+uses-permission#com.example.uiapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/d98604c969b372f1bce21ba62fb46f21/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.8.7] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b8b5652075bc656d2874e7601ee9df67/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/7758fdba3e63941716cfe243065e8fb6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:24:9-28:63
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:28:13-60
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:26:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.6.1] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/ee3273276a700f9e218a83b1949bbb3e/transformed/room-runtime-2.6.1/AndroidManifest.xml:25:13-74
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/b5eab53791ff9a6fd56d3e77b951c9d0/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+activity#com.google.android.play.core.common.PlayCoreDialogWrapperActivity
+ADDED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:14:9-18:65
+	android:stateNotNeeded
+		ADDED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:17:13-42
+	android:exported
+		ADDED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:16:13-37
+	android:theme
+		ADDED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:18:13-62
+	android:name
+		ADDED from [com.google.android.play:core-common:2.0.3] /Users/pinkgluten/.gradle/caches/8.11.1/transforms/50870d0ff8127abb4fb54a8061045ddc/transformed/core-common-2.0.3/AndroidManifest.xml:15:13-93

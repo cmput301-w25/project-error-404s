@@ -16,10 +16,10 @@ import com.example.uiapp.model.EmojiModel;
 import java.util.List;
 
 public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHolder> {
-    private List<EmojiModel> emojiList;
+    private final List<EmojiModel> emojiList;
     private EmojiLayoutBinding binding;
     private int selectedPosition = RecyclerView.NO_POSITION;
-    private OnEmojiClickListener onEmojiClickListener;
+    private final OnEmojiClickListener onEmojiClickListener;
 
 
     public EmojiAdapter(List<EmojiModel> emojiList, OnEmojiClickListener onEmojiClickListener) {

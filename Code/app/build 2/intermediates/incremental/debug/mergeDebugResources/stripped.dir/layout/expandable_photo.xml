@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
+    android:background="@drawable/card_background"
+    android:padding="12dp">
+
+
+
+
+    <!-- Header Section -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:id="@+id/headerLayout"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photo"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/optionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@id/titleText"
+            android:layout_marginStart="8dp"
+            android:text="(optional)"
+            android:textSize="14sp"
+            android:textColor="#888888" />
+
+        <ImageView
+            android:id="@+id/arrowIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/arrow___down_2"
+            app:tint="#666666" />
+    </RelativeLayout>
+
+    <!-- Expandable Content -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingBottom="10dp"
+        android:paddingTop="8dp">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="15dp"
+            android:id="@+id/cardView"
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="@color/gray_primary"
+            android:layout_height="130dp">
+            <ImageView
+                android:id="@+id/imgSelected"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                 />
+
+            <LinearLayout
+                android:id="@+id/uploadPlaceholder"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginVertical="40dp"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gallery"
+                    android:background="?selectableItemBackground"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Upload photo"
+                    android:textSize="13sp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/b3b3b3"
+                    />
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</LinearLayout>

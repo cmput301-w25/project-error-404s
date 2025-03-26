@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/emoji_layout.xml",
+        "source": "com.example.uiapp-main-59:/layout/emoji_layout.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/dialog_delete_confirmation.xml",
+        "source": "com.example.uiapp-main-59:/layout/dialog_delete_confirmation.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_filtter_bottom_sheet.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_filtter_bottom_sheet.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/history_item.xml",
+        "source": "com.example.uiapp-main-59:/layout/history_item.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/filter_emoji_layout.xml",
+        "source": "com.example.uiapp-main-59:/layout/filter_emoji_layout.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/activity_signup.xml",
+        "source": "com.example.uiapp-main-59:/layout/activity_signup.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_notifications.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_notifications.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/expandable_photo.xml",
+        "source": "com.example.uiapp-main-59:/layout/expandable_photo.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/activity_bottom_nav.xml",
+        "source": "com.example.uiapp-main-59:/layout/activity_bottom_nav.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/expandable_people.xml",
+        "source": "com.example.uiapp-main-59:/layout/expandable_people.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_edit_mode.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_edit_mode.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_home.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/expandable_note.xml",
+        "source": "com.example.uiapp-main-59:/layout/expandable_note.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/expandable_location.xml",
+        "source": "com.example.uiapp-main-59:/layout/expandable_location.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_dashboard.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/activity_main.xml",
+        "source": "com.example.uiapp-main-59:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_home_mode.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_home_mode.xml"
+    },
+    {
+        "merged": "com.example.uiapp-mergeDebugResources-56:/layout/fragment_add_model.xml",
+        "source": "com.example.uiapp-main-59:/layout/fragment_add_model.xml"
+    }
+]

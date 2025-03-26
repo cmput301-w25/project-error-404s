@@ -1,6 +1,8 @@
 package com.example.uiapp.ui;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -39,6 +41,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -47,6 +51,8 @@ import com.example.uiapp.R;
 import com.example.uiapp.databinding.FragmentAddModelBinding;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -64,12 +70,12 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private boolean isExpandedPeople = false;
     private boolean isExpandedLocation = false;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Chip[] chips = new Chip[4];
-    private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    private final Chip[] chips = new Chip[4];
+    private final int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private Uri selectedImageUri;
-    private boolean hasSelectedImage = false;
+    private final boolean hasSelectedImage = false;
 
     /// ///////////////////////////////
     private LocationHelper locationHelper;
@@ -80,6 +86,8 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private FirebaseFirestore db;
     private CollectionReference moodEventsRef;
 
+    private String moodEventsId;
+
     @SuppressLint("SetTextI18n")
 
     @Override
@@ -89,7 +97,34 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
         // Initialize Firebase Firestore and reference the "MoodEvents" collection
         db = FirebaseFirestore.getInstance();
-        moodEventsRef = db.collection("MoodEvents");
+
+        String userId = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                .getString("USERNAME", null);
+
+
+        moodEventsId = db.collection("users").document(userId).getId();
+        moodEventsRef = db.collection("users").document(moodEventsId).collection("moods");
+        Log.d("mood event ref", String.format("mood data",moodEventsRef));
+
+
+        if (userId != null) {
+            // Use the userId here
+            Log.d("AddModelFragment", "Logged in as: " + userId);
+            // You can now query Firestore using this userId
+        } else {
+            Log.e("AddModelFragment", "User is not logged in or userId not found!");
+            // Handle the case where userId is null
+        }
+
+
+// Ensure userId is not null before using it
+//        if (userId != null) {
+//            moodEventsRef = db.collection("users").document(userId).collection("moods");
+//        } else {
+//            Log.e("AddModelFragment", "Cannot initialize Firestore reference because userId is null");
+//        }
+
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
@@ -166,7 +201,13 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                 MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri, false);
 
                 // Add to ViewModel
-                moodViewModel.addMoodEntry(newEvent);
+                moodViewModel.addMoodEntry(newEvent, () -> {
+                    requireActivity().runOnUiThread(() -> {
+                        Log.d("AddMoodFragment", "Mood added successfully, closing fragment.");
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    });
+                });
+
 
                 // Add the mood event to Firestore
                 moodEventsRef.add(newEvent)
@@ -178,6 +219,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("error adding logs","Error adding mood event: " + e.getMessage());
                         });
             } catch (Exception e) {
                 Log.e("AddModelFragment", "Error adding mood: " + e.getMessage());

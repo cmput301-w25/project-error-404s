@@ -72,6 +72,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private void userCheck(String username, String password) {
         DocumentReference usrRef = db.collection("users").document(username);
+        Toast.makeText(SignupActivity.this,String.format(" This document id  is %s" , db.collection("users").document(username)),Toast.LENGTH_LONG).show();
+        //Log.d("add userID debug", String.format("id" + db.collection("users").document(username)));
         usrRef.get().addOnSuccessListener(document -> {
             if (document.exists()) {
                 Toast.makeText(this, "Username exists W's", Toast.LENGTH_SHORT).show();

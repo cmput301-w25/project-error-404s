@@ -27,7 +27,7 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implem
     private FragmentFiltterBottomSheetBinding binding;
     List<EmojiModel> emojiList;
     FilterEmojiAdapter emojiAdapter;
-    private Chip[] chips = new Chip[2];
+    private final Chip[] chips = new Chip[2];
     //private Chip[] chipIds;
     private HomeViewModel homeViewModel;
     private int selectedChipIndex = -1;

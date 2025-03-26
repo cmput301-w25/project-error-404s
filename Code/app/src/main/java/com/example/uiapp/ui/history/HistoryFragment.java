@@ -1,8 +1,12 @@
 package com.example.uiapp.ui.history;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.util.Locale.filter;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,8 +35,12 @@ import com.example.uiapp.adapter.OnItemDeleteClickListener;
 import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.ui.profile.SignupActivity;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -56,6 +64,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     // Firebase reference
     private FirebaseFirestore db;
+
+    private String moodEventsId;
     private CollectionReference moodEventsRef;
     /**
      * Creates and initializes the history view.
@@ -70,7 +80,24 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
         // Initialize Firebase
         db = FirebaseFirestore.getInstance();
-        moodEventsRef = db.collection("MoodEvents");
+
+        String userId = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                .getString("USERNAME", null);
+
+
+        if (userId != null) {
+            // Use the userId here
+            Log.d("AddModelFragment", "Logged in as: " + userId);
+            // You can now query Firestore using this userId
+        } else {
+            Log.e("AddModelFragment", "User is not logged in or userId not found!");
+            // Handle the case where userId is null
+        }
+
+        moodEventsId = db.collection("users").document(userId).getId();
+        moodEventsRef = db.collection("users").document(moodEventsId).collection("moods");
+        Log.d("mood event ref", String.format("mood data",moodEventsRef));
+
 
 
         // Set up search functionality

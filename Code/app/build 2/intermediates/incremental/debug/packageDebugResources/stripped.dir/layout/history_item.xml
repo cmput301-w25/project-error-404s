@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+
+    app:cardCornerRadius="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="4dp"
+
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgMood"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/sad_emoji" />
+
+            <TextView
+                android:id="@+id/txtDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/imgMood"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="Yesterday, Feb 13, 2025"
+                android:textColor="#777777"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtMood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtDateTime"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/imgMood"
+                android:text="Mood"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_toStartOf="@id/btnDelete"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/edit_square"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/delete"
+
+                />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="Note: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_bold"
+
+                android:text="Note: "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/centerImg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginVertical="8dp"
+            android:elevation="0dp"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <ImageView
+                android:id="@+id/imgMoodEntry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:scaleType="centerCrop" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="People: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_bold"
+
+                android:text="Note: "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_bold"
+
+                android:text="Location "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imgMoodEntry"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:visibility="gone" />-->
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

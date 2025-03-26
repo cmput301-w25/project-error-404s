@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="angry">#FFCCCC</color>
+    <color name="anxious">#99FF9E6D</color>
+    <color name="b3b3b3">#b3b3b3</color>
+    <color name="black">#FF000000</color>
+    <color name="bored">#CCE6E6E6</color>
+    <color name="confused">#E6FCFC</color>
+    <color name="disgust">#F0F8E6</color>
+    <color name="fear">#E9E5F3B2</color>
+    <color name="gray_primary">#EFF1F5</color>
+    <color name="happy">#FCFCDE</color>
+    <color name="light_piurple">#CFCCFB</color>
+    <color name="proud">#80AFFFA3</color>
+    <color name="purple_primary">#9891F8</color>
+    <color name="sad">#E0EDF4B2</color>
+    <color name="shame">#FFF2CC</color>
+    <color name="surprized">#FEEEF5</color>
+    <color name="tired">#B3F2CAFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="_15_february">15 February</string>
+    <string name="app_name">uiapp</string>
+    <string name="edit">Edit</string>
+    <string name="edit_mode">Edit Mode</string>
+    <string name="gcm_defaultSenderId" translatable="false">536850214070</string>
+    <string name="google_api_key" translatable="false">AIzaSyCFzPFBDcb3DdOIUI4gzn3apM_k7FDn8zQ</string>
+    <string name="google_app_id" translatable="false">1:536850214070:android:153be03e9a57cc0e66ca17</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCFzPFBDcb3DdOIUI4gzn3apM_k7FDn8zQ</string>
+    <string name="google_storage_bucket" translatable="false">error404smood.firebasestorage.app</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="how_are_you_today">How are you today?</string>
+    <string name="profile">Profile</string>
+    <string name="project_id" translatable="false">error404smood</string>
+    <string name="search">Search...</string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="today_s_check_in">Today’s check-in</string>
+    <string name="todo">TODO</string>
+    <string name="welcome_krystal0819">Welcome, <b>krystal0819</b></string>
+    <string name="yesterday_s_mood">Yesterday’s mood</string>
+    <style name="Base.Theme.Uiapp" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+        
+        <item name="fontFamily">@font/quicksand_bold</item>
+    </style>
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+
+    </style>
+    <style name="Theme.Uiapp" parent="Base.Theme.Uiapp"/>
+    <style name="chipText" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

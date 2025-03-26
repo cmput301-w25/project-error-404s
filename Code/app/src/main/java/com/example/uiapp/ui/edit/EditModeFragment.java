@@ -48,8 +48,8 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
     private boolean isExpandedPeople = false;
     private boolean isExpandedLocation = false;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Chip[] chips = new Chip[4];
-    private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    private final Chip[] chips = new Chip[4];
+    private final int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
     // Firebase instance
     private FirebaseFirestore db;
 
