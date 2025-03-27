@@ -1,5 +1,7 @@
 package com.example.uiapp.ui.home;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -50,31 +52,39 @@ public class HomeModeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeModeBinding.inflate(inflater, container, false);
+
+        // Get the reference to the TextView for the welcome message
+        TextView welcomeMessage = binding.getRoot().findViewById(R.id.welcomeMessage);
+        TextView currentDate = binding.getRoot().findViewById(R.id.currentDate);
+
+        // Assuming you're storing the username in SharedPreferences (change this if you're using Firestore or another method)
+        String userID = getActivity().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                .getString("USERNAME", null);
+
+        // Set the welcome message dynamically
+        welcomeMessage.setText("Welcome, " + userID);
+
+        // Get the current date and format it
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+        String formattedDate = dateFormat.format(new Date()); // Get the current date
+
+        // Set the formatted date in the currentDate TextView
+        currentDate.setText(formattedDate);
+
+        // Other fragment setup code...
         recyclerView = binding.recyclerView;
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        // Initialize ViewModel
-        moodViewModel = new ViewModelProvider(requireActivity()).get(com.example.uiapp.ui.home.MoodViewModel.class);
-
-        // Initialize adapter with empty list
+        moodViewModel = new ViewModelProvider(requireActivity()).get(MoodViewModel.class);
         moodAdapter = new MoodAdapter(getContext(), new ArrayList<>(), null, null);
-
-        // Initialize Firebase Firestore
-        // db = FirebaseFirestore.getInstance();
-
-        // Fetch mood events from Firestore
-        // fetchMoodEvents();
-
         recyclerView.setAdapter(moodAdapter);
-
 
         // Observe changes in the mood list
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
-            moodAdapter.updateList(moodEntries); // Update the adapter's data
+            moodAdapter.updateList(moodEntries);
         });
 
         return binding.getRoot();
+
 
 //        final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
