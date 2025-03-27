@@ -87,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
 
+        //Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
+
+        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
         Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
         if (userID == null) { // Redirect only if the user is NOT logged in
             Intent intent = new Intent(this, SignupActivity.class);

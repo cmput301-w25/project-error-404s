@@ -81,21 +81,43 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         // Initialize Firebase
         db = FirebaseFirestore.getInstance();
 
-        String userId = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-                .getString("USERNAME", null);
+        Context context = getContext();  // or getActivity()
+        if (context != null) {
+            String user = context.getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                    .getString("USERNAME", null);
 
+            if (user != null) {
+                // Proceed with your logic when user is available
+                DocumentReference userRef = db.collection("users").document(user);
+                userRef.get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String userId = documentSnapshot.getId();
 
-        if (userId != null) {
-            // Use the userId here
-            Log.d("AddModelFragment", "Logged in as: " + userId);
-            // You can now query Firestore using this userId
+                        if (userId != null) {
+                            moodEventsRef = db.collection("users").document(userId).collection("moods");
+                            if (moodEventsRef != null) {
+                                loadMoodEventsFromFirebase(); // Make sure to load mood events after userId is retrieved
+                            } else {
+                                Log.e(TAG, "Mood events collection reference is null!");
+                            }
+                        } else {
+                            Log.e(TAG, "User ID is null!");
+                        }
+                    } else {
+                        Log.e(TAG, "User document not found!");
+                    }
+                }).addOnFailureListener(e -> Log.e(TAG, "Error retrieving user ID: " + e.getMessage()));
+            } else {
+                // Handle the case where user is not found in shared preferences
+                Log.e(TAG, "User not found in shared preferences.");
+            }
         } else {
-            Log.e("AddModelFragment", "User is not logged in or userId not found!");
-            // Handle the case where userId is null
+            // Handle the case where context is null (e.g., fragment is not attached to an activity yet)
+            Log.e(TAG, "Context is null, cannot access shared preferences.");
         }
 
-        moodEventsId = db.collection("users").document(userId).getId();
-        moodEventsRef = db.collection("users").document(moodEventsId).collection("moods");
+
+
         Log.d("mood event ref", String.format("mood data",moodEventsRef));
 
 

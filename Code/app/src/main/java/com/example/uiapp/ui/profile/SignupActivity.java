@@ -8,37 +8,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.uiapp.MainActivity;
 import com.example.uiapp.R;
-import com.example.uiapp.adapter.EmojiAdapter;
-import com.example.uiapp.adapter.MoodAdapter;
-import com.example.uiapp.model.MoodEntry;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword;
     private Button LoginBTN, SignupBTN;
-    private TextView toggleText;
     private FirebaseFirestore db;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextTextPassword);
         SignupBTN = findViewById(R.id.SignupBtn);
@@ -46,6 +36,7 @@ public class SignupActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        // Signup Button Logic
         SignupBTN.setOnClickListener(v -> {
             String username = editTextUsername.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
@@ -57,6 +48,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+        // Login Button Logic
         LoginBTN.setOnClickListener(v -> {
             String username = editTextUsername.getText().toString().trim();
             String password = editTextPassword.getText().toString().trim();
@@ -67,30 +59,37 @@ public class SignupActivity extends AppCompatActivity {
                 userLogin(username, password);
             }
         });
-
     }
 
     private void userCheck(String username, String password) {
         DocumentReference usrRef = db.collection("users").document(username);
-        Toast.makeText(SignupActivity.this,String.format(" This document id  is %s" , db.collection("users").document(username)),Toast.LENGTH_LONG).show();
-        //Log.d("add userID debug", String.format("id" + db.collection("users").document(username)));
         usrRef.get().addOnSuccessListener(document -> {
             if (document.exists()) {
-                Toast.makeText(this, "Username exists W's", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "registerUser", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Registering new user...", Toast.LENGTH_SHORT).show();
                 registerUser(username, password);
             }
         });
     }
-    private void registerUser(String username, String password){
+
+    private void registerUser(String username, String password) {
         Map<String, Object> userData = new HashMap<>();
         userData.put("password", password);
-        db.collection("users").document(username).set(userData);
-        goToMainActivity(username);
+
+        db.collection("users").document(username)
+                .set(userData)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("SignupActivity", "User successfully registered!");
+                    goToMainActivity(username);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("SignupActivity", "Error registering user", e);
+                    Toast.makeText(this, "Error registering user", Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void userLogin(String username, String password){
+    private void userLogin(String username, String password) {
         DocumentReference usrRef = db.collection("users").document(username);
         usrRef.get().addOnSuccessListener(document -> {
             if (!document.exists()) {
@@ -103,29 +102,10 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show();
                 }
             }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Error checking user", Toast.LENGTH_SHORT).show();
         });
     }
-
-    private void switchToMainLayout() {
-        // Change the content view to activity_main.xml
-        setContentView(R.layout.activity_main);
-
-        // Now reinitialize all UI elements from activity_main.xml.
-        // For example, if activity_main.xml contains a Toolbar and a RecyclerView:
-        @SuppressLint("WrongViewCast") Toolbar toolbar = findViewById(R.id.main); // Make sure the IDs match activity_main.xml
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-
-        // Initialize any adapters, listeners, etc.
-        // For instance, set up your RecyclerView:
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<MoodEntry> MoodEntry;
-        // MoodAdapter adapter = new MoodAdapter(this, MoodEntry, null, null);
-        // recyclerView.setAdapter(adapter);
-
-
-        // You might also want to perform any logic that MainActivity normally does.
-    }
-
 
     private void goToMainActivity(String username) {
         getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
@@ -137,6 +117,4 @@ public class SignupActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 }

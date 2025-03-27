@@ -20,9 +20,9 @@ public class MoodEntry implements Serializable {
     private int moodIcon;
     private String imageUrl;
     private Boolean isHome;
-    private String moodID;
+    private String moodID; // Firestore document ID
 
-    // Constructor
+    // Constructor for creating MoodEntry instances
     public MoodEntry(String dateTime, String mood, String note, String people,
                      String location, int moodIcon, String imageUrl, Boolean isHome) {
         this.dateTime = dateTime;
@@ -33,7 +33,7 @@ public class MoodEntry implements Serializable {
         this.moodIcon = moodIcon;
         this.imageUrl = imageUrl;
         this.isHome = isHome;
-        this.moodID = null;  // Ensure Firestore ID is initially null
+        this.moodID = null;  // Initially null, Firestore ID will be set later
     }
 
     // Default constructor for Room database
@@ -79,10 +79,12 @@ public class MoodEntry implements Serializable {
     public String getMoodID() { return moodID; }
     public void setMoodID(String moodID) { this.moodID = moodID; }
 
+    // Checks if the mood entry has location data
     public boolean hasLocation() {
         return latitude != 0 && longitude != 0;
     }
 
+    // Method to set Firestore ID when syncing with Firestore
     public void setFirestoreId(String ID) { this.moodID = ID; }
     public String getFirestoreId() { return moodID; }
 }

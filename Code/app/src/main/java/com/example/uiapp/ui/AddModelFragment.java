@@ -98,23 +98,21 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         // Initialize Firebase Firestore and reference the "MoodEvents" collection
         db = FirebaseFirestore.getInstance();
 
-        String userId = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+        String user = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
                 .getString("USERNAME", null);
 
+        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(user)));
+        Log.d("add userID debug", String.format("id : " + db.collection("users").document(user).getId()));
 
-        moodEventsId = db.collection("users").document(userId).getId();
-        moodEventsRef = db.collection("users").document(moodEventsId).collection("moods");
-        Log.d("mood event ref", String.format("mood data",moodEventsRef));
-
+        String userId = db.collection("users").document(user).getId();
 
         if (userId != null) {
-            // Use the userId here
-            Log.d("AddModelFragment", "Logged in as: " + userId);
-            // You can now query Firestore using this userId
+            // Get reference to the user's subcollection "moods"
+            moodEventsRef = db.collection("users").document(userId).collection("moods");
         } else {
             Log.e("AddModelFragment", "User is not logged in or userId not found!");
-            // Handle the case where userId is null
         }
+
 
 
 // Ensure userId is not null before using it
@@ -200,16 +198,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                 // Creating a new MoodEntry object
                 MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri, false);
 
-                // Add to ViewModel
-                moodViewModel.addMoodEntry(newEvent, () -> {
-                    requireActivity().runOnUiThread(() -> {
-                        Log.d("AddMoodFragment", "Mood added successfully, closing fragment.");
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    });
-                });
-
-
-                // Add the mood event to Firestore
+                // Add to Firestore under the user's subcollection "moods"
                 moodEventsRef.add(newEvent)
                         .addOnSuccessListener(documentReference -> {
                             // Set the Firestore-generated ID in the model
@@ -219,8 +208,19 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("error adding logs","Error adding mood event: " + e.getMessage());
+                            Log.d("error adding logs", "Error adding mood event: " + e.getMessage());
                         });
+
+
+
+                // Add to ViewModel
+                moodViewModel.addMoodEntry(newEvent, () -> {
+                    requireActivity().runOnUiThread(() -> {
+                        Log.d("AddMoodFragment", "Mood added successfully, closing fragment.");
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    });
+                });
+
             } catch (Exception e) {
                 Log.e("AddModelFragment", "Error adding mood: " + e.getMessage());
                 Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
