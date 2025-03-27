@@ -6,6 +6,9 @@ public class MoodEntry implements Serializable {
     private String dateTime;
     private String mood;
 
+    private String documentId;
+
+
     private String note;
     private String people;
     private String location;
@@ -89,6 +92,9 @@ public class MoodEntry implements Serializable {
     public void setLocation(String location) { this.location = location; }
     public int getMoodIcon() { return moodIcon; }
     public void setMoodIcon(int moodIcon) { this.moodIcon = moodIcon; }
+
+    public String getDocumentId() { return documentId; }
+    public void setDocumentId(String documentId) { this.documentId = documentId; }
 
 
 //    public static String getLocation() {

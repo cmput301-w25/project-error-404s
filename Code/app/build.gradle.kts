@@ -13,7 +13,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,9 +25,11 @@ android {
             )
         }
     }
-    buildFeatures{
+
+    buildFeatures {
         viewBinding = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    // AndroidX
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -45,15 +46,25 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.firebase.auth)
-    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
-    implementation(libs.firebase.firestore)
-    implementation(libs.google.firebase.firestore)
-    testImplementation(libs.junit)
-    implementation(libs.play.services.location)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
 
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+
+    // Play Services
+    implementation(libs.play.services.location)
+    implementation(libs.play.services.maps)
+
+    // Glide
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
+
+    // Maps Utils
+    implementation(libs.maps.android.utils)
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }
