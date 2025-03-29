@@ -413,24 +413,24 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         }
     }
 
-    private void setupRecyclerView() {
-        // After loading data
-        if (scrollToDocumentId != null) {
-            int position = findPositionById(scrollToDocumentId);
-            if (position != -1) {
-                recyclerView.scrollToPosition(position);
-            }
-        }
-    }
+//    private void setupRecyclerView() {
+//        // After loading data
+//        if (scrollToDocumentId != null) {
+//            int position = findPositionById(scrollToDocumentId);
+//            if (position != -1) {
+//                recyclerView.scrollToPosition(position);
+//            }
+//        }
+//    }
 
-    private int findPositionById(String documentId) {
-        for (int i = 0; i < moodList.size(); i++) {
-            if (moodList.get(i).getDocumentId().equals(documentId)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+//    private int findPositionById(String documentId) {
+//        for (int i = 0; i < moodList.size(); i++) {
+//            if (moodList.get(i).getDocumentId().equals(documentId)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
 
 

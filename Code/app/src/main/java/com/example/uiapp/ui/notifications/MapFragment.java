@@ -159,20 +159,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
-    private void addCustomMarker(MoodEntry entry) {
-        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
-        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
-
-        Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(location)
-                .title(entry.getMood())
-                .snippet(entry.getDateTime())
-                .icon(icon));
-
-        if (marker != null) {
-            marker.setTag(entry.getDocumentId());
-        }
-    }
+//    private void addCustomMarker(MoodEntry entry) {
+//        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
+//        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
+//
+//        Marker marker = mMap.addMarker(new MarkerOptions()
+//                .position(location)
+//                .title(entry.getMood())
+//                .snippet(entry.getDateTime())
+//                .icon(icon));
+//
+//        if (marker != null) {
+//            marker.setTag(entry.getDocumentId());
+//        }
+//    }
 
     private BitmapDescriptor createEmojiMarker(int emojiResId, String date) {
         // Create custom marker with emoji and date
