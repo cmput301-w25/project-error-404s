@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -54,6 +55,10 @@ import java.util.List;
  */
 public class HistoryFragment extends Fragment implements OnItemDeleteClickListener, OnItemEditClickListener {
     private static final String TAG = "HistoryFragment";
+
+    // For direct link from maps
+    private String scrollToDocumentId;
+    //
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private MoodAdapter moodAdapter;
@@ -120,6 +125,10 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
         Log.d("mood event ref", String.format("mood data",moodEventsRef));
 
+
+        if (getArguments() != null) {
+            scrollToDocumentId = getArguments().getString("DOCUMENT_ID");
+        }
 
 
         // Set up search functionality
@@ -394,4 +403,35 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             Toast.makeText(getContext(), "Failed to open edit screen", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            scrollToDocumentId = getArguments().getString("DOCUMENT_ID");
+        }
+    }
+
+    private void setupRecyclerView() {
+        // After loading data
+        if (scrollToDocumentId != null) {
+            int position = findPositionById(scrollToDocumentId);
+            if (position != -1) {
+                recyclerView.scrollToPosition(position);
+            }
+        }
+    }
+
+    private int findPositionById(String documentId) {
+        for (int i = 0; i < moodList.size(); i++) {
+            if (moodList.get(i).getDocumentId().equals(documentId)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+
 }

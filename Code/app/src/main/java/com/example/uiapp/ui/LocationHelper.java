@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import com.google.android.gms.maps.model.LatLng;
 
 public class LocationHelper {
     private final FusedLocationProviderClient fusedLocationClient;
@@ -63,4 +64,25 @@ public class LocationHelper {
             callback.onLocationError("Geocoder error: " + e.getMessage());
         }
     }
+
+    // Implementing the map function
+    public LatLng getLatLngFromAddress(String addressString) {
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(addressString, 1);
+            if (!addresses.isEmpty() && addresses.get(0) != null) {
+                Address address = addresses.get(0);
+                return new LatLng(
+                        address.getLatitude(),
+                        address.getLongitude()
+                );
+            }
+        } catch (IOException e) {
+            Log.e("LocationHelper", "Geocoding error: " + e.getMessage());
+        }
+        return null;
+    }
+
+
+
+
 }
