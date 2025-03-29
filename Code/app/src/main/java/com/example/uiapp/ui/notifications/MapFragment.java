@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.Manifest;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,14 +46,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private FusedLocationProviderClient fusedLocationClient;
     private final Map<String, Float> moodColorMap = new HashMap<>();
 
+    //Button filter_button;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map, container, false);
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
-
         initializeMoodColors();
         setupMapFragment(root);
+
+
 
         return root;
     }
