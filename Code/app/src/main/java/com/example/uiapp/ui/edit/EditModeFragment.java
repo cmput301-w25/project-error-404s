@@ -2,7 +2,9 @@ package com.example.uiapp.ui.edit;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.util.Log;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,6 +34,7 @@ import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.databinding.FragmentEditModeBinding;
 import com.example.uiapp.model.EmojiModel;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.ui.LocationHelper;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -73,10 +77,29 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
     // Current mood for pre-selection
     private int preSelectedEmojiPosition = RecyclerView.NO_POSITION;
 
+    // Location Helper components
+    private LocationHelper locationHelper;  // Helper class for handling location-related operations
+    private ActivityResultLauncher<String> locationPermissionRequest;  // Launcher for requesting location permissions
+    private String currentLocation = "";  // Stores the current location address
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Initialize location helper with current context
+        locationHelper = new LocationHelper(requireContext());
+
+        // Register location permission request launcher
+        locationPermissionRequest = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> {
+                    if (isGranted) {
+                        getLocation();  // If permission granted, get location
+                    } else {
+                        Toast.makeText(getContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
         // Register the activity result launcher for image picking
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -84,6 +107,15 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
                         Uri url = result.getData().getData();
                         if (url != null) {
                             try {
+                                // Check file size - limit to 65536 bytes as per system admin requirement
+                                long fileSize = getFileSize(url);
+                                if (fileSize > 65536) { // 64KB limit
+                                    Toast.makeText(requireContext(), 
+                                        "Image too large! Maximum size is 64KB. Current size: " + (fileSize / 1024) + "KB", 
+                                        Toast.LENGTH_LONG).show();
+                                    return;
+                                }
+                                
                                 requireContext().getContentResolver().takePersistableUriPermission(
                                         url,
                                         Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -100,10 +132,29 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
 
                             } catch (SecurityException e) {
                                 Toast.makeText(requireContext(), "Permission error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Toast.makeText(requireContext(), "Error loading image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
+    }
+
+    /**
+     * Gets the file size in bytes for a given URI
+     * 
+     * @param uri The URI of the file to check
+     * @return The size of the file in bytes, or 0 if size cannot be determined
+     */
+    private long getFileSize(Uri uri) {
+        try {
+            return requireContext().getContentResolver()
+                    .openAssetFileDescriptor(uri, "r")
+                    .getLength();
+        } catch (Exception e) {
+            Log.e(TAG, "Error getting file size: " + e.getMessage());
+            return 0;
+        }
     }
 
     @Override
@@ -190,6 +241,7 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         
         // Set up location if available
         if (currentMoodEntry.getLocation() != null && !currentMoodEntry.getLocation().isEmpty()) {
+            binding.expandableLocation.txtLocation.setText(currentMoodEntry.getLocation());  // Display existing location
             binding.expandableLocation.contentLayout.setVisibility(View.VISIBLE);
             isExpandedLocation = true;
             binding.expandableLocation.arrowIcon.setRotation(180);
@@ -258,7 +310,7 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
             String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
             
             // Get location (keeping original if not changed)
-            String location = currentMoodEntry.getLocation();
+            String location = currentLocation.isEmpty() ? currentMoodEntry.getLocation() : currentLocation;  // Use new location if available, otherwise keep original
             
             // Update the event in Firestore
             moodEventsRef.document(currentMoodEntry.getFirestoreId())
@@ -316,6 +368,14 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
             isExpandedLocation = !isExpandedLocation;
             binding.expandableLocation.contentLayout.setVisibility(isExpandedLocation ? View.VISIBLE : View.GONE);
             binding.expandableLocation.arrowIcon.setRotation(isExpandedLocation ? 180 : 0);
+
+            // Set up location button click listener to trigger location retrieval
+            binding.expandableLocation.btnGetLocation.setOnClickListener(v1 -> {
+                if (checkLocationPermission()) {
+                    getLocation();
+                }
+            });
+
         });
     }
 
@@ -385,6 +445,40 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         } else {
             Toast.makeText(requireContext(), "No file picker available", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Checks if the app has location permission
+     * @return true if permission is granted, false otherwise
+     */
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            return true;  // Permission already granted
+        } else {
+            locationPermissionRequest.launch(Manifest.permission.ACCESS_FINE_LOCATION);  // Request permission
+            return false;
+        }
+    }
+
+    /**
+     * Gets the current location using LocationHelper
+     * Updates the UI with the received location address
+     */
+    private void getLocation() {
+        locationHelper.getCurrentLocation(new LocationHelper.LocationCallback() {
+            @Override
+            public void onLocationResult(String address) {
+                currentLocation = address;  // Store the received location
+                binding.expandableLocation.txtLocation.setText(address);  // Update UI with location
+                Toast.makeText(getContext(), "Location updated", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLocationError(String error) {
+                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
