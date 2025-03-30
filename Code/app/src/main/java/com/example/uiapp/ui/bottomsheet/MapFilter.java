@@ -70,7 +70,7 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
             public void onClick(View v) {handleDisplayChipSelection(0);}
         });
 
-        binding.displaychip1.setOnClickListener(new View.OnClickListener() {
+        binding.displaychip2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {handleDisplayChipSelection(1);}
         });
