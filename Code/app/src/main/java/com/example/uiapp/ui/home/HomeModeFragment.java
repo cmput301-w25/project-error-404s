@@ -28,6 +28,7 @@ import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.databinding.FragmentHomeModeBinding;
 import com.example.uiapp.model.MoodEntry;
 import com.example.uiapp.ui.bottomsheet.SettingsFragment;
+import com.example.uiapp.ui.notifications.NotificationsFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -85,6 +86,15 @@ public class HomeModeFragment extends Fragment {
         settingsButton.setOnClickListener(v -> {
             SettingsFragment settingsFragment = new SettingsFragment();
             settingsFragment.show(getChildFragmentManager(), "SettingsFragment");
+        });
+
+        // Set up the Notification button
+        ImageButton notificationButton = binding.getRoot().findViewById(R.id.button_notifications);
+        notificationButton.setOnClickListener(v -> {
+            // Create and show NotificationFragment as bottom sheet
+            // TODO: change the notificationsFragment to add show
+            NotificationsFragment notificationFragment = new NotificationsFragment();
+            notificationFragment.show(getChildFragmentManager(), "NotificationFragment");
         });
         
         // Observe changes in the mood list
