@@ -48,6 +48,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final Map<String, Float> moodColorMap = new HashMap<>();
 
     private ImageButton filterButton;
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,24 +96,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
 
-//    private void setupRealTimeUpdates() {
-//        db = FirebaseFirestore.getInstance();
-//
-//        /** ------------ CHANGE THIS BASED ON HOW DATABASE IS FIGURED OUT TO BE -----------------------------  **/
-//        /// //////////////////////////////////////////////////////////////////////////
-//        moodListener = db.collection("MoodEvents")
-//                .addSnapshotListener((value, error) -> {
-//                    if (error != null) return;
-//
-//                    mMap.clear();
-//                    for (QueryDocumentSnapshot doc : value) {
-//                        MoodEntry entry = doc.toObject(MoodEntry.class);
+    private void setupRealTimeUpdates() {
+        db = FirebaseFirestore.getInstance();
+
+        /** ------------ CHANGE THIS BASED ON HOW DATABASE IS FIGURED OUT TO BE -----------------------------  **/
+        /// //////////////////////////////////////////////////////////////////////////
+        moodListener = db.collection("MoodEvents")
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) return;
+
+                    mMap.clear();
+                    for (QueryDocumentSnapshot doc : value) {
+                        MoodEntry entry = doc.toObject(MoodEntry.class);
 //                        entry.setDocumentId(doc.getId());
-//                        addCustomMarker(entry);
-//                    }
-//                });
-//        /// //////////////////////////////////////////////////////////////////////////
-//    }
+                        //TO DO: remove this:
+                        entry.setFirestoreId(doc.getId());
+                        addCustomMarker(entry);
+                    }
+                });
+        /// //////////////////////////////////////////////////////////////////////////
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -134,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
 
         // Uncomment when ready for Firestore
-        // setupRealTimeUpdates();
+         setupRealTimeUpdates();
     }
 
     private String formatDate(String dateTime) {
@@ -174,39 +177,65 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
-//    private void addCustomMarker(MoodEntry entry) {
-//        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
-//        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
-//
-//        Marker marker = mMap.addMarker(new MarkerOptions()
-//                .position(location)
-//                .title(entry.getMood())
-//                .snippet(entry.getDateTime())
-//                .icon(icon));
-//
-//        if (marker != null) {
-//            marker.setTag(entry.getDocumentId());
-//        }
-//    }
+    private void addCustomMarker(MoodEntry entry) {
+        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
+        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
 
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(location)
+                .title(entry.getMood())
+                .snippet(entry.getDateTime())
+                .icon(icon));
+
+        if (marker != null) {
+            //marker.setTag(entry.getDocumentId());
+            marker.setTag(entry.getFirestoreId());
+
+        }
+    }
     private BitmapDescriptor createEmojiMarker(int emojiResId, String date) {
-        // Create custom marker with emoji and date
+        // Inflate the custom marker layout (which now includes the red dot)
         View markerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_marker, null);
+
+        // Find views from the inflated layout.
         ImageView emoji = markerView.findViewById(R.id.emoji_image);
         TextView dateText = markerView.findViewById(R.id.date_text);
 
+        // Set the emoji drawable and formatted date.
         emoji.setImageResource(emojiResId);
         dateText.setText(formatDate(date));
 
+        // Measure and layout the view.
         markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
+
+        // Create a bitmap and draw the view into it.
         Bitmap bitmap = Bitmap.createBitmap(markerView.getMeasuredWidth(),
                 markerView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
         markerView.draw(canvas);
 
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+//    private BitmapDescriptor createEmojiMarker(int emojiResId, String date) {
+//        // Create custom marker with emoji and date
+//        View markerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_marker, null);
+//        ImageView emoji = markerView.findViewById(R.id.emoji_image);
+//        TextView dateText = markerView.findViewById(R.id.date_text);
+//
+//        emoji.setImageResource(emojiResId);
+//        dateText.setText(formatDate(date));
+//
+//        markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        Bitmap bitmap = Bitmap.createBitmap(markerView.getMeasuredWidth(),
+//                markerView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
+//        markerView.draw(canvas);
+//
+//        return BitmapDescriptorFactory.fromBitmap(bitmap);
+//    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
