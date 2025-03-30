@@ -249,7 +249,8 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
                             "note", updatedNote,
                             "people", people,
                             "location", binding.expandableLocation.txtLocation.getText().toString(),
-                            "imageUrl", selectedImageUri != null ? selectedImageUri.toString() : ""
+                            "imageUrl", selectedImageUri != null ? selectedImageUri.toString() : "",
+                            "moodIcon", getEmojiIconForMood(updatedMood)
                         )
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(getContext(), "Mood event updated successfully!", Toast.LENGTH_SHORT).show();
@@ -467,5 +468,20 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
         selectedMood = emojiList.get(position).getName();
         binding.btnAdd.setEnabled(true);
         binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
+    }
+    /**
+     * Gets the emoji icon for a given mood.
+     * @param mood The mood to get the emoji icon for
+     * @return The emoji icon path
+     */
+    private int getEmojiIconForMood(String mood) {
+        // iterate through emojiList to find matching mood
+        for (EmojiModel emoji : emojiList) {
+            if (emoji.getName().equals(mood)) {
+                return emoji.getEmojiPath();
+            }
+        }
+        //  if no matching mood, return default emoji
+        return R.drawable.happy; //  default emoji
     }
 }
