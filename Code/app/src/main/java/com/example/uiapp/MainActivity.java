@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
 
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
+        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
+        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
         if (userID == null) { // Redirect only if the user is NOT logged in
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
@@ -103,6 +103,29 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
 
+        // Check Firestore for profile existence
+        db.collection("users").document(userID)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (!document.exists()) {
+                        // Profile does not exist; clear session and redirect.
+                        getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                                .edit()
+                                .remove("USERNAME")
+                                .apply();
+                        Toast.makeText(MainActivity.this, "Profile not found. Logging out.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Profile exists: Continue setting up the UI.
+                        setContentView(R.layout.activity_bottom_nav);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(MainActivity.this, "Error verifying profile.", Toast.LENGTH_SHORT).show();
+                });
 
         setContentView(R.layout.activity_bottom_nav);
         Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();

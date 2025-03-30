@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.databinding.FragmentHomeModeBinding;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.ui.bottomsheet.SettingsFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -78,6 +80,13 @@ public class HomeModeFragment extends Fragment {
         moodAdapter = new MoodAdapter(getContext(), new ArrayList<>(), null, null);
         recyclerView.setAdapter(moodAdapter);
 
+        // Set up the Settings button to pop up the SettingsFragment as a bottom sheet.
+        ImageButton settingsButton = binding.getRoot().findViewById(R.id.button_settings);
+        settingsButton.setOnClickListener(v -> {
+            SettingsFragment settingsFragment = new SettingsFragment();
+            settingsFragment.show(getChildFragmentManager(), "SettingsFragment");
+        });
+        
         // Observe changes in the mood list
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
             moodAdapter.updateList(moodEntries);
