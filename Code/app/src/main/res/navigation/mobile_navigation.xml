@@ -20,6 +20,10 @@
         <action
             android:id="@+id/action_addModelFragment_to_homeModeFragment"
             app:destination="@id/homeModeFragment" />
+        <argument
+            android:name="DOCUMENT_ID"
+            app:argType="string"
+            android:defaultValue="null" />
 
     </fragment>
 
@@ -31,9 +35,13 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.uiapp.ui.notifications.NotificationsFragment"
+        android:name="com.example.uiapp.ui.notifications.MapFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_mapFilter"
+            app:destination="@id/mapFilter" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_fragment_add"
         android:name="com.example.uiapp.ui.AddModelFragment"
@@ -54,4 +62,9 @@
         android:name="com.example.uiapp.ui.home.HomeModeFragment"
         android:label="fragment_home_mode"
         tools:layout="@layout/fragment_home_mode" />
+    <dialog
+        android:id="@+id/mapFilter"
+        android:name="com.example.uiapp.ui.bottomsheet.MapFilter"
+        android:label="fragment_map_filter"
+        tools:layout="@layout/fragment_map_filter" />
 </navigation>

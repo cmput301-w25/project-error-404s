@@ -1,8 +1,12 @@
 package com.example.uiapp.ui.history;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.util.Locale.filter;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,8 +36,12 @@ import com.example.uiapp.adapter.OnItemDeleteClickListener;
 import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.ui.profile.SignupActivity;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -46,6 +55,10 @@ import java.util.List;
  */
 public class HistoryFragment extends Fragment implements OnItemDeleteClickListener, OnItemEditClickListener {
     private static final String TAG = "HistoryFragment";
+
+    // For direct link from maps
+    private String scrollToDocumentId;
+    //
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private MoodAdapter moodAdapter;
@@ -56,6 +69,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
     // Firebase reference
     private FirebaseFirestore db;
+
+    private String moodEventsId;
     private CollectionReference moodEventsRef;
     /**
      * Creates and initializes the history view.
@@ -70,7 +85,50 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
 
         // Initialize Firebase
         db = FirebaseFirestore.getInstance();
-        moodEventsRef = db.collection("MoodEvents");
+
+        Context context = getContext();  // or getActivity()
+        if (context != null) {
+            String user = context.getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                    .getString("USERNAME", null);
+
+            if (user != null) {
+                // Proceed with your logic when user is available
+                DocumentReference userRef = db.collection("users").document(user);
+                userRef.get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String userId = documentSnapshot.getId();
+
+                        if (userId != null) {
+                            moodEventsRef = db.collection("users").document(userId).collection("moods");
+                            if (moodEventsRef != null) {
+                                loadMoodEventsFromFirebase(); // Make sure to load mood events after userId is retrieved
+                            } else {
+                                Log.e(TAG, "Mood events collection reference is null!");
+                            }
+                        } else {
+                            Log.e(TAG, "User ID is null!");
+                        }
+                    } else {
+                        Log.e(TAG, "User document not found!");
+                    }
+                }).addOnFailureListener(e -> Log.e(TAG, "Error retrieving user ID: " + e.getMessage()));
+            } else {
+                // Handle the case where user is not found in shared preferences
+                Log.e(TAG, "User not found in shared preferences.");
+            }
+        } else {
+            // Handle the case where context is null (e.g., fragment is not attached to an activity yet)
+            Log.e(TAG, "Context is null, cannot access shared preferences.");
+        }
+
+
+
+        Log.d("mood event ref", String.format("mood data",moodEventsRef));
+
+
+        if (getArguments() != null) {
+            scrollToDocumentId = getArguments().getString("DOCUMENT_ID");
+        }
 
 
         // Set up search functionality
@@ -132,6 +190,30 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
     }
 
     private void loadMoodEventsFromFirebase() {
+
+        if (db == null) {
+            Log.e("HistoryFragment", "Firestore instance is null");
+            return;
+        }
+
+        String user = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                .getString("USERNAME", null);
+
+        String userId = db.collection("users").document(user).getId();
+
+        if (userId == null || userId.isEmpty()) {
+            Log.e("HistoryFragment", "User ID is null or empty");
+            return;
+        }
+
+        CollectionReference moodEntriesRef = db.collection("users").document(userId).collection("moods");
+
+        if (moodEntriesRef == null) {
+            Log.e("HistoryFragment", "Mood entries reference is null");
+            return;
+        }
+
+
         moodEventsRef.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     moodList.clear();
@@ -345,4 +427,35 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             Toast.makeText(getContext(), "Failed to open edit screen", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            scrollToDocumentId = getArguments().getString("DOCUMENT_ID");
+        }
+    }
+
+//    private void setupRecyclerView() {
+//        // After loading data
+//        if (scrollToDocumentId != null) {
+//            int position = findPositionById(scrollToDocumentId);
+//            if (position != -1) {
+//                recyclerView.scrollToPosition(position);
+//            }
+//        }
+//    }
+
+//    private int findPositionById(String documentId) {
+//        for (int i = 0; i < moodList.size(); i++) {
+//            if (moodList.get(i).getDocumentId().equals(documentId)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
+
+
+
 }

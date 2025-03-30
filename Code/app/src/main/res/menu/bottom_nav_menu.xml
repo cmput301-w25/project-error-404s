@@ -17,7 +17,7 @@
         android:title="@string/title_notifications" />
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/map"
         android:title="@string/title_notifications" />
     <item
         android:id="@+id/navigation_home"

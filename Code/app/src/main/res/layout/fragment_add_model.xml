@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".ui.AddModelFragment">
+    tools:context=".ui.AddModelFragment"
+    android:fitsSystemWindows="true">
 
 
     <Toolbar

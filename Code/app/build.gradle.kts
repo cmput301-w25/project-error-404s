@@ -48,12 +48,18 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
     implementation(libs.firebase.firestore)
-    implementation(libs.google.firebase.firestore)
+    implementation(libs.gms.play.services.maps)
+    //implementation(libs.google.firebase.firestore)
     testImplementation(libs.junit)
     implementation(libs.play.services.location)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    implementation(libs.maps.android.utils)
+
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
 }

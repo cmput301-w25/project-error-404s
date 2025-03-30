@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     public Context context;    // Context for UI interactions
 
+    private FirebaseFirestore db;
+
     private static final int ADD_MOOD_REQUEST = 1;
 
     /**
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        db = FirebaseFirestore.getInstance();
         Toast.makeText(this, "Toastig", Toast.LENGTH_SHORT).show();
 
 
@@ -79,23 +82,32 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-        String username = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+        String userID = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
                .getString("USERNAME", null);
 
-        if (username == null) { // Redirect only if the user is NOT logged in
+        //String userID = db.collection("users").document(user).getId();
+
+
+
+
+        //Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
+
+        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
+        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
+        if (userID == null) { // Redirect only if the user is NOT logged in
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
             finish();
             return;
         }
 
-        Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
 
 
         setContentView(R.layout.activity_bottom_nav);
-        Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
 
-        eventRef = FirebaseFirestore.getInstance().collection("MoodEvents");
+        eventRef = FirebaseFirestore.getInstance().collection("users").document(userID).collection("moods");
         context = this;
 
 
