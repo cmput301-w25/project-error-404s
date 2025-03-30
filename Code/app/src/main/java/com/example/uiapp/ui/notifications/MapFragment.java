@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.Manifest;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private FusedLocationProviderClient fusedLocationClient;
     private final Map<String, Float> moodColorMap = new HashMap<>();
 
-    //Button filter_button;
+    private ImageButton filterButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +56,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         initializeMoodColors();
         setupMapFragment(root);
 
-
+        // Initialize filter button
+        filterButton = root.findViewById(R.id.filter_button);
+        if (filterButton != null) {
+            filterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Navigate to MapFilter
+                    NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_bottom_nav);
+                    navController.navigate(R.id.action_navigation_notifications_to_mapFilter);
+                }
+            });
+        }
 
         return root;
     }
