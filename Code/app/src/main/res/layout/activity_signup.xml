@@ -104,19 +104,22 @@
         android:text="Don't have an account?"
         android:textColor="#989898"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        tools:layout_editor_absoluteX="90dp" />
+        app:layout_constraintEnd_toStartOf="@id/SignupBtn"
+        app:layout_constraintStart_toStartOf="@+id/LoginBtn"
+        app:layout_constraintTop_toBottomOf="@+id/LoginBtn" />
 
     <Button
         android:id="@+id/SignupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#9891F8"
         android:fontFamily="@font/quicksand_bold"
         android:text="Signup"
-        app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        tools:layout_editor_absoluteX="262dp" />
+        app:layout_constraintEnd_toEndOf="@+id/LoginBtn"
+        app:layout_constraintStart_toEndOf="@+id/signuptxt"
+        app:layout_constraintTop_toBottomOf="@+id/LoginBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
