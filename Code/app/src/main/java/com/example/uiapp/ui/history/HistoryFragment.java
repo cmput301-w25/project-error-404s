@@ -190,6 +190,30 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
     }
 
     private void loadMoodEventsFromFirebase() {
+
+        if (db == null) {
+            Log.e("HistoryFragment", "Firestore instance is null");
+            return;
+        }
+
+        String user = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                .getString("USERNAME", null);
+
+        String userId = db.collection("users").document(user).getId();
+
+        if (userId == null || userId.isEmpty()) {
+            Log.e("HistoryFragment", "User ID is null or empty");
+            return;
+        }
+
+        CollectionReference moodEntriesRef = db.collection("users").document(userId).collection("moods");
+
+        if (moodEntriesRef == null) {
+            Log.e("HistoryFragment", "Mood entries reference is null");
+            return;
+        }
+
+
         moodEventsRef.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     moodList.clear();

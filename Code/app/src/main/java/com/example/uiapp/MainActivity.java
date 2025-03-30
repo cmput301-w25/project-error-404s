@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         String userID = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
                .getString("USERNAME", null);
 
+        //String userID = db.collection("users").document(user).getId();
+
 
 
 
