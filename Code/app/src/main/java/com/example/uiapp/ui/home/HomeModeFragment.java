@@ -96,7 +96,7 @@ public class HomeModeFragment extends Fragment {
             NotificationsFragment notificationFragment = new NotificationsFragment();
             notificationFragment.show(getChildFragmentManager(), "NotificationFragment");
         });
-        
+
         // Observe changes in the mood list
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
             moodAdapter.updateList(moodEntries);
