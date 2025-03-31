@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SIGN UP"
+        android:text="LOG IN"
         android:textSize="40sp"
         android:textColor="@color/purple_primary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,19 +77,19 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/SignupBtn"
+        android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/purple_primary"
         android:padding="14dp"
-        android:text="Sign Up"
+        android:text="Log In"
         android:textColor="@color/white"
         app:cornerRadius="15dp" />
 
     <LinearLayout
-        android:id="@+id/llLogin"
+        android:id="@+id/llSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -98,18 +98,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Have an account?"
+            android:text="Don't have an account?"
             android:textSize="14sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Log in"
+            android:text=" Sign up"
             android:textSize="14sp"
             android:textColor="@color/purple_primary"/>
 
     </LinearLayout>
 
 </LinearLayout>
-
-

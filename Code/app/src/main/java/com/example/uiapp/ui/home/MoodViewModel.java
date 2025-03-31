@@ -1,86 +1,97 @@
 package com.example.uiapp.ui.home;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.app.Application;
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
-import com.example.uiapp.data.MoodDao;
-import com.example.uiapp.data.MoodDatabase;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.utils.HelperClass;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Locale;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class MoodViewModel extends AndroidViewModel {
-    private final MoodDao moodDao;
-    private final LiveData<List<MoodEntry>> moodList;
-    private final FirebaseFirestore db;
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private String userId;
+public class MoodViewModel extends ViewModel {
+    private final MutableLiveData<List<MoodEntry>> moodEntries = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<List<MoodEntry>> followingMoodEntries = new MutableLiveData<>(new ArrayList<>());
 
-    public MoodViewModel(Application application) {
-        super(application);
-        MoodDatabase database = MoodDatabase.getInstance(application);
-        moodDao = database.moodDao();
-        moodList = moodDao.getAllMoods(); // Directly observe the database
-        db = FirebaseFirestore.getInstance();
-
-        // Retrieve the userId from SharedPreferences
-        String user = application.getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-                .getString("USERNAME", null);
-
-        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(user)));
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(user).getId()));
-
-        String userId = db.collection("users").document(user).getId();
-
-        if (userId != null) {
-            Log.d("MoodViewModel", "Logged in as: " + userId);
-        } else {
-            Log.e("MoodViewModel", "User is not logged in or userId not found!");
-        }
-    }
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference moodEventsRef = db.collection("MoodEvents");
 
     public LiveData<List<MoodEntry>> getMoodEntries() {
-        return moodList;
+        return moodEntries;
     }
 
-    public void addMoodEntry(MoodEntry entry, Runnable onComplete) {
-        // Save locally first
-        executor.execute(() -> {
-            moodDao.insert(entry);  // Save locally in the SQLite database
-            // Now save to Firestore
-            saveMoodToFirestore(entry);
+    public LiveData<List<MoodEntry>> getFollowingMoodEntries() {
+        return followingMoodEntries;
+    }
+
+    public void fetchMoodEvents() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        String currentDateTime = sdf.format(new Date());
+
+        moodEventsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                QuerySnapshot snapshot = task.getResult();
+
+                List<MoodEntry> allMoods = new ArrayList<>();
+                for (QueryDocumentSnapshot document : snapshot) {
+                    MoodEntry mood = document.toObject(MoodEntry.class);
+                    if (mood.getDateTime().contains(currentDateTime)) {
+                        allMoods.add(mood);
+                    }
+                }
+
+                List<MoodEntry> myMoodList = new ArrayList<>();
+                List<MoodEntry> followingMoodList = new ArrayList<>();
+
+                if (HelperClass.users != null) {
+                    String loggedInUsername = HelperClass.users.getUsername();
+                    List<String> followersList = HelperClass.users.getFollowers();
+
+                    for (MoodEntry mood : allMoods) {
+                        if (mood.getUsername().equals(loggedInUsername)) {
+                            myMoodList.add(mood);
+                        } else if (followersList.contains(mood.getUsername()) && mood.getStatus().equals("Public")) {
+                            followingMoodList.add(mood);
+                        }
+                    }
+                }
+
+                // Sorting by DateTime (Reverse Chronological Order)
+                Comparator<MoodEntry> dateComparator = (m1, m2) -> {
+                    try {
+                        // Fixing format by removing "|"
+                        String dateTime1 = m1.getDateTime().replace(" | ", " ");
+                        String dateTime2 = m2.getDateTime().replace(" | ", " ");
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault());
+                        Date date1 = dateFormat.parse(dateTime1);
+                        Date date2 = dateFormat.parse(dateTime2);
+
+                        return date2.compareTo(date1); // Reverse order (most recent first)
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                };
+
+                Collections.sort(myMoodList, dateComparator);
+                Collections.sort(followingMoodList, dateComparator);
+
+                // Update LiveData
+                moodEntries.postValue(myMoodList);
+                followingMoodEntries.postValue(followingMoodList);
+            }
         });
     }
 
-    public void deleteMoodEntry(MoodEntry entry) {
-        executor.execute(() -> moodDao.delete(entry));
-    }
-
-    private void saveMoodToFirestore(MoodEntry entry) {
-        if (userId == null) {
-            Log.e("MoodViewModel", "Error: User ID is null, cannot save mood.");
-            return;
-        }
-
-        // Get Firestore reference to the user's "moods" subcollection
-        db.collection("users").document(userId)
-                .collection("moods").add(entry) // Use add() to generate a unique document ID
-                .addOnSuccessListener(documentReference -> {
-                    // Optionally, if you want to set the Firestore ID in the entry object:
-                    entry.setFirestoreId(documentReference.getId());
-                    Log.d("MoodViewModel", "Mood successfully added to Firestore!");
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("MoodViewModel", "Error adding mood to Firestore", e);
-                });
-    }
 }
