@@ -132,7 +132,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
             if (!moodEntries.isEmpty()) {
                 singleMoodEntry.add(moodEntries.get(0)); //
             }
-            myMoodsAdapter.updateList(moodEntries);
+            myMoodsAdapter.updateList(singleMoodEntry);
             toggleVisibility(moodEntries, binding.rvMyMoods, binding.tvNoMyDataFound);
             hideProgressDialog();
         });
