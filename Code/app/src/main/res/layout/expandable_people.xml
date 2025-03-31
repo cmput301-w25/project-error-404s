@@ -21,7 +21,7 @@
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-                android:text="People"
+            android:text="People"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#000000" />
@@ -56,87 +56,87 @@
         android:paddingBottom="10dp"
         android:paddingTop="8dp">
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                app:chipSpacing="8dp">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:chipSpacing="8dp">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip1"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:checkable="true"
-                    android:text="Alone"
-                    app:chipBackgroundColor="@color/gray_primary"
-                    app:checkedIconTint="@color/white"
-                    app:chipCornerRadius="50dp"
-                    app:chipIcon="@drawable/profile2"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="20dp"
-                    app:chipIconVisible="true"
-                    android:textAppearance="@style/chipText"
-                    android:textSize="14sp"
-                    app:closeIconVisible="false"
-                    app:iconStartPadding="8dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:checkable="true"
+                android:text="Alone"
+                app:chipBackgroundColor="@color/gray_primary"
+                app:checkedIconTint="@color/white"
+                app:chipCornerRadius="50dp"
+                app:chipIcon="@drawable/profile2"
+                app:chipIconEnabled="true"
+                app:chipIconSize="20dp"
+                app:chipIconVisible="true"
+                android:textAppearance="@style/chipText"
+                android:textSize="14sp"
+                app:closeIconVisible="false"
+                app:iconStartPadding="8dp" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:checkable="true"
-                    android:text="With 1 person"
-                    app:chipBackgroundColor="@color/gray_primary"
-                    app:checkedIconTint="@color/white"
-                    app:chipCornerRadius="50dp"
-                    app:chipIcon="@drawable/__user"
-                    android:textAppearance="@style/chipText"
-                    android:textSize="14sp"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="20dp"
-                    app:chipIconVisible="true"
-                    app:closeIconVisible="false"
-                    app:iconStartPadding="8dp" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:checkable="true"
+                android:text="With 1 person"
+                app:chipBackgroundColor="@color/gray_primary"
+                app:checkedIconTint="@color/white"
+                app:chipCornerRadius="50dp"
+                app:chipIcon="@drawable/__user"
+                android:textAppearance="@style/chipText"
+                android:textSize="14sp"
+                app:chipIconEnabled="true"
+                app:chipIconSize="20dp"
+                app:chipIconVisible="true"
+                app:closeIconVisible="false"
+                app:iconStartPadding="8dp" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip3"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:checkable="true"
-                    android:text="with 2+ person"
-                    app:chipBackgroundColor="@color/gray_primary"
-                    app:chipCornerRadius="50dp"
-                    app:chipIcon="@drawable/user3"
-                    android:textAppearance="@style/chipText"
-                    android:textSize="14sp"
-                    app:chipIconEnabled="true"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:checkable="true"
+                android:text="with 2+ person"
+                app:chipBackgroundColor="@color/gray_primary"
+                app:chipCornerRadius="50dp"
+                app:chipIcon="@drawable/user3"
+                android:textAppearance="@style/chipText"
+                android:textSize="14sp"
+                app:chipIconEnabled="true"
 
-                    app:chipIconSize="20dp"
-                    app:checkedIconTint="@color/white"
-                    app:closeIconVisible="false"
-                    app:iconStartPadding="8dp" />
+                app:chipIconSize="20dp"
+                app:checkedIconTint="@color/white"
+                app:closeIconVisible="false"
+                app:iconStartPadding="8dp" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip4"
-                    style="@style/CustomChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:checkable="true"
-                    android:text="Crowd"
-                    app:chipBackgroundColor="@color/gray_primary"
-                    app:checkedIconTint="@color/white"
-                    app:chipCornerRadius="50dp"
-                    app:chipIcon="@drawable/us4r"
-                    android:textAppearance="@style/chipText"
-                    android:textSize="14sp"
-                    app:chipIconEnabled="true"
-                    app:chipIconSize="20dp"
-                    app:closeIconVisible="false"
-                    app:iconStartPadding="8dp" />
-            </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip4"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:checkable="true"
+                android:text="Crowd"
+                app:chipBackgroundColor="@color/gray_primary"
+                app:checkedIconTint="@color/white"
+                app:chipCornerRadius="50dp"
+                app:chipIcon="@drawable/us4r"
+                android:textAppearance="@style/chipText"
+                android:textSize="14sp"
+                app:chipIconEnabled="true"
+                app:chipIconSize="20dp"
+                app:closeIconVisible="false"
+                app:iconStartPadding="8dp" />
+        </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 </LinearLayout>
