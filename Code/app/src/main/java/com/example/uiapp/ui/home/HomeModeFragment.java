@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,20 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.uiapp.R;
 import com.example.uiapp.adapter.MoodAdapter;
-import com.example.uiapp.adapter.OnItemDeleteClickListener;
-import com.example.uiapp.adapter.OnItemEditClickListener;
-import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.databinding.FragmentHomeModeBinding;
 import com.example.uiapp.model.MoodEntry;
-import com.example.uiapp.ui.bottomsheet.SettingsFragment;
 import com.example.uiapp.ui.notifications.NotificationsFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

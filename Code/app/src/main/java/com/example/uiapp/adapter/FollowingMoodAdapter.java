@@ -1,61 +1,51 @@
 package com.example.uiapp.adapter;
 
+
+import static com.example.uiapp.MainActivity.createInitialsBitmap;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.uiapp.R;
+import com.example.uiapp.model.EmojiHelper;
 import com.example.uiapp.model.MoodEntry;
-import com.example.uiapp.utils.HelperClass;
-import com.example.uiapp.utils.OnItemEntryClick;
+import com.example.uiapp.model.UserModel;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder> {
-    private String from;
+public class FollowingMoodAdapter extends RecyclerView.Adapter<FollowingMoodAdapter.MoodViewHolder> {
     private final Context context;
     private List<MoodEntry> moodList = new ArrayList<>();
-    private final OnItemDeleteClickListener onItemDeleteClickListener;
-    private final OnItemEditClickListener onItemEditClickListener;
-    private final OnItemEntryClick onItemEntryClick;
+    private OnItemEditClickListener onItemEditClickListener;
 
-    public MoodAdapter(String from, Context context, List<MoodEntry> moodList, OnItemDeleteClickListener onItemDeleteClickListener, OnItemEditClickListener onItemEditClickListener, OnItemEntryClick onItemEntryClick) {
-        this.from = from;
+    public FollowingMoodAdapter(Context context, List<MoodEntry> moodList, OnItemEditClickListener onItemEditClickListener) {
         this.context = context;
         this.moodList = moodList;
-        this.onItemDeleteClickListener = onItemDeleteClickListener;
         this.onItemEditClickListener = onItemEditClickListener;
-        this.onItemEntryClick = onItemEntryClick;
     }
 
-    public MoodAdapter(Context context, List<MoodEntry> moodList) {
-        this.context = context;
-        this.moodList = moodList;
-        this.onItemDeleteClickListener = null;
-        this.onItemEditClickListener = null;
-        this.onItemEntryClick = null;
+    public List<MoodEntry> getMoodList() {
+        return moodList;
     }
+
     @NonNull
     @Override
     public MoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.history_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.mood_following_item, parent, false);
         return new MoodViewHolder(view);
     }
 
@@ -68,45 +58,43 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         holder.txtNote.setText(entry.getNote());
         holder.txtPeople.setText(entry.getPeople());
         holder.txtLocation.setText(entry.getLocation());
+        holder.txtUsername.setText(entry.getUsername());
+
+        Bitmap initialsBitmap = createInitialsBitmap(entry.getUsername(), 200);
+        holder.imgUser.setImageBitmap(initialsBitmap);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Users").document(entry.getUsername())
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        UserModel user = documentSnapshot.toObject(UserModel.class);
+                        if (user != null) {
+                            if (user.getUserImage() != null && !user.getUserImage().isEmpty()) {
+                                Glide.with(context)
+                                        .load(user.getUserImage())
+                                        .centerCrop()
+                                        .into(holder.imgUser);
+                            }
+                        }
+                    }
+                });
+
         holder.imgMood.setImageResource(entry.getMoodIcon());
-        if (entry.getNote().isEmpty()){
+        if (entry.getNote().isEmpty()) {
             holder.llNote.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.llNote.setVisibility(View.VISIBLE);
         }
-        if (entry.getPeople().isEmpty()){
+        if (entry.getPeople().isEmpty()) {
             holder.llPeople.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.llPeople.setVisibility(View.VISIBLE);
         }
-        if (entry.getLocation().isEmpty()){
+        if (entry.getLocation().isEmpty()) {
             holder.llLocation.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.llLocation.setVisibility(View.VISIBLE);
-        }
-
-        // Check if delete listener is null to prevent NullPointerException
-        if (onItemDeleteClickListener != null) {
-            holder.btnDelete.setOnClickListener(v -> onItemDeleteClickListener.onClickDelete(position));
-        } else {
-            holder.btnDelete.setOnClickListener(null);
-        }
-
-        // Check if edit listener is null to prevent NullPointerException
-        if (onItemEditClickListener != null) {
-            holder.btnEdit.setOnClickListener(v -> onItemEditClickListener.onClickEdit(position));
-        } else {
-            holder.btnEdit.setOnClickListener(null);
-        }
-
-        if (!from.equals("home")) {
-            if (HelperClass.users.getUsername().equals(entry.getUsername())){
-                holder.btnEdit.setVisibility(View.VISIBLE);
-                holder.btnDelete.setVisibility(View.VISIBLE);
-            }
-        } else {
-            holder.btnEdit.setVisibility(View.GONE);
-            holder.btnDelete.setVisibility(View.GONE);
         }
 
         if (!entry.getImageUrl().isEmpty()) {
@@ -122,11 +110,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemEntryClick.onItemClick(position);
+                onItemEditClickListener.onClickEdit(position);
             }
         });
-
-
     }
 
     public void updateList(List<MoodEntry> newList) {
@@ -141,10 +127,9 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
     }
 
     public static class MoodViewHolder extends RecyclerView.ViewHolder {
-        TextView txtDateTime, txtMood, txtNote, txtPeople, txtLocation;
-        ImageView imgMood, imgMoodEntry;
+        TextView txtDateTime, txtMood, txtNote, txtPeople, txtLocation, txtUsername;
+        ImageView imgMood, imgMoodEntry, imgUser;
         MaterialCardView centerImg;
-        ImageButton btnDelete, btnEdit;
         LinearLayout llNote, llPeople, llLocation;
 
         public MoodViewHolder(@NonNull View itemView) {
@@ -154,14 +139,15 @@ public class MoodAdapter extends RecyclerView.Adapter<MoodAdapter.MoodViewHolder
             txtNote = itemView.findViewById(R.id.txtNote);
             txtPeople = itemView.findViewById(R.id.txtPeople);
             txtLocation = itemView.findViewById(R.id.txtLocation);
+            txtUsername = itemView.findViewById(R.id.txtUsername);
             imgMood = itemView.findViewById(R.id.imgMood);
             imgMoodEntry = itemView.findViewById(R.id.imgMoodEntry);
+            imgUser = itemView.findViewById(R.id.imgUser);
             centerImg = itemView.findViewById(R.id.centerImg);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
-            btnEdit = itemView.findViewById(R.id.btnEdit);
             llNote = itemView.findViewById(R.id.llNote);
             llPeople = itemView.findViewById(R.id.llPeople);
             llLocation = itemView.findViewById(R.id.llLocation);
         }
     }
 }
+
