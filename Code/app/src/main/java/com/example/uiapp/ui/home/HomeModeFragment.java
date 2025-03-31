@@ -98,6 +98,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_homeModeFragment_to_navigation_search);
             }
+
         });
 
     }
