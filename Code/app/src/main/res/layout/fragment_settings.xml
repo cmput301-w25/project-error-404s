@@ -36,19 +36,13 @@
             android:layout_centerInParent="true"
             android:gravity="center_vertical">
 
-            <!-- Info icon (i encircled) -->
-            <ImageView
-                android:id="@+id/iv_info"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="8dp" />
 
             <!-- Title text -->
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Setting"
+                android:text="Settings"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -71,12 +65,12 @@
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
-            android:textSize="18sp"
+            android:backgroundTint="#9891F8"
+            android:drawablePadding="8dp"
             android:padding="16dp"
-            android:background="?selectableItemBackground"
-            android:textColor="@color/black"
-            android:drawablePadding="8dp" />
+            android:text="Logout"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>
