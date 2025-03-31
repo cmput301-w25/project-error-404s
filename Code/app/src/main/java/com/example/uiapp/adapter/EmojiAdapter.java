@@ -46,7 +46,7 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         } else {
             holder.binding.cardEmoji.setCardBackgroundColor(Color.WHITE); // Default color
 //            holder.binding.tvEmoji.setText("Default"); // Reset text
-            holder. binding.ivEmoji.setImageResource(R.drawable.happy_gray);
+            holder. binding.ivEmoji.setImageResource(emojiModel.getEmojiGrayPath());
         }
 
         holder.binding.cardEmoji.setOnClickListener(v -> {
