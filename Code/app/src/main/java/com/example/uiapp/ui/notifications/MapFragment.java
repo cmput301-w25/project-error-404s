@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import static android.content.Context.MODE_PRIVATE;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -48,7 +49,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private final Map<String, Float> moodColorMap = new HashMap<>();
 
     private ImageButton filterButton;
-
+    private FirebaseFirestore db;
+    private String userId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map, container, false);
@@ -68,7 +70,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                 }
             });
         }
-
+        userId = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+            .getString("USERNAME", null);
         return root;
     }
 
@@ -95,24 +98,126 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
 
-//    private void setupRealTimeUpdates() {
-//        db = FirebaseFirestore.getInstance();
-//
-//        /** ------------ CHANGE THIS BASED ON HOW DATABASE IS FIGURED OUT TO BE -----------------------------  **/
-//        /// //////////////////////////////////////////////////////////////////////////
-//        moodListener = db.collection("MoodEvents")
-//                .addSnapshotListener((value, error) -> {
-//                    if (error != null) return;
-//
-//                    mMap.clear();
-//                    for (QueryDocumentSnapshot doc : value) {
-//                        MoodEntry entry = doc.toObject(MoodEntry.class);
-//                        entry.setDocumentId(doc.getId());
-//                        addCustomMarker(entry);
-//                    }
-//                });
-//        /// //////////////////////////////////////////////////////////////////////////
-//    }
+    
+    /**
+     * Sets up real-time updates for mood events.
+     */
+    private void setupRealTimeUpdates() {
+        db = FirebaseFirestore.getInstance();
+        
+        // Check if user ID is valid
+        if (userId == null || userId.isEmpty()) {
+            Log.e("MapFragment", "Cannot load mood events: User ID not available");
+            return;
+        }
+        
+        // First get current location for distance calculations
+        if (ContextCompat.checkSelfPermission(requireContext(), 
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            
+            fusedLocationClient.getLastLocation().addOnSuccessListener(currentLocation -> {
+                if (currentLocation == null) {
+                    Log.e("MapFragment", "Current location is null, showing all mood events without distance filtering");
+                    loadMoodEventsWithoutFiltering();
+                    return;
+                }
+                
+                // Store current location for distance calculations
+                final LatLng myLocation = new LatLng(
+                        currentLocation.getLatitude(), 
+                        currentLocation.getLongitude()
+                );
+                
+                // Query the correct Firestore path for the user's mood events
+                moodListener = db.collection("users").document(userId).collection("moods")
+                    .addSnapshotListener((value, error) -> {
+                        if (error != null) {
+                            Log.e("MapFragment", "Firestore listen failed", error);
+                            return;
+                        }
+                        
+                        if (value == null || value.isEmpty()) {
+                            Log.d("MapFragment", "No mood events found");
+                            return;
+                        }
+                        
+                        // Clear existing markers
+                        mMap.clear();
+                        
+                        // Process each mood event
+                        for (QueryDocumentSnapshot doc : value) {
+                            try {
+                                MoodEntry entry = doc.toObject(MoodEntry.class);
+                                entry.setFirestoreId(doc.getId());
+                                
+                                // Skip entries without location
+                                if (entry.getLocation() == null || entry.getLocation().isEmpty()) {
+                                    Log.d("MapFragment", "Skipping mood event with no location: " + doc.getId());
+                                    continue;
+                                }
+                                
+                                // Convert address to coordinates
+                                LatLng entryLocation = new LocationHelper(requireContext())
+                                        .getLatLngFromAddress(entry.getLocation());
+                                
+                                if (entryLocation == null) {
+                                    Log.e("MapFragment", "Could not get coordinates for address: " + entry.getLocation());
+                                    continue;
+                                }
+                                
+                                // Calculate distance between current location and mood event location
+                                float[] results = new float[1];
+                                android.location.Location.distanceBetween(
+                                        myLocation.latitude, myLocation.longitude,
+                                        entryLocation.latitude, entryLocation.longitude,
+                                        results
+                                );
+                                
+                                float distanceInKm = results[0] / 1000; // Convert meters to km
+                                
+                                // Only show mood events within 5km
+                                if (distanceInKm <= 5) {
+                                    Log.d("MapFragment", "Adding marker for mood: " + entry.getMood() + 
+                                            " at distance: " + distanceInKm + "km");
+                                    addCustomMarker(entry);
+                                } else {
+                                    Log.d("MapFragment", "Mood event outside 5km range: " + 
+                                            distanceInKm + "km, not showing");
+                                }
+                            } catch (Exception e) {
+                                Log.e("MapFragment", "Error processing mood event", e);
+                            }
+                        }
+                    });
+            });
+        } else {
+            Log.e("MapFragment", "Location permission not granted");
+        }
+    }
+    
+    // Fallback method when location is not available
+    private void loadMoodEventsWithoutFiltering() {
+        moodListener = db.collection("users").document(userId).collection("moods")
+            .addSnapshotListener((value, error) -> {
+                if (error != null) {
+                    Log.e("MapFragment", "Firestore listen failed", error);
+                    return;
+                }
+                
+                if (value == null) return;
+                
+                mMap.clear();
+                for (QueryDocumentSnapshot doc : value) {
+                    try {
+                        MoodEntry entry = doc.toObject(MoodEntry.class);
+                        entry.setFirestoreId(doc.getId());
+                        addCustomMarker(entry);
+                    } catch (Exception e) {
+                        Log.e("MapFragment", "Error processing mood event", e);
+                    }
+                }
+            });
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -134,7 +239,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
 
         // Uncomment when ready for Firestore
-        // setupRealTimeUpdates();
+         setupRealTimeUpdates();
     }
 
     private String formatDate(String dateTime) {
@@ -174,39 +279,73 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
-//    private void addCustomMarker(MoodEntry entry) {
-//        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
-//        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
-//
-//        Marker marker = mMap.addMarker(new MarkerOptions()
-//                .position(location)
-//                .title(entry.getMood())
-//                .snippet(entry.getDateTime())
-//                .icon(icon));
-//
-//        if (marker != null) {
-//            marker.setTag(entry.getDocumentId());
-//        }
-//    }
+    private void addCustomMarker(MoodEntry entry) {
+        BitmapDescriptor icon = createEmojiMarker(entry.getMoodIcon(), entry.getDateTime());
+        LatLng location = new LocationHelper(requireContext()).getLatLngFromAddress(entry.getLocation());
+        
+        // Skip if location is null
+        if (location == null) {
+            Log.e("MapFragment", "Cannot add marker: Invalid location for " + entry.getMood());
+            return;
+        }
 
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(location)
+                .title(entry.getMood())
+                .snippet(entry.getDateTime())
+                .icon(icon));
+
+        if (marker != null) {
+            //marker.setTag(entry.getDocumentId());
+            marker.setTag(entry.getFirestoreId());
+            Log.d("MapFragment", "Successfully added marker for " + entry.getMood() + " at " + location.latitude + "," + location.longitude);
+        } else {
+            Log.e("MapFragment", "Failed to add marker for " + entry.getMood());
+        }
+    }
     private BitmapDescriptor createEmojiMarker(int emojiResId, String date) {
-        // Create custom marker with emoji and date
+        // Inflate the custom marker layout (which now includes the red dot)
         View markerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_marker, null);
+
+        // Find views from the inflated layout.
         ImageView emoji = markerView.findViewById(R.id.emoji_image);
         TextView dateText = markerView.findViewById(R.id.date_text);
 
+        // Set the emoji drawable and formatted date.
         emoji.setImageResource(emojiResId);
         dateText.setText(formatDate(date));
 
+        // Measure and layout the view.
         markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
+
+        // Create a bitmap and draw the view into it.
         Bitmap bitmap = Bitmap.createBitmap(markerView.getMeasuredWidth(),
                 markerView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
         markerView.draw(canvas);
 
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+//    private BitmapDescriptor createEmojiMarker(int emojiResId, String date) {
+//        // Create custom marker with emoji and date
+//        View markerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_marker, null);
+//        ImageView emoji = markerView.findViewById(R.id.emoji_image);
+//        TextView dateText = markerView.findViewById(R.id.date_text);
+//
+//        emoji.setImageResource(emojiResId);
+//        dateText.setText(formatDate(date));
+//
+//        markerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        Bitmap bitmap = Bitmap.createBitmap(markerView.getMeasuredWidth(),
+//                markerView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        markerView.layout(0, 0, markerView.getMeasuredWidth(), markerView.getMeasuredHeight());
+//        markerView.draw(canvas);
+//
+//        return BitmapDescriptorFactory.fromBitmap(bitmap);
+//    }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
