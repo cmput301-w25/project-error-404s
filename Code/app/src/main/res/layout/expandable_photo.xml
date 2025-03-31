@@ -9,6 +9,9 @@
     android:background="@drawable/card_background"
     android:padding="12dp">
 
+
+
+
     <!-- Header Section -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -69,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                />
+                 />
 
             <LinearLayout
                 android:id="@+id/uploadPlaceholder"

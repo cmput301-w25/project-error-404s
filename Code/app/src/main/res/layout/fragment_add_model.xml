@@ -7,11 +7,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".ui.AddModelFragment">
+    tools:context=".ui.AddModelFragment"
+    android:fitsSystemWindows="true">
+
 
     <Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,10 +24,10 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_centerVertical="true"
                 android:background="?actionBarItemBackground"
-                android:src="@drawable/round_arrow_back_ios_24"
-                android:visibility="gone" />
+                android:src="@drawable/round_arrow_back_ios_24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,6 +37,7 @@
                 android:text="Add Mood"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
+
 
         </RelativeLayout>
     </Toolbar>
@@ -46,6 +50,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+
         android:scrollbars="none">
 
         <LinearLayout
@@ -55,72 +60,66 @@
             android:orientation="vertical"
             android:paddingBottom="50dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
 
-                <com.google.android.material.card.MaterialCardView
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp"
+                app:strokeWidth="0dp"
+
+                >
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
-                    android:layout_centerVertical="true"
-                    app:strokeWidth="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="8dp"
 
                     >
 
-                    <LinearLayout
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/calendar" />
 
-                        >
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="6dp"
+                        android:text="Today, Feb 14, 2025"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/calendar" />
+                        />
 
-                        <TextView
-                            android:id="@+id/date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="6dp"
-                            android:text="Today, Feb 14, 2025"
-                            android:textColor="@color/black"
-                            android:textSize="13sp"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:src="@drawable/time_circle"
+                        android:textColor="@color/black"
 
-                            />
+                        />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="15dp"
-                            android:src="@drawable/time_circle"
-                            android:textColor="@color/black"
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="6dp"
+                        android:text="22:10"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
 
-                            />
-
-                        <TextView
-                            android:id="@+id/tvTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="6dp"
-                            android:text="22:10"
-                            android:textColor="@color/black"
-                            android:textSize="13sp"
-
-                            />
+                        />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
-
-            </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -157,8 +156,8 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        tools:listitem="@layout/emoji_layout" />
+                        tools:listitem="@layout/emoji_layout"
+                        android:layout_marginTop="8dp" />
 
 
                 </LinearLayout>
@@ -181,10 +180,6 @@
                 android:id="@+id/expandableLocation"
                 layout="@layout/expandable_location" />
 
-            <include
-                android:id="@+id/expandableStatus"
-                layout="@layout/expandable_status" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAdd"
                 android:layout_width="match_parent"
@@ -199,7 +194,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="50dp"
+
+                />
+
 
         </LinearLayout>
 

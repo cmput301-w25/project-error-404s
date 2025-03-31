@@ -16,10 +16,10 @@ import com.example.uiapp.model.EmojiModel;
 import java.util.List;
 
 public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHolder> {
-    private List<EmojiModel> emojiList;
+    private final List<EmojiModel> emojiList;
     private EmojiLayoutBinding binding;
     private int selectedPosition = RecyclerView.NO_POSITION;
-    private OnEmojiClickListener onEmojiClickListener;
+    private final OnEmojiClickListener onEmojiClickListener;
 
 
     public EmojiAdapter(List<EmojiModel> emojiList, OnEmojiClickListener onEmojiClickListener) {
@@ -62,21 +62,28 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
 
     }
 
-    public void setSelectedEmoji(int position) {
-        if (position >= 0 && position < emojiList.size()) {
-            int previousPosition = selectedPosition;
-            selectedPosition = position;
-            notifyItemChanged(previousPosition); // Reset previous selection
-            notifyItemChanged(selectedPosition); // Update new selection
-        }
-    }
-
-
     public EmojiModel getSelectedEmoji() {
         if (selectedPosition != RecyclerView.NO_POSITION) {
             return emojiList.get(selectedPosition);
         }
         return null; // No emoji selected
+    }
+
+    /**
+     * Allows externally setting the selected emoji position.
+     * Used in edit mode to preselect the saved emoji.
+     * 
+     * @param position Position of the emoji to select
+     */
+    public void setSelectedPosition(int position) {
+        if (position >= 0 && position < emojiList.size()) {
+            int previousPosition = selectedPosition;
+            selectedPosition = position;
+            
+            // Update UI for previous and new selection
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
+        }
     }
 
     @Override

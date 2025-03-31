@@ -20,44 +20,38 @@
         <action
             android:id="@+id/action_addModelFragment_to_homeModeFragment"
             app:destination="@id/homeModeFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_mapFragment"
-            app:destination="@id/mapFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_modeDetailsFragment"
-            app:destination="@id/modeDetailsFragment" />
+        <argument
+            android:name="DOCUMENT_ID"
+            app:argType="string"
+            android:defaultValue="null" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.uiapp.ui.search.SearchFragment"
-        android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_navigation_search_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.uiapp.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.uiapp.ui.notifications.NotificationsFragment"
+        android:name="com.example.uiapp.ui.notifications.MapFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_mapFilter"
+            app:destination="@id/mapFilter" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_fragment_add"
         android:name="com.example.uiapp.ui.AddModelFragment"
         android:label="fragment_add_model"
-        tools:layout="@layout/fragment_add_model" >
-        <action
-            android:id="@+id/action_navigation_fragment_add_to_navigation_home"
-            app:destination="@id/navigation_home" />
-    </fragment>
+        tools:layout="@layout/fragment_add_model" />
     <dialog
         android:id="@+id/filtterBottomSheetFragment"
-        android:name="com.example.uiapp.ui.bottomsheet.MoodFilter"
+        android:name="com.example.uiapp.ui.bottomsheet.FiltterBottomSheetFragment"
         android:label="fragment_filtter_bottom_sheet"
-        tools:layout="@layout/fragment_mood_filter" />
+        tools:layout="@layout/fragment_filtter_bottom_sheet" />
     <fragment
         android:id="@+id/editModeFragment"
         android:name="com.example.uiapp.ui.edit.EditModeFragment"
@@ -67,58 +61,10 @@
         android:id="@+id/homeModeFragment"
         android:name="com.example.uiapp.ui.home.HomeModeFragment"
         android:label="fragment_home_mode"
-        tools:layout="@layout/fragment_home_mode" >
-        <action
-            android:id="@+id/action_homeModeFragment_to_navigation_notifications"
-            app:destination="@id/navigation_notifications" />
-        <action
-            android:id="@+id/action_homeModeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_homeModeFragment_to_navigation_home"
-            app:destination="@id/navigation_home" />
-        <action
-            android:id="@+id/action_homeModeFragment_to_navigation_search"
-            app:destination="@id/navigation_search" />
-        <action
-            android:id="@+id/action_homeModeFragment_to_modeDetailsFragment"
-            app:destination="@id/modeDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.uiapp.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_modeDetailsFragment"
-            app:destination="@id/modeDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.uiapp.ui.map.MapFragment"
-        android:label="fragment_map"
-        tools:layout="@layout/fragment_map" >
-        <action
-            android:id="@+id/action_mapFragment_to_mapFilter"
-            app:destination="@id/mapFilter" />
-    </fragment>
+        tools:layout="@layout/fragment_home_mode" />
     <dialog
         android:id="@+id/mapFilter"
         android:name="com.example.uiapp.ui.bottomsheet.MapFilter"
         android:label="fragment_map_filter"
         tools:layout="@layout/fragment_map_filter" />
-    <fragment
-        android:id="@+id/navigation_mood_followings"
-        android:name="com.example.uiapp.ui.moodfollowing.MoodFollowingFragment"
-        android:label="fragment_mood_following"
-        tools:layout="@layout/fragment_mood_following" >
-        <action
-            android:id="@+id/action_navigation_mood_followings_to_modeDetailsFragment"
-            app:destination="@id/modeDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/modeDetailsFragment"
-        android:name="com.example.uiapp.ui.moodfollowing.ModeDetailsFragment"
-        android:label="fragment_mode_details"
-        tools:layout="@layout/fragment_mode_details" />
 </navigation>

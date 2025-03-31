@@ -15,15 +15,10 @@
     <color name="proud">#80AFFFA3</color>
     <color name="bored">#CCE6E6E6</color>
     <color name="gray_primary">#EFF1F5</color>
-    <color name="gray_dark">#AAAAAA</color>
-    <color name="orange">#FF9800</color>
     <color name="b3b3b3">#b3b3b3</color>
     <color name="purple_primary">#9891F8</color>
     <color name="light_piurple">#CFCCFB</color>
     <color name="soft_purple">#7D5FFF</color>
     <color name="soft_purple_light">#AA7D5FFF</color>
     <color name="soft_purple_transparent">#337D5FFF</color>
-    <color name="decline">#CACACA</color>
-    <color name="logout">#DF0000</color>
-
 </resources>
