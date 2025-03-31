@@ -126,6 +126,11 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
             listOfMyMoods.clear();
             listOfMyMoods.addAll(moodEntries);
+            //
+            List<MoodEntry> singleMoodEntry = new ArrayList<>();
+            if (!moodEntries.isEmpty()) {
+                singleMoodEntry.add(moodEntries.get(0)); //
+            }
             myMoodsAdapter.updateList(moodEntries);
             toggleVisibility(moodEntries, binding.rvMyMoods, binding.tvNoMyDataFound);
             hideProgressDialog();
