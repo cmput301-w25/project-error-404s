@@ -1,19 +1,28 @@
 package com.example.uiapp;
 
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-
-import com.example.uiapp.ui.profile.SignupActivity;
+import com.example.uiapp.model.UserModel;
+import com.example.uiapp.ui.profile.LoginActivity;
+import com.example.uiapp.utils.HelperClass;
+import com.example.uiapp.utils.SharedPrefHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -27,13 +36,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class MainActivity extends AppCompatActivity {
 
-    public CollectionReference eventRef;    // Firestore reference for mood events
+    public static int moodDistance = 5;
 
-    public Context context;    // Context for UI interactions
-
-    private FirebaseFirestore db;
-
-    private static final int ADD_MOOD_REQUEST = 1;
 
     /**
      * Initializes the main activity, sets up UI elements, and fetches mood events.
@@ -48,88 +52,124 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        db = FirebaseFirestore.getInstance();
-        Toast.makeText(this, "Toastig", Toast.LENGTH_SHORT).show();
+        setContentView(R.layout.activity_bottom_nav);
 
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-//            Uri imageUri = data.getData();
-//
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//                binding.expandablePhoto.imgSelected.setImageBitmap(bitmap);  // Set image to ImageView inside CardView
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-        String userID = getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-               .getString("USERNAME", null);
-
-        //String userID = db.collection("users").document(user).getId();
-
-
-
-
-        //Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
-
-        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
-        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
-        if (userID == null) { // Redirect only if the user is NOT logged in
-            Intent intent = new Intent(this, SignupActivity.class);
+        if (SharedPrefHelper.getUser(this) == null) { // Redirect only if the user is NOT logged in
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
             return;
+        }else{
+            HelperClass.users = SharedPrefHelper.getUser(this);
         }
 
-        // Check Firestore for profile existence
-        db.collection("users").document(userID)
-                .get()
-                .addOnSuccessListener(document -> {
-                    if (!document.exists()) {
-                        // Profile does not exist; clear session and redirect.
-                        getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-                                .edit()
-                                .remove("USERNAME")
-                                .apply();
-                        Toast.makeText(MainActivity.this, "Profile not found. Logging out.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        // Profile exists: Continue setting up the UI.
-                        setContentView(R.layout.activity_bottom_nav);
-                        // Initialize Firestore reference and UI components
-                        initializeUI(userID);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(MainActivity.this, "Error verifying profile.", Toast.LENGTH_SHORT).show();
-                });
-    }
-    
-    /**
-     * Initializes the UI components and sets up the navigation.
-     * 
-     * @param userID The current user's ID
-     */
-    private void initializeUI(String userID) {
-        Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
+        if (HelperClass.users != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Users")
+                    .document(HelperClass.users.getUsername())
+                    .addSnapshotListener((documentSnapshot, error) -> {
+                        if (error != null) {
+                            Log.e("FirestoreError", "Error listening for user updates", error);
+                            return;
+                        }
 
-        eventRef = FirebaseFirestore.getInstance().collection("users").document(userID).collection("moods");
-        context = this;
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
+                            UserModel user = documentSnapshot.toObject(UserModel.class);
+                            if (user != null) {
+                                HelperClass.users = user;
+                                SharedPrefHelper.saveUser(this, HelperClass.users);
+                                Log.d("UserUpdate", "User data updated in HelperClass and SharedPreferences");
+                            }
+                        }
+                    });
+        }
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
+
+        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
-        
         // Set up navigation with NavController
         NavigationUI.setupWithNavController(bottomNav, navController);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if (navDestination.getId() == R.id.modeDetailsFragment){
+                    bottomNav.setVisibility(View.GONE);
+                }else {
+                    bottomNav.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.homeModeFragment) {
+                navController.popBackStack(R.id.homeModeFragment, true);
+                navController.navigate(R.id.homeModeFragment);
+                return true;
+            } else if (itemId == R.id.navigation_home) {
+                navController.popBackStack(R.id.navigation_home, true);
+                navController.navigate(R.id.navigation_home);
+                return true;
+            } else if (itemId == R.id.navigation_fragment_add) {
+                navController.popBackStack(R.id.navigation_fragment_add, true);
+                navController.navigate(R.id.navigation_fragment_add);
+                return true;
+            } else if (itemId == R.id.navigation_mood_followings) {
+                navController.popBackStack(R.id.navigation_mood_followings, true);
+                navController.navigate(R.id.navigation_mood_followings);
+                return true;
+            } else if (itemId == R.id.mapFragment) {
+                navController.popBackStack(R.id.mapFragment, true);
+                navController.navigate(R.id.mapFragment);
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    public static Bitmap createInitialsBitmap(String name, int size) {
+        // Extract initials
+        String initials = getInitials(name);
+
+        // Create bitmap and canvas
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+
+        // Background paint
+        Paint paintBg = new Paint();
+        paintBg.setColor(Color.parseColor("#9891F8"));
+        paintBg.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(size / 2, size / 2, size / 2, paintBg);
+
+        // Text paint
+        Paint paintText = new Paint();
+        paintText.setColor(Color.WHITE);
+        paintText.setTextSize(size / 3);
+        paintText.setTypeface(Typeface.DEFAULT_BOLD);
+        paintText.setAntiAlias(true);
+
+        // Measure text size
+        Rect textBounds = new Rect();
+        paintText.getTextBounds(initials, 0, initials.length(), textBounds);
+
+        // Center the text
+        float x = (size - textBounds.width()) / 2f;
+        float y = (size + textBounds.height()) / 2f;
+        canvas.drawText(initials, x, y, paintText);
+
+        return bitmap;
+    }
+
+    public static String getInitials(String name) {
+        if (name == null || name.trim().isEmpty()) return "?";
+        String[] parts = name.trim().split(" ");
+        if (parts.length == 1) {
+            return parts[0].substring(0, 1).toUpperCase();
+        } else {
+            return (parts[0].substring(0, 1) + parts[1].substring(0, 1)).toUpperCase();
+        }
     }
 }
