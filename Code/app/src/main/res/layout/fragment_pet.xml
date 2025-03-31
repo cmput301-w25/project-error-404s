@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.34"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="oct_pink.json"
+        app:lottie_fileName="oct_basicred.json"
         app:lottie_loop="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
