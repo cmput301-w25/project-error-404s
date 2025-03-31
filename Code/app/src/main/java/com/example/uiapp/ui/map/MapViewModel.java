@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.utils.HelperClass;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -141,7 +142,6 @@ public class MapViewModel extends ViewModel {
         }
     }
 
-    // May not needed, delete later
     public void setFilters(String mood, String date, String displayMineOrFollowing) {
         moodFilter.setValue(mood);
         dateFilter.setValue(date);

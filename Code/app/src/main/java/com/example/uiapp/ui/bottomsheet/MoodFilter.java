@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.uiapp.R;
 import com.example.uiapp.adapter.FilterEmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
-import com.example.uiapp.databinding.FragmentFiltterBottomSheetBinding;
+import com.example.uiapp.databinding.FragmentMoodFilterBinding;
 import com.example.uiapp.model.EmojiModel;
 import com.example.uiapp.ui.history.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -23,12 +23,13 @@ import com.google.android.material.chip.Chip;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implements OnEmojiClickListener {
-    private FragmentFiltterBottomSheetBinding binding;
+public class MoodFilter extends BottomSheetDialogFragment implements OnEmojiClickListener {
+    private FragmentMoodFilterBinding binding;
     List<EmojiModel> emojiList;
     FilterEmojiAdapter emojiAdapter;
-    private final Chip[] chips = new Chip[2];
+    private Chip[] DateChips = new Chip[2];
     //private Chip[] chipIds;
+    private Chip[] DisplayChips = new Chip[2];
     private HomeViewModel homeViewModel;
     private int selectedChipIndex = -1;
     private String selectedMood = "";
@@ -38,21 +39,21 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implem
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentFiltterBottomSheetBinding.inflate(inflater, container, false);
+        binding = FragmentMoodFilterBinding.inflate(inflater, container, false);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         emojiList = new ArrayList<>();
         setEmojiAdapter();
-        chips[0] = binding.chip1;
-        chips[1] = binding.chip2;
+        DateChips[0] = binding.datechip1;
+        DateChips[1] = binding.datechip2;
 //        handleChipSelection(0);
 
-        binding.chip1.setOnClickListener(new View.OnClickListener() {
+        binding.datechip1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleChipSelection(0);
             }
         });
-        binding.chip2.setOnClickListener(new View.OnClickListener() {
+        binding.datechip2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleChipSelection(1);
@@ -69,6 +70,7 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implem
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                homeViewModel.setFilters("", "");
                 dismiss();
             }
         });
@@ -120,17 +122,17 @@ public class FiltterBottomSheetFragment extends BottomSheetDialogFragment implem
     //handleChipSelection() is for controlling UI visual effects
     private void handleChipSelection(int selectedChip) {
         selectedChipIndex = selectedChip;//
-        for (int i = 0; i < chips.length; i++) {
+        for (int i = 0; i < DateChips.length; i++) {
             if (i == selectedChip) {
                 // Selected chip styling
-                chips[i].setChipBackgroundColorResource(R.color.purple_primary);
+                DateChips[i].setChipBackgroundColorResource(R.color.purple_primary);
 //                chips[i].setChipIconTint(ColorStateList.valueOf(Color.WHITE));
-                chips[i].setTextColor(Color.WHITE);
+                DateChips[i].setTextColor(Color.WHITE);
             } else {
                 // Reset other chips
-                chips[i].setChipBackgroundColorResource(R.color.gray_primary);
+                DateChips[i].setChipBackgroundColorResource(R.color.gray_primary);
 //                chips[i].setChipIconTint(ColorStateList.valueOf(Color.BLACK));
-                chips[i].setTextColor(Color.BLACK);
+                DateChips[i].setTextColor(Color.BLACK);
             }
         }
     }

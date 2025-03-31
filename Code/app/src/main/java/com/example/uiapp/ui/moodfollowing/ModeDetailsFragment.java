@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,14 @@ import com.bumptech.glide.Glide;
 import com.example.uiapp.adapter.CommentsAdapter;
 import com.example.uiapp.databinding.FragmentModeDetailsBinding;
 import com.example.uiapp.model.CommentsModel;
+import com.example.uiapp.model.EmojiHelper;
 import com.example.uiapp.model.MoodEntry;
 import com.example.uiapp.model.UserModel;
+import com.example.uiapp.utils.HelperClass;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;

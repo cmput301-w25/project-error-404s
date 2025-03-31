@@ -1,121 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:background="@drawable/gradient_background"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:paddingBottom="56dp"
-android:layout_height="match_parent"
-tools:context=".ui.notifications.NotificationsFragment"
-android:fitsSystemWindows="true">
-
-<Toolbar
-    android:id="@+id/toolbar"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.notifications.NotificationsFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-
-
-        <ImageButton
-            android:id="@+id/notifbckbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="?actionBarItemBackground"
-            android:src="@drawable/round_arrow_back_ios_24"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/quicksand_bold"
-            android:text="Notifications"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
-
-
-    </RelativeLayout>
-</Toolbar>
-
-
-<com.google.android.material.divider.MaterialDivider
-    android:id="@+id/materialDivider"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-
-<!-- Scrollable content -->
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="674dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <ImageView
-            android:id="@+id/notifsnum"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/rectangle_notifications" />
+            android:layout_margin="8dp">
 
-        <TextView
-            android:id="@+id/textView"
+            <ImageButton
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/round_arrow_back_ios_24"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Notification"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+
+
+        </RelativeLayout>
+    </Toolbar>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="1dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="38 Notifications"
-            android:layout_marginStart="24dp"
-            app:layout_constraintStart_toStartOf="@+id/notifsnum"
-            app:layout_constraintTop_toTopOf="@id/notifsnum"
-            app:layout_constraintBottom_toBottomOf="@id/notifsnum"/>
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
+            <TextView
+                android:id="@+id/txtNotificationCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="notifications"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </androidx.cardview.widget.CardView>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    android:id="@+id/history_recycler"
-    tools:listitem="@layout/history_item"
-    android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                tools:listitem="@layout/notification_item" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
 
-</androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
 
-<TextView
-    android:id="@+id/text_notifications"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:textAlignment="center"
-    android:textSize="20sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    </androidx.core.widget.NestedScrollView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

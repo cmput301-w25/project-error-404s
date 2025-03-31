@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
-
     app:cardCornerRadius="16dp"
     app:cardBackgroundColor="@color/white"
     app:cardElevation="4dp"
-
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -76,6 +74,7 @@
 
 
         <LinearLayout
+            android:id="@+id/llNote"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -120,11 +119,11 @@
                 android:layout_gravity="end"
                 android:scaleType="centerCrop" />
 
-
         </com.google.android.material.card.MaterialCardView>
 
 
         <LinearLayout
+            android:id="@+id/llPeople"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -143,8 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/quicksand_bold"
-
-                android:text="Note: "
+                android:text="People"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -152,8 +150,18 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llLocation"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="Location: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/txtLocation"
@@ -161,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/quicksand_bold"
-
                 android:text="Location "
                 android:textColor="@color/black"
                 android:textSize="14sp"

@@ -26,6 +26,7 @@ import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentMoodFollowingBinding;
 import com.example.uiapp.model.MoodEntry;
 import com.example.uiapp.ui.history.HomeViewModel;
+import com.example.uiapp.utils.HelperClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +123,7 @@ public class MoodFollowingFragment extends Fragment implements OnItemDeleteClick
         });
 
         binding.filterButton.setOnClickListener(view1 ->
-                Navigation.findNavController(view1).navigate(R.id.action_navigation_home_to_filtterBottomSheetFragment)
+                Navigation.findNavController(view1).navigate(R.id.filtterBottomSheetFragment)
         );
 
     }

@@ -5,140 +5,126 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.utils.HelperClass;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 /**
  * ViewModel for managing mood history data and filtering operations.
- * Handles mood and date filters, and maintains the UI state.
  */
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<List<MoodEntry>> moodEntries = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<List<MoodEntry>> filteredMoodEntries = new MutableLiveData<>(new ArrayList<>());
+
     private final MutableLiveData<String> moodFilter = new MutableLiveData<>("");
     private final MutableLiveData<String> dateFilter = new MutableLiveData<>("");
+    private final MutableLiveData<String> searchQuery = new MutableLiveData<>("");
     private final MutableLiveData<Boolean> filtersApplied = new MutableLiveData<>(false);
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference moodEventsRef = db.collection("MoodEvents");
+
+    private String currentUsername = "";
+
+    public LiveData<List<MoodEntry>> getFilteredMoodEntries() {
+        return filteredMoodEntries;
     }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
-
-    /**
-     * Updates mood and date filters and marks filters as applied.
-     */
-    public void setFilters(String mood, String date) {
-        moodFilter.setValue(mood);
-        dateFilter.setValue(date);
-        filtersApplied.setValue(true);
-    }
-
-    public LiveData<String> getMoodFilter() {
-        return moodFilter;
-    }
-
-    public LiveData<String> getDateFilter() {
-        return dateFilter;
-    }
-
-    public LiveData<Boolean> getFiltersApplied() {
-        return filtersApplied;
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+        filterMoodEntries(); // Reapply filter when username changes
     }
 
     /**
-     * Resets all filters to their default empty state.
+     * Fetches mood entries from the database.
      */
-    public void clearFilters() {
-        moodFilter.setValue("");
-        dateFilter.setValue("");
-        filtersApplied.setValue(false);
+    public void fetchMoodEntries(String following) {
+        moodEventsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                QuerySnapshot snapshot = task.getResult();
+                String loggedInUsername = HelperClass.users.getUsername();
+                List<MoodEntry> allMoods = new ArrayList<>();
+                for (QueryDocumentSnapshot document : snapshot) {
+                    MoodEntry mood = document.toObject(MoodEntry.class);
+                    if (following.isEmpty()) {
+                        if (mood.getUsername().equals(loggedInUsername)) {
+                            allMoods.add(mood);
+                        }
+                    } else if (following.contains("following")) {
+                        if (HelperClass.users.getFollowing().contains(mood.getUsername())) {
+                            allMoods.add(mood);
+                        }
+                    }
+                }
+                Collections.sort(allMoods, (a, b) -> b.getDateTime().compareTo(a.getDateTime()));
+
+                moodEntries.setValue(allMoods);
+                filterMoodEntries(); // Apply filters
+
+            }
+        });
     }
 
     /**
-     * Applies mood and date filters to the provided list of mood entries.
-     * Includes null safety checks and handles empty filter cases.
-     * Returns filtered list or original list if no filters are applied.
+     * Applies filters based on mood, date, and search query.
      */
-    public List<MoodEntry> applyFilters(List<MoodEntry> originalList) {
-        // Handle null input list
-        if (originalList == null) {
-            return new ArrayList<>();
-        }
-        
-        // If no filters are applied, return the original list
-        if (filtersApplied == null || !filtersApplied.getValue()) {
-            return originalList;
-        }
+    private void filterMoodEntries() {
+        List<MoodEntry> originalList = moodEntries.getValue();
+        if (originalList == null) return;
 
         List<MoodEntry> filteredList = new ArrayList<>();
+
         String mood = moodFilter.getValue() != null ? moodFilter.getValue() : "";
         String date = dateFilter.getValue() != null ? dateFilter.getValue() : "";
+        String query = searchQuery.getValue() != null ? searchQuery.getValue().toLowerCase() : "";
 
         for (MoodEntry entry : originalList) {
-            // Skip null entries
-            if (entry == null) {
-                continue;
-            }
-            
-            // Get mood safely
-            String entryMood = entry.getMood() != null ? entry.getMood() : "";
-            
-            boolean moodMatches = mood.isEmpty() || entryMood.equals(mood);
-            boolean dateMatches = isDateInRange(entry.getDateTime(), date);
+            if (entry == null) continue;
 
-            if (moodMatches && dateMatches) {
+            boolean moodMatches = mood.isEmpty() || entry.getMood().equalsIgnoreCase(mood);
+            boolean dateMatches = isDateInRange(entry.getDateTime(), date);
+            boolean searchMatches = query.isEmpty() || entryContainsSearchText(entry, query);
+
+            if (moodMatches && dateMatches && searchMatches) {
                 filteredList.add(entry);
             }
         }
 
-        return filteredList;
+        filteredMoodEntries.setValue(filteredList);
     }
 
-    /**
-     * Checks if a given date falls within the selected date filter range.
-     * Handles both "Yesterday" and standard date formats.
-     * Returns true if date is in range or if any input is invalid.
-     */
+    public void clearMoodEntries() {
+        filteredMoodEntries.setValue(new ArrayList<>()); // Clear LiveData
+    }
+
     private boolean isDateInRange(String dateTimeStr, String dateFilter) {
-        // Handle null or empty inputs
         if (dateTimeStr == null || dateTimeStr.isEmpty() || dateFilter == null || dateFilter.isEmpty()) {
             return true;
         }
 
         try {
-            // Parse date string to Date object
-            SimpleDateFormat sdf;
-            if (dateTimeStr.contains("Yesterday")) {
-                // Yesterday format
-                sdf = new SimpleDateFormat("'Yesterday,' MMM dd, yyyy | HH:mm", Locale.US);
-            } else {
-                // Normal date format
-                sdf = new SimpleDateFormat("EEE, MMM dd, yyyy | HH:mm", Locale.US);
-            }
-
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd, yyyy | HH:mm", Locale.US);
             Date entryDate = sdf.parse(dateTimeStr);
             if (entryDate == null) return true;
 
-            Date now = new Date();
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(now);
 
             if (dateFilter.equals("24h")) {
-                // Past 24 hours
                 calendar.add(Calendar.HOUR, -24);
                 return entryDate.after(calendar.getTime());
             } else if (dateFilter.equals("7d")) {
-                // Last 7 days
                 calendar.add(Calendar.DAY_OF_YEAR, -7);
                 return entryDate.after(calendar.getTime());
             }
@@ -149,5 +135,43 @@ public class HomeViewModel extends ViewModel {
             return true;
         }
     }
-}
 
+    private boolean entryContainsSearchText(MoodEntry entry, String searchText) {
+        String mood = entry.getMood() != null ? entry.getMood().toLowerCase() : "";
+        String note = entry.getNote() != null ? entry.getNote().toLowerCase() : "";
+        String location = entry.getLocation() != null ? entry.getLocation().toLowerCase() : "";
+        String people = entry.getPeople() != null ? entry.getPeople().toLowerCase() : "";
+
+        return mood.contains(searchText) || note.contains(searchText) || location.contains(searchText) || people.contains(searchText);
+    }
+
+    public void setFilters(String mood, String date) {
+        moodFilter.setValue(mood);
+        dateFilter.setValue(date);
+        filtersApplied.setValue(true);
+        filterMoodEntries();
+    }
+
+    public void setSearchQuery(String query) {
+        searchQuery.setValue(query);
+        filterMoodEntries();
+    }
+
+    public void deleteMoodEntry(MoodEntry moodEntry) {
+        if (moodEntry == null || moodEntry.getMoodId() == null || moodEntry.getMoodId().isEmpty()) {
+            return;
+        }
+
+        moodEventsRef.document(moodEntry.getMoodId()).delete()
+                .addOnSuccessListener(aVoid -> {
+                    List<MoodEntry> updatedList = new ArrayList<>(moodEntries.getValue());
+                    updatedList.remove(moodEntry);
+                    moodEntries.setValue(updatedList);
+                    filterMoodEntries();
+                })
+                .addOnFailureListener(e -> {
+                    e.printStackTrace();
+                });
+    }
+
+}

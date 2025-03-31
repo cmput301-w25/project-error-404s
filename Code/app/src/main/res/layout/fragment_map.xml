@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical"
+    tools:context=".ui.map.MapFragment">
 
-    <!-- Toolbar at the top -->
     <Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/tollBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp">
 
             <ImageButton
-                android:id="@+id/filter_button"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="8dp"
-                android:background="?actionBarItemBackground"
-                app:srcCompat="@drawable/setting_5" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnBack"
                 android:layout_centerVertical="true"
                 android:background="?actionBarItemBackground"
-                android:src="@drawable/round_arrow_back_ios_24"
-                android:visibility="gone" />
+                android:src="@drawable/round_arrow_back_ios_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/quicksand_bold"
-                android:text="Map"
+                android:text="Mood Map"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
+            <ImageButton
+                android:id="@+id/filterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:src="@drawable/filter_icon"
+                />
         </RelativeLayout>
-
     </Toolbar>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="53.5dp"/>
-
-    <!-- Google Map Fragment -->
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tollBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
