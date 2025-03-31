@@ -46,6 +46,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
     ProgressDialog progressDialog;
     ArrayList<MoodEntry> listOfMyMoods = new ArrayList<>();
     ArrayList<MoodEntry> listOfOtherMoods = new ArrayList<>();
+    LottieAnimationView petAnimationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,17 +139,17 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
                 singleMoodEntry.add(latestMood);
 
                 // Update octopus animation based on the latest mood
-                if (latestMood.getMood().equals("Happy")) {
-                    binding.animationView.setAnimation(R.raw.happy_octopus); // Set happy octopus animation
-                } else if (latestMood.getMood().equals("Sad")) {
-                    binding.animationView.setAnimation(R.raw.sad_octopus); // Set sad octopus animation
-                } else if (latestMood.getMood().equals("Angry")) {
-                    binding.animationView.setAnimation(R.raw.angry_octopus); // Set angry octopus animation
+                if (latestMood.getMood().equalsIgnoreCase("happy")) {
+                    binding.petAnimationView.setAnimation("happy_octopus.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("sad")) {
+                    binding.petAnimationView.setAnimation("sad_octopus.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("angry")) {
+                    binding.petAnimationView.setAnimation("angry_octopus.json");
                 } else {
-                    binding.animationView.setAnimation(R.raw.basic_octopus); // Default animation
+                    binding.petAnimationView.setAnimation("basic_octopus.json");
                 }
 
-                binding.animationView.playAnimation(); // Start the animation
+                binding.petAnimationView.playAnimation();
             }
 
 

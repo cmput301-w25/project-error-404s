@@ -187,7 +187,14 @@
                 android:text="No Mood Found"
                 android:textSize="14sp" />
 
-
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/petAnimationView"
+                android:layout_width="91dp"
+                android:layout_height="101dp"
+                android:layout_gravity="center_horizontal"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="oct_basicred.json"
+                app:lottie_loop="true" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:visibility="gone"
@@ -197,11 +204,6 @@
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/history_item" />
 
-            <include
-                android:id="@+id/petAnimationContainer"
-                layout="@layout/fragment_pet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
