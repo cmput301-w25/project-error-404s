@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="56dp"
+    android:background="@drawable/gradient_background"
     tools:context=".ui.history.HistoryFragment">
 
     <Toolbar
@@ -101,7 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginVertical="12dp"
+            android:layout_marginVertical="5dp"
             android:orientation="vertical"
             android:paddingBottom="50dp">
 

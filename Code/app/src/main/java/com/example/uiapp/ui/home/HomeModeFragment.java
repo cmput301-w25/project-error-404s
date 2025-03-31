@@ -34,6 +34,7 @@ import com.example.uiapp.utils.SharedPrefHelper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class HomeModeFragment extends Fragment implements OnItemEntryClick {
@@ -133,14 +134,6 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
             }
             myMoodsAdapter.updateList(moodEntries);
             toggleVisibility(moodEntries, binding.rvMyMoods, binding.tvNoMyDataFound);
-            hideProgressDialog();
-        });
-
-        moodViewModel.getFollowingMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
-            listOfOtherMoods.clear();
-            listOfOtherMoods.addAll(moodEntries);
-            followingMoodsAdapter.updateList(moodEntries);
-            toggleVisibility(moodEntries, binding.rvFollowingMoods, binding.tvNoFollowersDataFound);
             hideProgressDialog();
         });
     }
