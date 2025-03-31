@@ -116,7 +116,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         progressDialog.setCancelable(false);
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-        SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm", Locale.getDefault());
         currentDate = sdf.format(new Date());
         currentTime = time.format(new Date().getTime());
         ChipGroup chipGroup = binding.expandablePeople.chipGroup;

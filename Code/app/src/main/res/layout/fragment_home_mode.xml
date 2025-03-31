@@ -187,11 +187,7 @@
                 android:text="No Mood Found"
                 android:textSize="14sp" />
 
-            <include
-                android:id="@+id/petAnimationContainer"
-                layout="@layout/fragment_pet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:visibility="gone"
@@ -200,6 +196,12 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/history_item" />
+
+            <include
+                android:id="@+id/petAnimationContainer"
+                layout="@layout/fragment_pet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
