@@ -461,11 +461,13 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
                 chipsStatus[i].setChipBackgroundColorResource(R.color.purple_primary);
                 chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.WHITE));
                 chipsStatus[i].setTextColor(Color.WHITE);
+                chipsStatus[i].setChecked(true);
             } else {
                 // Reset other chips
                 chipsStatus[i].setChipBackgroundColorResource(R.color.gray_primary);
                 chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.BLACK));
                 chipsStatus[i].setTextColor(Color.BLACK);
+                chipsStatus[i].setChecked(false);
             }
         }
     }
