@@ -2,26 +2,20 @@ package com.example.uiapp.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.uiapp.R;
 import com.example.uiapp.model.MoodEntry;
-import com.example.uiapp.utils.HelperClass;
 import com.example.uiapp.utils.OnItemEntryClick;
 import com.google.android.material.card.MaterialCardView;
 

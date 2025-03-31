@@ -26,7 +26,6 @@ import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentMoodFollowingBinding;
 import com.example.uiapp.model.MoodEntry;
 import com.example.uiapp.ui.history.HomeViewModel;
-import com.example.uiapp.utils.HelperClass;
 
 import java.util.ArrayList;
 import java.util.List;

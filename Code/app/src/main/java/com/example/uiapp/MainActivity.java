@@ -20,7 +20,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import com.example.uiapp.model.UserModel;
 import com.example.uiapp.ui.profile.LoginActivity;
-import com.example.uiapp.utils.HelperClass;
 import com.example.uiapp.utils.SharedPrefHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ import com.example.uiapp.R;
 import com.example.uiapp.adapter.CustomInfoWindowAdapter;
 import com.example.uiapp.databinding.FragmentMapBinding;
 import com.example.uiapp.model.MoodEntry;
-import com.example.uiapp.utils.HelperClass;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
