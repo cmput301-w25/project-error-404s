@@ -53,11 +53,17 @@ dependencies {
     implementation(libs.google.firebase.firestore)
     implementation(libs.firebase.storage)
     implementation(libs.play.services.maps)
-    testImplementation(libs.junit)
+    //testImplementation(libs.junit)
     implementation(libs.play.services.location)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
