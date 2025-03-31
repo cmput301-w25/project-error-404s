@@ -1,6 +1,5 @@
 package com.example.uiapp.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +46,7 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         } else {
             holder.binding.cardEmoji.setCardBackgroundColor(Color.WHITE); // Default color
 //            holder.binding.tvEmoji.setText("Default"); // Reset text
-            holder. binding.ivEmoji.setImageResource(R.drawable._emoji__smiling_face_with_smiling_eyes_);
+            holder. binding.ivEmoji.setImageResource(R.drawable.happy_gray);
         }
 
         holder.binding.cardEmoji.setOnClickListener(v -> {

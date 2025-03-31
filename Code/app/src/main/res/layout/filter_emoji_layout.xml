@@ -26,7 +26,7 @@
             android:id="@+id/ivEmoji"
             android:layout_height="26dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/_emoji__smiling_face_with_smiling_eyes_" />
+            android:src="@drawable/happy_gray" />
 
         <TextView
             android:layout_width="wrap_content"

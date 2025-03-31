@@ -4,11 +4,12 @@ import android.graphics.Color;
 
 public class EmojiModel {
     private int emojiPath;
+    private int emojiGrayPath;
     private String name;
     private int color;
     private boolean selected;
 
-    public EmojiModel(int emojiPath, String name, int color) {
+    public EmojiModel(int emojiPath, int emojiGrayPath, String name, int color) {
         this.emojiPath = emojiPath;
         this.name = name;
         this.color = color;
@@ -18,6 +19,8 @@ public class EmojiModel {
     public int getEmojiPath() {
         return emojiPath;
     }
+
+    public int getEmojiGrayPath() { return emojiGrayPath;}
 
     public void setEmojiPath(int emojiPath) {
         this.emojiPath = emojiPath;
