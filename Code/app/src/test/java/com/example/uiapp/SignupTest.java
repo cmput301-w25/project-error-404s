@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * This class tests the validation logic used in signup
- */
+
+  // This class tests the validation logic used in signup
+
 public class SignupTest {
 
     private SignupValidation getValidator() {
