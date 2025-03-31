@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * ViewModel for managing mood history data and filtering operations.
@@ -69,8 +71,24 @@ public class HomeViewModel extends ViewModel {
                     }
                 }
                 Collections.sort(allMoods, (a, b) -> b.getDateTime().compareTo(a.getDateTime()));
-
-                moodEntries.setValue(allMoods);
+                //
+                if (following.contains("following")) {
+                    Map<String, Integer> userCount = new HashMap<>();
+                    List<MoodEntry> limitedMoods = new ArrayList<>();
+    
+                    for (MoodEntry mood : allMoods) {
+                        String username = mood.getUsername();
+                        int count = userCount.getOrDefault(username, 0);
+                        if (count < 3) {
+                            limitedMoods.add(mood);
+                            userCount.put(username, count + 1);
+                        }
+                    }
+                    moodEntries.setValue(limitedMoods);
+                } else {
+                    //
+                    moodEntries.setValue(allMoods);
+                }
                 filterMoodEntries(); // Apply filters
 
             }

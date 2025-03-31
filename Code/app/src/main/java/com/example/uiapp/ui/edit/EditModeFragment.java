@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,14 +14,12 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +30,11 @@ import com.bumptech.glide.Glide;
 import com.example.uiapp.R;
 import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
-import com.example.uiapp.databinding.FragmentAddModelBinding;
 import com.example.uiapp.databinding.FragmentEditModeBinding;
 import com.example.uiapp.model.EmojiModel;
 import com.example.uiapp.model.MoodEntry;
 import com.example.uiapp.ui.LocationHelper;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,11 +42,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class EditModeFragment extends Fragment implements OnEmojiClickListener {
     public FragmentEditModeBinding binding;
@@ -421,18 +413,18 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
     }
 
     private void setEmojiAdapter() {
-        emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));
-        emojiList.add(new EmojiModel(R.drawable.sad_emoji, "Sad", getResources().getColor(R.color.sad)));
-        emojiList.add(new EmojiModel(R.drawable.disgust_emoji, "Fear", getResources().getColor(R.color.fear)));
-        emojiList.add(new EmojiModel(R.drawable.image_4, "Disgust", getResources().getColor(R.color.disgust)));
-        emojiList.add(new EmojiModel(R.drawable.image_5, "Anger", getResources().getColor(R.color.angry)));
-        emojiList.add(new EmojiModel(R.drawable.image_6, "Confused", getResources().getColor(R.color.confused)));
-        emojiList.add(new EmojiModel(R.drawable.image_7, "Shame", getResources().getColor(R.color.shame)));
-        emojiList.add(new EmojiModel(R.drawable.image_10, "Surprised", getResources().getColor(R.color.surprized)));
-        emojiList.add(new EmojiModel(R.drawable.image_11, "Tired", getResources().getColor(R.color.tired)));
-        emojiList.add(new EmojiModel(R.drawable.image_12, "Anxious", getResources().getColor(R.color.anxious)));
-        emojiList.add(new EmojiModel(R.drawable.image_9, "Proud", getResources().getColor(R.color.proud)));
-        emojiList.add(new EmojiModel(R.drawable.image_3, "Bored", getResources().getColor(R.color.bored)));
+        emojiList.add(new EmojiModel(R.drawable.happy, R.drawable.happy_gray,"Happy", getResources().getColor(R.color.happy)));
+        emojiList.add(new EmojiModel(R.drawable.sad_emoji, R.drawable.sad_gray, "Sad", getResources().getColor(R.color.sad)));
+        emojiList.add(new EmojiModel(R.drawable.fear, R.drawable.fear_gray, "Fear", getResources().getColor(R.color.fear)));
+        emojiList.add(new EmojiModel(R.drawable.disgust, R.drawable.disgust_gray, "Disgust", getResources().getColor(R.color.disgust)));
+        emojiList.add(new EmojiModel(R.drawable.anger, R.drawable.anger_gray,"Anger", getResources().getColor(R.color.angry)));
+        emojiList.add(new EmojiModel(R.drawable.confused, R.drawable.confused_gray,"Confused", getResources().getColor(R.color.confused)));
+        emojiList.add(new EmojiModel(R.drawable.shame, R.drawable.shame_gray,"Shame", getResources().getColor(R.color.shame)));
+        emojiList.add(new EmojiModel(R.drawable.surprised, R.drawable.surprised_gray,"Surprised", getResources().getColor(R.color.surprized)));
+        emojiList.add(new EmojiModel(R.drawable.tired, R.drawable.tired_gray, "Tired", getResources().getColor(R.color.tired)));
+        emojiList.add(new EmojiModel(R.drawable.anxious, R.drawable.anxious_gray,"Anxious", getResources().getColor(R.color.anxious)));
+        emojiList.add(new EmojiModel(R.drawable.proud, R.drawable.proud_gray,"Proud", getResources().getColor(R.color.proud)));
+        emojiList.add(new EmojiModel(R.drawable.bored, R.drawable.bored_gray,"Bored", getResources().getColor(R.color.bored)));
         recyclerViewEmojis.setLayoutManager(new GridLayoutManager(getContext(), 4));
         emojiAdapter = new EmojiAdapter( emojiList,this::onEmojiClick);
         recyclerViewEmojis.setAdapter(emojiAdapter);
@@ -461,11 +453,13 @@ public class EditModeFragment extends Fragment implements OnEmojiClickListener {
                 chipsStatus[i].setChipBackgroundColorResource(R.color.purple_primary);
                 chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.WHITE));
                 chipsStatus[i].setTextColor(Color.WHITE);
+                chipsStatus[i].setChecked(true);
             } else {
                 // Reset other chips
                 chipsStatus[i].setChipBackgroundColorResource(R.color.gray_primary);
                 chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.BLACK));
                 chipsStatus[i].setTextColor(Color.BLACK);
+                chipsStatus[i].setChecked(false);
             }
         }
     }
