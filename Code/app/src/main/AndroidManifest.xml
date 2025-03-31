@@ -25,7 +25,7 @@
             android:value="AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".utils.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_bottom_nav">
             <intent-filter>
@@ -37,7 +37,7 @@
 
 
         <activity
-            android:name=".BottomNavActivity"
+            android:name=".utils.BottomNavActivity"
             android:exported="false" />
     </application>
 

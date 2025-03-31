@@ -1,8 +1,9 @@
-package com.example.uiapp;
+package com.example.uiapp.utils;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.uiapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

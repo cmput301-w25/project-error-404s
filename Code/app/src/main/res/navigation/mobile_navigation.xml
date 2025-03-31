@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_fragment_add"
-        android:name="com.example.uiapp.ui.AddModelFragment"
+        android:name="com.example.uiapp.ui.search.AddModelFragment"
         android:label="fragment_add_model"
         tools:layout="@layout/fragment_add_model" />
     <dialog

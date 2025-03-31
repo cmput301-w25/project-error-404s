@@ -1,4 +1,4 @@
-package com.example.uiapp.ui;
+package com.example.uiapp.ui.search;
 
 import android.content.Context;
 import android.location.Address;

@@ -1,8 +1,8 @@
-package com.example.uiapp.ui;
+package com.example.uiapp.ui.search;
+
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -16,34 +16,35 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
 import android.Manifest;
+
 import com.example.uiapp.adapter.EmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.model.EmojiModel;
 import com.example.uiapp.model.MoodEntry;
 
-import com.example.uiapp.ui.home.MoodViewModel;
+import com.example.uiapp.utils.HelperClass;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
 
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -51,16 +52,14 @@ import com.example.uiapp.R;
 import com.example.uiapp.databinding.FragmentAddModelBinding;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import android.util.Log;
 
 public class AddModelFragment extends Fragment implements OnEmojiClickListener {
-
-    private MoodViewModel moodViewModel;
     FragmentAddModelBinding binding;
     List<EmojiModel> emojiList;
     EmojiAdapter emojiAdapter;
@@ -69,24 +68,30 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private boolean isExpandedPhoto = false;
     private boolean isExpandedPeople = false;
     private boolean isExpandedLocation = false;
+    private boolean isExpandedStatus = false;
     private static final int PICK_IMAGE_REQUEST = 1;
-    private final Chip[] chips = new Chip[4];
-    private final int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    private Chip[] chips = new Chip[4];
+    private Chip[] chipsStatus = new Chip[2];
+    private int[] chipIds = {R.id.chip1, R.id.chip2, R.id.chip3, R.id.chip4};
+    ProgressDialog progressDialog;
 
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private Uri selectedImageUri;
-    private final boolean hasSelectedImage = false;
+    private boolean hasSelectedImage = false;
 
     /// ///////////////////////////////
     private LocationHelper locationHelper;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private String currentLocation = "";
+    private String locationLat = "";
+    private String locationLng = "";
 
     // Firebase instance and collection reference
     private FirebaseFirestore db;
     private CollectionReference moodEventsRef;
-
-    private String moodEventsId;
+    StorageReference storageReference;
+    String currentDate = "";
+    String currentTime = "";
 
     @SuppressLint("SetTextI18n")
 
@@ -97,39 +102,18 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
         // Initialize Firebase Firestore and reference the "MoodEvents" collection
         db = FirebaseFirestore.getInstance();
-
-        String user = requireContext().getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
-                .getString("USERNAME", null);
-
-        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(user)));
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(user).getId()));
-
-        String userId = db.collection("users").document(user).getId();
-
-        if (userId != null) {
-            // Get reference to the user's subcollection "moods"
-            moodEventsRef = db.collection("users").document(userId).collection("moods");
-        } else {
-            Log.e("AddModelFragment", "User is not logged in or userId not found!");
-        }
-
-
-
-// Ensure userId is not null before using it
-//        if (userId != null) {
-//            moodEventsRef = db.collection("users").document(userId).collection("moods");
-//        } else {
-//            Log.e("AddModelFragment", "Cannot initialize Firestore reference because userId is null");
-//        }
-
-
+        moodEventsRef = db.collection("MoodEvents");
+        storageReference = FirebaseStorage.getInstance().getReference("Pictures");
+        progressDialog = new ProgressDialog(requireContext());
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Adding mood...");
+        progressDialog.setCancelable(false);
 
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
-        String currentDateTime = sdf.format(new Date());
-        String currentTime = time.format(new Date().getTime());
+        currentDate = sdf.format(new Date());
+        currentTime = time.format(new Date().getTime());
         ChipGroup chipGroup = binding.expandablePeople.chipGroup;
-        // Initialize chips
 
         binding.expandablePeople.chip1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,16 +144,29 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         chips[2] = binding.expandablePeople.chip3;
         chips[3] = binding.expandablePeople.chip4;
 
+        binding.expandableStatus.chip1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleStatusChipSelection(0);
+            }
+        });
 
-        binding.date.setText("Today, " + currentDateTime);
+        binding.expandableStatus.chip2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleStatusChipSelection(1);
+            }
+        });
+        chipsStatus[0] = binding.expandableStatus.chip1;
+        chipsStatus[1] = binding.expandableStatus.chip2;
+
+
+        binding.date.setText("Today, " + currentDate);
         binding.tvTime.setText(currentTime);
         recyclerViewEmojis = binding.recyclerView;
         emojiList = new ArrayList<>();
         setEmojiAdapter();
         setExpandedLayoutSection();
-
-        // Initialize ViewModel
-        moodViewModel = new ViewModelProvider(requireActivity()).get(MoodViewModel.class);
 
         // ====================================================================================
         // ADDING MOOD
@@ -181,45 +178,18 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                     return;
                 }
 
-                String dateTime = binding.date.getText().toString() + " | " + binding.tvTime.getText().toString();
-                String mood = emojiAdapter.getSelectedEmoji().getName(); // Get selected emoji
-
-                // Get note text safely
-                String note = "";
-                TextInputEditText editText = binding.expandableNote.editText;
-                if (editText != null && editText.getText() != null) {
-                    note = editText.getText().toString();
+                String status = getStatusSelectedChipText();
+                if (status.isEmpty()) {
+                    Toast.makeText(getContext(), "Please select status first", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                String people = getSelectedChipText(); // Getting text from 4 options
-                int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
-                String imageUri = (selectedImageUri != null) ? selectedImageUri.toString() : "";
+                if (selectedImageUri != null) {
+                    putImageIntoFirebaseStorage();
+                } else {
+                    putMoodIntoFireStore("");
+                }
 
-                // Creating a new MoodEntry object
-                MoodEntry newEvent = new MoodEntry(dateTime, mood, note, people, currentLocation, moodIcon, imageUri, false);
-
-                // Add to Firestore under the user's subcollection "moods"
-                moodEventsRef.add(newEvent)
-                        .addOnSuccessListener(documentReference -> {
-                            // Set the Firestore-generated ID in the model
-                            newEvent.setFirestoreId(documentReference.getId());
-                            Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(v).navigateUp();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("error adding logs", "Error adding mood event: " + e.getMessage());
-                        });
-
-
-
-                // Add to ViewModel
-                moodViewModel.addMoodEntry(newEvent, () -> {
-                    requireActivity().runOnUiThread(() -> {
-                        Log.d("AddMoodFragment", "Mood added successfully, closing fragment.");
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    });
-                });
 
             } catch (Exception e) {
                 Log.e("AddModelFragment", "Error adding mood: " + e.getMessage());
@@ -229,6 +199,56 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         });
 
         return binding.getRoot();
+    }
+
+    private void putImageIntoFirebaseStorage() {
+        progressDialog.show();
+        StorageReference imageRef = storageReference.child(selectedImageUri.getLastPathSegment());
+        imageRef.putFile(selectedImageUri)
+                .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl()
+                        .addOnSuccessListener(uri -> {
+                            String downloadUri = uri.toString();
+                            putMoodIntoFireStore(downloadUri);
+                        })
+                        .addOnFailureListener(e -> {
+                            progressDialog.dismiss();
+                            Toast.makeText(requireContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }))
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(requireContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void putMoodIntoFireStore(String imageUri) {
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+
+        String dateTime = currentDate + " | " + currentTime;
+        String mood = emojiAdapter.getSelectedEmoji().getName(); // Get selected emoji
+
+        String note = "";
+        TextInputEditText editText = binding.expandableNote.editText;
+        if (editText != null && editText.getText() != null) {
+            note = editText.getText().toString();
+        }
+
+        String people = getSelectedChipText(); // Getting text from 4 options
+        String status = getStatusSelectedChipText();
+        int moodIcon = emojiAdapter.getSelectedEmoji().getEmojiPath();
+
+        String moodId = moodEventsRef.document().getId();
+        MoodEntry newEvent = new MoodEntry(moodId, HelperClass.users.getUsername(), dateTime, mood, note, people, currentLocation, locationLat, locationLng, status, moodIcon, imageUri);
+        moodEventsRef.document(moodId)
+                .set(newEvent)
+                .addOnSuccessListener(aVoid -> {
+                    resetForm();
+                })
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), "Error adding mood event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void setExpandedLayoutSection() {
@@ -251,6 +271,12 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
             binding.expandablePeople.arrowIcon.setRotation(isExpandedPeople ? 180 : 0);
         });
 
+        binding.expandableStatus.headerLayout.setOnClickListener(v -> {
+            isExpandedStatus = !isExpandedStatus;
+            binding.expandableStatus.contentLayout.setVisibility(isExpandedStatus ? View.VISIBLE : View.GONE);
+            binding.expandableStatus.arrowIcon.setRotation(isExpandedStatus ? 180 : 0);
+        });
+
         binding.expandableLocation.headerLayout.setOnClickListener(v -> {
             isExpandedLocation = !isExpandedLocation;
             binding.expandableLocation.contentLayout.setVisibility(isExpandedLocation ? View.VISIBLE : View.GONE);
@@ -268,8 +294,7 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         if (ContextCompat.checkSelfPermission(requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             return true;
-        }
-        else {
+        } else {
             requestPermissions(
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE
@@ -281,8 +306,10 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
     private void getLocation() {
         locationHelper.getCurrentLocation(new LocationHelper.LocationCallback() {
             @Override
-            public void onLocationResult(String address) {
+            public void onLocationResult(String address, String latitude, String longitude) {
                 currentLocation = address;
+                locationLat = latitude;
+                locationLng = longitude;
                 binding.expandableLocation.txtLocation.setText(address);
                 Toast.makeText(getContext(), "Location updated", Toast.LENGTH_SHORT).show();
             }
@@ -299,14 +326,14 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
-            }
-            else {
+            } else {
                 Toast.makeText(getContext(), "Not able to get location permission...", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void setEmojiAdapter() {
+        emojiList.clear();
         emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));
         emojiList.add(new EmojiModel(R.drawable.sad_emoji, "Sad", getResources().getColor(R.color.sad)));
         emojiList.add(new EmojiModel(R.drawable.disgust_emoji, "Fear", getResources().getColor(R.color.fear)));
@@ -326,6 +353,12 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         recyclerViewEmojis.setAdapter(emojiAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     private void handleChipSelection(int selectedChip) {
         for (int i = 0; i < chips.length; i++) {
             if (i == selectedChip) {
@@ -342,8 +375,33 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         }
     }
 
+    private void handleStatusChipSelection(int selectedChip) {
+        for (int i = 0; i < chipsStatus.length; i++) {
+            if (i == selectedChip) {
+                // Selected chip styling
+                chipsStatus[i].setChipBackgroundColorResource(R.color.purple_primary);
+                chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.WHITE));
+                chipsStatus[i].setTextColor(Color.WHITE);
+            } else {
+                // Reset other chips
+                chipsStatus[i].setChipBackgroundColorResource(R.color.gray_primary);
+                chipsStatus[i].setChipIconTint(ColorStateList.valueOf(Color.BLACK));
+                chipsStatus[i].setTextColor(Color.BLACK);
+            }
+        }
+    }
+
     private String getSelectedChipText() {
         for (Chip chip : chips) {
+            if (chip.isChecked()) {
+                return chip.getText().toString();
+            }
+        }
+        return "";
+    }
+
+    private String getStatusSelectedChipText() {
+        for (Chip chip : chipsStatus) {
             if (chip.isChecked()) {
                 return chip.getText().toString();
             }
@@ -363,55 +421,20 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         Uri url = result.getData().getData();
                         if (url != null) {
                             try {
-                                // Check file size - limit to 65536 bytes as per system admin requirement
-                                long fileSize = getFileSize(url);
-                                if (fileSize > 65536) { // 64KB limit
-                                    Toast.makeText(requireContext(), 
-                                        "Image too large! Maximum size is 64KB. Current size: " + (fileSize / 1024) + "KB", 
-                                        Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-
                                 requireContext().getContentResolver().takePersistableUriPermission(
                                         url,
                                         Intent.FLAG_GRANT_READ_URI_PERMISSION
                                 );
-
-                                binding.expandablePhoto.imgSelected.setVisibility(View.VISIBLE);
-                                binding.expandablePhoto.uploadPlaceholder.setVisibility(View.GONE);
-                                Glide.with(requireContext())
-                                        .load(url)
-                                        .centerCrop()
-                                        .into(binding.expandablePhoto.imgSelected);
-                                selectedImageUri = url;
+                                checkImageSize(url);
 
                             } catch (SecurityException e) {
                                 Toast.makeText(requireContext(), "Permission error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            } catch (Exception e) {
-                                Toast.makeText(requireContext(), "Error loading image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
 
         locationHelper = new LocationHelper(requireContext());
-    }
-
-    /**
-     * Gets the file size in bytes for a given URI
-     * 
-     * @param uri The URI of the file to check
-     * @return The size of the file in bytes, or 0 if size cannot be determined
-     */
-    private long getFileSize(Uri uri) {
-        try {
-            return requireContext().getContentResolver()
-                    .openAssetFileDescriptor(uri, "r")
-                    .getLength();
-        } catch (Exception e) {
-            Log.e("AddModelFragment", "Error getting file size: " + e.getMessage());
-            return 0;
-        }
     }
 
     private void openGallery() {
@@ -427,22 +450,79 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
         }
     }
 
+    private void checkImageSize(Uri imageUri) {
+        try {
+            // Open an InputStream to get the file size
+            InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+            int fileSize = inputStream.available();
+            inputStream.close();
 
+            if (fileSize > 65536) {
+                // Show toast and do not display the image
+                Toast.makeText(requireContext(), "Image should be under 65536 bytes.", Toast.LENGTH_SHORT).show();
+                selectedImageUri = null;
+            } else {
+                Glide.with(requireContext())
+                        .load(imageUri)
+                        .centerCrop()
+                        .into(binding.expandablePhoto.imgSelected);
+                selectedImageUri = imageUri;
+                binding.expandablePhoto.imgSelected.setVisibility(View.VISIBLE);
+                binding.expandablePhoto.uploadPlaceholder.setVisibility(View.GONE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Failed to check image size.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-//            selectedImageUri = data.getData();
-//            binding.expandablePhoto.imgSelected.setImageURI(selectedImageUri);
-//        }
-//
-//
-//    }
+    private void resetForm() {
+        binding.expandablePhoto.imgSelected.setVisibility(View.GONE);
+        binding.expandablePhoto.uploadPlaceholder.setVisibility(View.VISIBLE);
+        selectedImageUri = null;
+        hasSelectedImage = false;
 
+        binding.expandableNote.editText.setText(""); // Clear note
+        binding.expandablePeople.chipGroup.clearCheck(); // Clear selected people chips
+        binding.expandableStatus.chipGroup.clearCheck(); // Clear status chips
+
+        // Reset emoji selection
+        setEmojiAdapter();
+        binding.btnAdd.setEnabled(false);
+
+        // Reset date and time
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+        SimpleDateFormat time = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        binding.date.setText("Today, " + sdf.format(new Date()));
+        binding.tvTime.setText(time.format(new Date()));
+
+        // Reset other expandable sections
+        isExpanded = false;
+        isExpandedPhoto = false;
+        isExpandedPeople = false;
+        isExpandedLocation = false;
+        isExpandedStatus = false;
+
+        binding.expandableNote.contentLayout.setVisibility(View.GONE);
+        binding.expandablePhoto.contentLayout.setVisibility(View.GONE);
+        binding.expandablePeople.contentLayout.setVisibility(View.GONE);
+        binding.expandableStatus.contentLayout.setVisibility(View.GONE);
+
+        // Reset location
+        currentLocation = "";
+        locationLat = "";
+        locationLng = "";
+
+        handleChipSelection(-1); // Reset selected people chip
+        handleStatusChipSelection(-1); // Reset selected status chip
+
+        progressDialog.dismiss();
+        Toast.makeText(getContext(), "Mood event added successfully!", Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigation_fragment_add_to_navigation_home);
+    }
 
     @Override
-    public void onEmojiClick ( int position){
+    public void onEmojiClick(int position) {
         binding.btnAdd.setEnabled(true);
         binding.btnAdd.setBackgroundColor(getResources().getColor(R.color.purple_primary));
 

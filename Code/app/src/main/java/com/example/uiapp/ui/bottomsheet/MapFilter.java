@@ -11,12 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.uiapp.utils.MainActivity;
 import com.example.uiapp.R;
 import com.example.uiapp.adapter.FilterEmojiAdapter;
 import com.example.uiapp.adapter.OnEmojiClickListener;
 import com.example.uiapp.databinding.FragmentMapFilterBinding;
 import com.example.uiapp.model.EmojiModel;
-import com.example.uiapp.ui.history.HomeViewModel;
+import com.example.uiapp.ui.map.MapViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 
@@ -30,7 +31,7 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
     private Chip[] DateChips = new Chip[2];
     //private Chip[] chipIds;
     private Chip[] DisplayChips = new Chip[2];
-    private HomeViewModel homeViewModel;
+    private MapViewModel mapViewModel;
     private int selectedChipIndex = -1;
     private int selectedDisplayChipIndex = -1;
     private int selectedDistance = 5;
@@ -42,7 +43,7 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMapFilterBinding.inflate(inflater, container, false);
-        homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+        mapViewModel = new ViewModelProvider(requireActivity()).get(MapViewModel.class);
         emojiList = new ArrayList<>();
         setEmojiAdapter();
         DateChips[0] = binding.datechip1;
@@ -90,6 +91,7 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mapViewModel.clearFilter();
                 dismiss();
             }
         });
@@ -113,9 +115,9 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
         }
 
         Log.d("MapFilter", "Mood: " + selectedMood + ", Date: " + dateFilter + ", Display: " + displayFilter + ", Distance: " + selectedDistance + "km");
-
-        //Pass to homeViewModel
-        homeViewModel.setFilters(selectedMood, dateFilter);
+        MainActivity.moodDistance = selectedDistance;
+        //Pass to mapViewModel
+        mapViewModel.setFilters(selectedMood, dateFilter, displayFilter);
     }
     private void setEmojiAdapter() {
         emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));

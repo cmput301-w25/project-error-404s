@@ -16,9 +16,9 @@ import com.example.uiapp.model.EmojiModel;
 import java.util.List;
 
 public class FilterEmojiAdapter extends RecyclerView.Adapter<FilterEmojiAdapter.EmojiViewHolder> {
-    private final List<EmojiModel> emojiList;
+    private List<EmojiModel> emojiList;
     private FilterEmojiLayoutBinding binding;
-    private final OnEmojiClickListener onEmojiClickListener;
+    private OnEmojiClickListener onEmojiClickListener;
 
     public FilterEmojiAdapter(List<EmojiModel> emojiList, OnEmojiClickListener onEmojiClickListener) {
         this.emojiList = emojiList;
