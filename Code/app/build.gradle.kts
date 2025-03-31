@@ -47,19 +47,17 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.firebase.auth)
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
+    implementation(libs.gson)
+    implementation(libs.circleimageview)
     implementation(libs.firebase.firestore)
-    implementation(libs.gms.play.services.maps)
-    //implementation(libs.google.firebase.firestore)
+    implementation(libs.google.firebase.firestore)
+    implementation(libs.firebase.storage)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     implementation(libs.play.services.location)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.maps.android.utils)
-
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
-
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
 }

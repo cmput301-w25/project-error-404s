@@ -1,6 +1,6 @@
 [versions]
-playServicesMaps = "18.2.0"
 agp = "8.9.1"
+circleimageview = "3.1.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -12,22 +12,20 @@ lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 navigationFragment = "2.8.7"
 navigationUi = "2.8.7"
-mapsUtils = "3.4.0"
+gson = "2.12.1"
 
 playServicesLocation = "21.0.1"
 glide = "4.16.0"
 
-
 firebaseAuth = "23.2.0"
 firebaseFirestore = "25.1.2"
-roomCommon = "2.6.1"
-roomRuntime = "2.6.1"
-roomCompiler = "2.6.1"
-playServicesMapsVersion = "19.1.0"
-#firebaseFirestoreVersion = "25.1.3"
+firebaseFirestoreVersion = "25.1.3"
+firebaseStorage = "21.0.1"
+playServicesMaps = "19.1.0"
 
 
 [libraries]
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -45,15 +43,12 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
-#firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
-#google-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestoreVersion" }
-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+google-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestoreVersion" }
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
-maps-android-utils = { group = "com.google.maps.android", name = "android-maps-utils", version.ref = "mapsUtils" }
-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
-gms-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMapsVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
