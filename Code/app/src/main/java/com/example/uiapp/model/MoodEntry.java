@@ -19,6 +19,22 @@ public class MoodEntry implements Serializable {
     public MoodEntry() {
     }
 
+    /**
+     * This activity sets up the general parameter that a mood entry requires.
+     * ------------------------------------------------------------------------
+     * @param moodId
+     * @param username
+     * @param dateTime
+     * @param mood
+     * @param note
+     * @param people
+     * @param location
+     * @param locationLat
+     * @param locationLng
+     * @param status
+     * @param moodIcon
+     * @param imageUrl
+     */
     public MoodEntry(String moodId, String username, String dateTime, String mood, String note, String people, String location, String locationLat, String locationLng, String status, int moodIcon, String imageUrl) {
         this.moodId = moodId;
         this.username = username;

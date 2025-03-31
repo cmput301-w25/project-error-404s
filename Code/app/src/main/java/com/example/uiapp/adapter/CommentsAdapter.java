@@ -38,6 +38,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Vh> {
         return new Vh(view);
     }
 
+    /**
+     * This activity allows database connection with the specifically selected mood, and to store any comments that
+     * are written.
+     * -----------------------------------------------------------------------------------------------
+     * @param holder The ViewHolder which should be updated to represent the contents of the
+     *        item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     *
+     */
     @Override
     public void onBindViewHolder(@NonNull Vh holder, int position) {
         CommentsModel model = requestList.get(position);

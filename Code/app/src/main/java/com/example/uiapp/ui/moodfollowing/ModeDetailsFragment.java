@@ -62,6 +62,14 @@ public class ModeDetailsFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * This function sets up the fragments to view the mood details, including the date and time, mood, note,
+     * people status, username, and location
+     * -----------------------------------------------------------------------------------------------------
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

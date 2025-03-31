@@ -34,6 +34,9 @@ public class MoodViewModel extends ViewModel {
         return followingMoodEntries;
     }
 
+    /**
+     * This function calls to the EventRef to fetch mood events from the database
+     */
     public void fetchMoodEvents() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String currentDateTime = sdf.format(new Date());

@@ -138,6 +138,11 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
         binding.recyclerView.setAdapter(emojiAdapter);
     }
 
+    /**
+     * This activity handles the click of emoji for the filter
+     * @param position - comapres the click action position to each of the position of emojis to match
+     *                 the emoji clicked
+     */
     @Override
     public void onEmojiClick(int position) {
         Log.d("TAG", "onEmojiClick: "+position);

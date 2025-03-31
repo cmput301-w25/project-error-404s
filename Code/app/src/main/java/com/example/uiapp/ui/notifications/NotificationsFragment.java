@@ -109,6 +109,14 @@ public class NotificationsFragment extends Fragment implements OnItemNotificatio
         binding = null;
     }
 
+    /**
+     * This function handles the user follow request notifications.
+     * After the user sends the request to follow another user, it retrieves that information
+     * and display to the user gotten request to follow.
+     * -----------------------------------------------------------------------------------------
+     * @param from
+     * @param followerUsername - displays the follower username with the prompt messages
+     */
     @Override
     public void onItemClick(String from, String followerUsername) {
         Dialog dialog = new Dialog(requireContext());

@@ -125,6 +125,11 @@ public class FollowingMoodAdapter extends RecyclerView.Adapter<FollowingMoodAdap
         return moodList.size();
     }
 
+    /**
+     * This activity holds various parameter input information for filling out the mood.
+     * Holds time and date of the mood creation, mood, note, people info, location and
+     * the user that is writing the mood
+     */
     public static class MoodViewHolder extends RecyclerView.ViewHolder {
         TextView txtDateTime, txtMood, txtNote, txtPeople, txtLocation, txtUsername;
         ImageView imgMood, imgMoodEntry, imgUser;

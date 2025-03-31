@@ -6,6 +6,17 @@ public class CommentsModel {
     public CommentsModel() {
     }
 
+    /**
+     * This activity set up the necessary parameter to create a commentsmodel, and requires it to avoid
+     * any errors that can be caused
+     * -------------------------------------------------------------------------------------------------
+     * @param id
+     * @param userImage
+     * @param userName
+     * @param userId
+     * @param comments
+     * @param documentId
+     */
     public CommentsModel(String id, String userImage, String userName, String userId, String comments, String documentId) {
         this.id = id;
         this.userImage = userImage;

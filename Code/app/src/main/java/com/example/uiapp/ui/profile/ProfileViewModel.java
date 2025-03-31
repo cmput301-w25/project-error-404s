@@ -34,6 +34,13 @@ public class ProfileViewModel extends ViewModel {
     }
 
 
+    /**
+     * This function fetches data regarding the existing mood event
+     * The mood event is connected and limited to the specific to the users of choice
+     * ---------------------------------------------------------------------------------
+     * @param from
+     * @param userName - username is required as a paramter to fetch relavant mood events
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void fetchMoodEvents(String from, String userName) {
         moodEventsRef.get().addOnCompleteListener(task -> {

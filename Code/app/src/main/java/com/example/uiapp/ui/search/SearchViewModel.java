@@ -30,6 +30,10 @@ public class SearchViewModel extends ViewModel {
         return filteredUsers;
     }
 
+    /**
+     * This function goes through the public document for the user to fetch any required information
+     * of other searched or categorized user
+     */
     public void fetchUsers() {
         userRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {

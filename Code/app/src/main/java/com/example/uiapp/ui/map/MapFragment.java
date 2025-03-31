@@ -43,6 +43,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles all the functionalities and activiteis that is required to set up the fragment that
+ * display the map
+ */
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private FragmentMapBinding binding;
     private MapViewModel mapViewModel;

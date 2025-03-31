@@ -105,6 +105,10 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
 
     }
 
+    /**
+     * After initalizing the home fragment, this function continues the fragment, maintaining the initial
+     * properties of the home fragment
+     */
     @Override
     public void onResume() {
         super.onResume();

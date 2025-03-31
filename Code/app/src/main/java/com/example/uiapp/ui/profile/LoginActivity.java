@@ -22,6 +22,10 @@ import com.example.uiapp.utils.SharedPrefHelper;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * This class handles the loginactivity of the application.
+ * Handles the connection with the database to hanldes all of the possibilities with the logins
+ */
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
     private FirebaseFirestore db;

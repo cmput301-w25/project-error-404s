@@ -9,6 +9,14 @@ public class EmojiModel {
     private int color;
     private boolean selected;
 
+    /**
+     * This activity sets up the required parameter to create a emojimodel
+     * ---------------------------------------------------------------------
+     * @param emojiPath
+     * @param emojiGrayPath
+     * @param name
+     * @param color
+     */
     public EmojiModel(int emojiPath, int emojiGrayPath, String name, int color) {
         this.emojiPath = emojiPath;
         this.emojiGrayPath = emojiGrayPath;

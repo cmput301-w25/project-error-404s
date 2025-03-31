@@ -13,6 +13,12 @@ public class UserModel implements Serializable {
     public UserModel() {
     }
 
+    /**
+     * This activity set up the required parameter to create a usermodel
+     * -------------------------------------------------------------------
+     * @param username
+     * @param password
+     */
     public UserModel(String username, String password) {
         this.username = username;
         this.password = password;

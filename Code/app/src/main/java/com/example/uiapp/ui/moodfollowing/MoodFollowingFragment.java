@@ -161,6 +161,10 @@ public class MoodFollowingFragment extends Fragment implements OnItemDeleteClick
         showDeleteDialog(position);
     }
 
+    /**
+     * This function handles the user action when they click the edit image button of the mood event
+     * @param position - takes in the position of the action to match with the position of the button
+     */
     @Override
     public void onClickEdit(int position) {
         if (position >= 0 && position < filteredMoodList.size()) {

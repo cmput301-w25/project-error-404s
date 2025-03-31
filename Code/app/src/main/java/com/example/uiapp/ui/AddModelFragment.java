@@ -95,6 +95,12 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
     @SuppressLint("SetTextI18n")
 
+    /**
+     * This function handles the initialization of the database and the bindings with the mood creation
+     * -------------------------------------------------------------------------------------------------
+     * - handles database connections and flow of information
+     * - handles the click actions from the users
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment

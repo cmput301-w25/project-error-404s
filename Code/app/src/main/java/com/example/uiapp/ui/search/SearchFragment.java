@@ -38,6 +38,13 @@ public class SearchFragment extends Fragment {
         return root;
     }
 
+    /**
+     * This function handles the user actions such as button pressed or input of any text prompts.
+     * --------------------------------------------------------------------------------------------
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

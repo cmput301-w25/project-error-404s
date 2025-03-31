@@ -33,6 +33,13 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         return new EmojiViewHolder(binding.getRoot());
     }
 
+    /**
+     * This holder handles the positional activity done with the user for selection of the emojis
+     * -------------------------------------------------------------------------------------------
+     * @param holder Holds the emoji information for handling of the selection
+     * @param position The position of the item within the adapter's data set.
+     */
+
     @Override
     public void onBindViewHolder(@NonNull EmojiAdapter.EmojiViewHolder holder, int position) {
         EmojiModel emojiModel = emojiList.get(position);
