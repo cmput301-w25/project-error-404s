@@ -140,14 +140,13 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
 
                 // Update octopus animation based on the latest mood
                 if (latestMood.getMood().equalsIgnoreCase("happy")) {
-                    binding.petAnimationView.setAnimation("happy_octopus.json");
+                    binding.petAnimationView.setAnimation("oct_basicred.json");
                 } else if (latestMood.getMood().equalsIgnoreCase("sad")) {
-                    binding.petAnimationView.setAnimation("sad_octopus.json");
-                } else if (latestMood.getMood().equalsIgnoreCase("angry")) {
-                    binding.petAnimationView.setAnimation("angry_octopus.json");
-                } else {
-                    binding.petAnimationView.setAnimation("basic_octopus.json");
+                    binding.petAnimationView.setAnimation("oct_purpleblue.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("anger")) {
+                    binding.petAnimationView.setAnimation("oct_veryred.json");
                 }
+
 
                 binding.petAnimationView.playAnimation();
             }
