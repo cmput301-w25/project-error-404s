@@ -11,6 +11,7 @@ public class EmojiModel {
 
     public EmojiModel(int emojiPath, int emojiGrayPath, String name, int color) {
         this.emojiPath = emojiPath;
+        this.emojiGrayPath = emojiGrayPath;
         this.name = name;
         this.color = color;
         this.selected = false;
