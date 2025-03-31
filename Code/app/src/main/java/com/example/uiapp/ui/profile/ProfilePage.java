@@ -54,7 +54,7 @@ public class ProfilePage extends AppCompatActivity {
                 .getString("USERNAME", null);
 
         // Set the welcome message dynamically
-        usernameTextView.setText("Username" + userID);
+        usernameTextView.setText("Welcome, " + userID);
 
         BottomNavigationView bottomNav = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);

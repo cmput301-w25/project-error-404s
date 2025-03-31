@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ import com.example.uiapp.adapter.OnItemEditClickListener;
 import com.example.uiapp.databinding.FragmentHomeBinding;
 import com.example.uiapp.databinding.FragmentHomeModeBinding;
 import com.example.uiapp.model.MoodEntry;
+import com.example.uiapp.ui.bottomsheet.SettingsFragment;
+import com.example.uiapp.ui.notifications.NotificationsFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -77,6 +80,22 @@ public class HomeModeFragment extends Fragment {
         moodViewModel = new ViewModelProvider(requireActivity()).get(MoodViewModel.class);
         moodAdapter = new MoodAdapter(getContext(), new ArrayList<>(), null, null);
         recyclerView.setAdapter(moodAdapter);
+
+        // Set up the Settings button to pop up the SettingsFragment as a bottom sheet.
+        ImageButton settingsButton = binding.getRoot().findViewById(R.id.button_settings);
+        settingsButton.setOnClickListener(v -> {
+            SettingsFragment settingsFragment = new SettingsFragment();
+            settingsFragment.show(getChildFragmentManager(), "SettingsFragment");
+        });
+
+        // Set up the Notification button
+        ImageButton notificationButton = binding.getRoot().findViewById(R.id.button_notifications);
+        notificationButton.setOnClickListener(v -> {
+            // Create and show NotificationFragment as bottom sheet
+            // TODO: change the notificationsFragment to add show
+            NotificationsFragment notificationFragment = new NotificationsFragment();
+            notificationFragment.show(getChildFragmentManager(), "NotificationFragment");
+        });
 
         // Observe changes in the mood list
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {

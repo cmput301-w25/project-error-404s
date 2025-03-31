@@ -11,8 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.uiapp.databinding.FragmentNotificationsBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends BottomSheetDialogFragment {
 
     private FragmentNotificationsBinding binding;
 
