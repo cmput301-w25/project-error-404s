@@ -130,7 +130,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
             listOfMyMoods.clear();
             listOfMyMoods.addAll(moodEntries);
-            //
+
             List<MoodEntry> singleMoodEntry = new ArrayList<>();
 
 
@@ -143,8 +143,26 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
                     binding.petAnimationView.setAnimation("oct_basicred.json");
                 } else if (latestMood.getMood().equalsIgnoreCase("sad")) {
                     binding.petAnimationView.setAnimation("oct_purpleblue.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("fear")) {
+                    binding.petAnimationView.setAnimation("oct_weirdpurple.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("disgust")) {
+                    binding.petAnimationView.setAnimation("oct_vomit.json");
                 } else if (latestMood.getMood().equalsIgnoreCase("anger")) {
                     binding.petAnimationView.setAnimation("oct_veryred.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("confused")) {
+                    binding.petAnimationView.setAnimation("oct_cyan.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("shame")) {
+                    binding.petAnimationView.setAnimation("oct_gold.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("surprised")) {
+                    binding.petAnimationView.setAnimation("oct_gray.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("tired")) {
+                    binding.petAnimationView.setAnimation("oct_orange.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("anxious")) {
+                    binding.petAnimationView.setAnimation("oct_pink.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("proud")) {
+                    binding.petAnimationView.setAnimation("oct_yellow.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("bored")) {
+                    binding.petAnimationView.setAnimation("oct_gray.json");
                 }
 
 
