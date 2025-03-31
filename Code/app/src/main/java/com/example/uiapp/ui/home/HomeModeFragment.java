@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.airbnb.lottie.LottieAnimationView;
 
 import com.bumptech.glide.Glide;
 import com.example.uiapp.MainActivity;
@@ -45,6 +46,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
     ProgressDialog progressDialog;
     ArrayList<MoodEntry> listOfMyMoods = new ArrayList<>();
     ArrayList<MoodEntry> listOfOtherMoods = new ArrayList<>();
+    LottieAnimationView petAnimationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +100,7 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_homeModeFragment_to_navigation_search);
             }
+
         });
 
     }
@@ -127,11 +130,50 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
         moodViewModel.getMoodEntries().observe(getViewLifecycleOwner(), moodEntries -> {
             listOfMyMoods.clear();
             listOfMyMoods.addAll(moodEntries);
-            //
+
             List<MoodEntry> singleMoodEntry = new ArrayList<>();
+
+
             if (!moodEntries.isEmpty()) {
-                singleMoodEntry.add(moodEntries.get(0)); //
+                MoodEntry latestMood = moodEntries.get(0); // Get the latest mood entry
+                singleMoodEntry.add(latestMood);
+
+                // Update octopus animation based on the latest mood
+                if (latestMood.getMood().equalsIgnoreCase("happy")) {
+                    binding.petAnimationView.setAnimation("oct_basicred.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("sad")) {
+                    binding.petAnimationView.setAnimation("oct_purpleblue.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("fear")) {
+                    binding.petAnimationView.setAnimation("oct_weirdpurple.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("disgust")) {
+                    binding.petAnimationView.setAnimation("oct_vomit.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("anger")) {
+                    binding.petAnimationView.setAnimation("oct_veryred.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("confused")) {
+                    binding.petAnimationView.setAnimation("oct_cyan.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("shame")) {
+                    binding.petAnimationView.setAnimation("oct_gold.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("surprised")) {
+                    binding.petAnimationView.setAnimation("oct_gray.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("tired")) {
+                    binding.petAnimationView.setAnimation("oct_orange.json");
+                }else if (latestMood.getMood().equalsIgnoreCase("anxious")) {
+                    binding.petAnimationView.setAnimation("oct_pink.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("proud")) {
+                    binding.petAnimationView.setAnimation("oct_yellow.json");
+                } else if (latestMood.getMood().equalsIgnoreCase("bored")) {
+                    binding.petAnimationView.setAnimation("oct_gray.json");
+                }
+
+
+                binding.petAnimationView.playAnimation();
             }
+
+
+
+
+
+
             myMoodsAdapter.updateList(singleMoodEntry);
             toggleVisibility(moodEntries, binding.rvMyMoods, binding.tvNoMyDataFound);
             hideProgressDialog();

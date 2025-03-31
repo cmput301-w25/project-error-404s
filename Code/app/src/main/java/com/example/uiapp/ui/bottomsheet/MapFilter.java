@@ -120,18 +120,18 @@ public class MapFilter extends BottomSheetDialogFragment implements OnEmojiClick
         mapViewModel.setFilters(selectedMood, dateFilter, displayFilter);
     }
     private void setEmojiAdapter() {
-        emojiList.add(new EmojiModel(R.drawable.happy, "Happy", getResources().getColor(R.color.happy)));
-        emojiList.add(new EmojiModel(R.drawable.sad_emoji, "Sad", getResources().getColor(R.color.sad)));
-        emojiList.add(new EmojiModel(R.drawable.disgust_emoji, "Fear", getResources().getColor(R.color.fear)));
-        emojiList.add(new EmojiModel(R.drawable.image_4, "Disgust", getResources().getColor(R.color.disgust)));
-        emojiList.add(new EmojiModel(R.drawable.image_5, "Anger", getResources().getColor(R.color.angry)));
-        emojiList.add(new EmojiModel(R.drawable.image_6, "Confused", getResources().getColor(R.color.confused)));
-        emojiList.add(new EmojiModel(R.drawable.image_7, "Shame", getResources().getColor(R.color.shame)));
-        emojiList.add(new EmojiModel(R.drawable.image_10, "Surprised", getResources().getColor(R.color.surprized)));
-        emojiList.add(new EmojiModel(R.drawable.image_11, "Tired", getResources().getColor(R.color.tired)));
-        emojiList.add(new EmojiModel(R.drawable.image_12, "Anxious", getResources().getColor(R.color.anxious)));
-        emojiList.add(new EmojiModel(R.drawable.image_9, "Proud", getResources().getColor(R.color.proud)));
-        emojiList.add(new EmojiModel(R.drawable.image_3, "Bored", getResources().getColor(R.color.bored)));
+        emojiList.add(new EmojiModel(R.drawable.happy, R.drawable.happy_gray,"Happy", getResources().getColor(R.color.happy)));
+        emojiList.add(new EmojiModel(R.drawable.sad_emoji, R.drawable.sad_gray, "Sad", getResources().getColor(R.color.sad)));
+        emojiList.add(new EmojiModel(R.drawable.fear, R.drawable.fear_gray, "Fear", getResources().getColor(R.color.fear)));
+        emojiList.add(new EmojiModel(R.drawable.disgust, R.drawable.disgust_gray, "Disgust", getResources().getColor(R.color.disgust)));
+        emojiList.add(new EmojiModel(R.drawable.anger, R.drawable.anger_gray,"Anger", getResources().getColor(R.color.angry)));
+        emojiList.add(new EmojiModel(R.drawable.confused, R.drawable.confused_gray,"Confused", getResources().getColor(R.color.confused)));
+        emojiList.add(new EmojiModel(R.drawable.shame, R.drawable.shame_gray,"Shame", getResources().getColor(R.color.shame)));
+        emojiList.add(new EmojiModel(R.drawable.surprised, R.drawable.surprised_gray,"Surprised", getResources().getColor(R.color.surprized)));
+        emojiList.add(new EmojiModel(R.drawable.tired, R.drawable.tired_gray, "Tired", getResources().getColor(R.color.tired)));
+        emojiList.add(new EmojiModel(R.drawable.anxious, R.drawable.anxious_gray,"Anxious", getResources().getColor(R.color.anxious)));
+        emojiList.add(new EmojiModel(R.drawable.proud, R.drawable.proud_gray,"Proud", getResources().getColor(R.color.proud)));
+        emojiList.add(new EmojiModel(R.drawable.bored, R.drawable.bored_gray,"Bored", getResources().getColor(R.color.bored)));
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         //emojiAdapter = new FilterEmojiAdapter( emojiList,this::onEmojiClick);
         emojiAdapter = new FilterEmojiAdapter( emojiList,this);

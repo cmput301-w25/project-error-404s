@@ -22,23 +22,23 @@ public class EmojiHelper {
             case "sad":
                 return ContextCompat.getDrawable(context, R.drawable.sad_emoji);
             case "fear":
-                return ContextCompat.getDrawable(context, R.drawable.disgust_emoji);
+                return ContextCompat.getDrawable(context, R.drawable.fear);
             case "disgust":
-                return ContextCompat.getDrawable(context, R.drawable.image_4);
+                return ContextCompat.getDrawable(context, R.drawable.disgust);
             case "anger":
-                return ContextCompat.getDrawable(context, R.drawable.image_5);
+                return ContextCompat.getDrawable(context, R.drawable.anger);
             case "confused":
-                return ContextCompat.getDrawable(context, R.drawable.image_6);
+                return ContextCompat.getDrawable(context, R.drawable.confused);
             case "shame":
-                return ContextCompat.getDrawable(context, R.drawable.image_7);
+                return ContextCompat.getDrawable(context, R.drawable.shame);
             case "surprised":
-                return ContextCompat.getDrawable(context, R.drawable.image_10);
+                return ContextCompat.getDrawable(context, R.drawable.surprised);
             case "tired":
-                return ContextCompat.getDrawable(context, R.drawable.image_11);
+                return ContextCompat.getDrawable(context, R.drawable.tired);
             case "anxious":
-                return ContextCompat.getDrawable(context, R.drawable.image_12);
+                return ContextCompat.getDrawable(context, R.drawable.anxious);
             case "proud":
-                return ContextCompat.getDrawable(context, R.drawable.image_9);
+                return ContextCompat.getDrawable(context, R.drawable.proud);
             default:
                 return ContextCompat.getDrawable(context, R.drawable.happy); // Fallback emoji
         }

@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.play.services.location)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
+    implementation(libs.lottie.v610)
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
 }
