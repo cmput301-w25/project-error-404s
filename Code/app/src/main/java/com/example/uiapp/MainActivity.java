@@ -101,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
-
         // Check Firestore for profile existence
         db.collection("users").document(userID)
                 .get()
@@ -121,58 +119,30 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         // Profile exists: Continue setting up the UI.
                         setContentView(R.layout.activity_bottom_nav);
+                        // Initialize Firestore reference and UI components
+                        initializeUI(userID);
                     }
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(MainActivity.this, "Error verifying profile.", Toast.LENGTH_SHORT).show();
                 });
-
-        setContentView(R.layout.activity_bottom_nav);
+    }
+    
+    /**
+     * Initializes the UI components and sets up the navigation.
+     * 
+     * @param userID The current user's ID
+     */
+    private void initializeUI(String userID) {
         Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
 
         eventRef = FirebaseFirestore.getInstance().collection("users").document(userID).collection("moods");
         context = this;
 
-
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id, new SignupFragment())
-//                    .commit();
-//        }
-//        SignupFragment signupFragment = new SignupFragment();
-//        signupFragment.show(getSupportFragmentManager(), "SignupFragment");
-
-
-        // Initialize the event list and adapter
-
-
-        // Inside MainActivity.java's onCreate():
-
-        //
-        //Inside MainActivity.java's onCreate():
-        //
         BottomNavigationView bottomNav = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
-        //
+        
         // Set up navigation with NavController
         NavigationUI.setupWithNavController(bottomNav, navController);
-        //
-        // Override default behavior for "navigation_dashboard" to launch AddMood activity
-        //        bottomNav.setOnNavigationItemSelectedListener(item -> {
-        //            if (item.getItemId() == R.id.navigation_dashboard) {
-        //                Intent intent = new Intent(MainActivity.this, AddMood.class);
-        //                startActivityForResult(intent, ADD_MOOD_REQUEST);
-        //                return true; // Consume the click event
-        //            } else {
-        //                // Let the default NavController handle other items
-        //                NavigationUI.onNavDestinationSelected(item, navController);
-        //                return true;
-        //            }
-        //        });
-
-// Set up navigation with NavController
-
-
-// Override default behavior for "navigation_dashboard" to launch AddMood activity
-    }}
+    }
+}
