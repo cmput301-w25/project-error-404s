@@ -121,15 +121,11 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
             Log.e(TAG, "Context is null, cannot access shared preferences.");
         }
 
-
-
         Log.d("mood event ref", String.format("mood data",moodEventsRef));
-
 
         if (getArguments() != null) {
             scrollToDocumentId = getArguments().getString("DOCUMENT_ID");
         }
-
 
         // Set up search functionality
         EditText searchInput = binding.searchLayout.getEditText();
@@ -214,7 +210,7 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
         }
 
 
-        moodEventsRef.get()
+        moodEntriesRef.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     moodList.clear();
 
@@ -415,7 +411,8 @@ public class HistoryFragment extends Fragment implements OnItemDeleteClickListen
                 // Create a bundle to pass data to EditModeFragment
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("moodEntry", selectedEntry);
-
+                // ??TO DO:
+                bundle.putString("documentId", selectedEntry.getFirestoreId());
                 // Navigate to edit fragment with the selected mood entry data
                 Navigation.findNavController(requireView()).navigate(
                         R.id.action_navigation_home_to_editModeFragment,

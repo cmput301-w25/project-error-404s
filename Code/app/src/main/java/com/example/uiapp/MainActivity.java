@@ -3,17 +3,10 @@ package com.example.uiapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -21,13 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.uiapp.ui.profile.SignupActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This activity serves as the main screen of the app, displaying a list of mood events.
@@ -92,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Toast.makeText(MainActivity.this,String.format(" This document id  is %s" , db.collection("users").document(userID)),Toast.LENGTH_LONG).show();
 
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
-        Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
+        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID)));
+        //Log.d("add userID debug", String.format("id : " + db.collection("users").document(userID).getId()));
         if (userID == null) { // Redirect only if the user is NOT logged in
             Intent intent = new Intent(this, SignupActivity.class);
             startActivity(intent);
@@ -101,55 +88,48 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
-
-
-        setContentView(R.layout.activity_bottom_nav);
+        // Check Firestore for profile existence
+        db.collection("users").document(userID)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (!document.exists()) {
+                        // Profile does not exist; clear session and redirect.
+                        getSharedPreferences("MoodPulsePrefs", MODE_PRIVATE)
+                                .edit()
+                                .remove("USERNAME")
+                                .apply();
+                        Toast.makeText(MainActivity.this, "Profile not found. Logging out.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Profile exists: Continue setting up the UI.
+                        setContentView(R.layout.activity_bottom_nav);
+                        // Initialize Firestore reference and UI components
+                        initializeUI(userID);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(MainActivity.this, "Error verifying profile.", Toast.LENGTH_SHORT).show();
+                });
+    }
+    
+    /**
+     * Initializes the UI components and sets up the navigation.
+     * 
+     * @param userID The current user's ID
+     */
+    private void initializeUI(String userID) {
         Toast.makeText(this, "Welcome " + userID, Toast.LENGTH_SHORT).show();
 
         eventRef = FirebaseFirestore.getInstance().collection("users").document(userID).collection("moods");
         context = this;
 
-
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id, new SignupFragment())
-//                    .commit();
-//        }
-//        SignupFragment signupFragment = new SignupFragment();
-//        signupFragment.show(getSupportFragmentManager(), "SignupFragment");
-
-
-        // Initialize the event list and adapter
-
-
-        // Inside MainActivity.java's onCreate():
-
-        //
-        //Inside MainActivity.java's onCreate():
-        //
-        BottomNavigationView bottomNav = findViewById(R.id.nav_view);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
-        //
+        
         // Set up navigation with NavController
         NavigationUI.setupWithNavController(bottomNav, navController);
-        //
-        // Override default behavior for "navigation_dashboard" to launch AddMood activity
-        //        bottomNav.setOnNavigationItemSelectedListener(item -> {
-        //            if (item.getItemId() == R.id.navigation_dashboard) {
-        //                Intent intent = new Intent(MainActivity.this, AddMood.class);
-        //                startActivityForResult(intent, ADD_MOOD_REQUEST);
-        //                return true; // Consume the click event
-        //            } else {
-        //                // Let the default NavController handle other items
-        //                NavigationUI.onNavDestinationSelected(item, navController);
-        //                return true;
-        //            }
-        //        });
-
-// Set up navigation with NavController
-
-
-// Override default behavior for "navigation_dashboard" to launch AddMood activity
-    }}
+    }
+}

@@ -69,6 +69,23 @@ public class EmojiAdapter extends RecyclerView.Adapter<EmojiAdapter.EmojiViewHol
         return null; // No emoji selected
     }
 
+    /**
+     * Allows externally setting the selected emoji position.
+     * Used in edit mode to preselect the saved emoji.
+     * 
+     * @param position Position of the emoji to select
+     */
+    public void setSelectedPosition(int position) {
+        if (position >= 0 && position < emojiList.size()) {
+            int previousPosition = selectedPosition;
+            selectedPosition = position;
+            
+            // Update UI for previous and new selection
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return emojiList.size();

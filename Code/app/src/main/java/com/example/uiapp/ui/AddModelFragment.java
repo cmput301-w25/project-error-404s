@@ -363,6 +363,14 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
                         Uri url = result.getData().getData();
                         if (url != null) {
                             try {
+                                // Check file size - limit to 65536 bytes as per system admin requirement
+                                long fileSize = getFileSize(url);
+                                if (fileSize > 65536) { // 64KB limit
+                                    Toast.makeText(requireContext(), 
+                                        "Image too large! Maximum size is 64KB. Current size: " + (fileSize / 1024) + "KB", 
+                                        Toast.LENGTH_LONG).show();
+                                    return;
+                                }
 
                                 requireContext().getContentResolver().takePersistableUriPermission(
                                         url,
@@ -379,12 +387,31 @@ public class AddModelFragment extends Fragment implements OnEmojiClickListener {
 
                             } catch (SecurityException e) {
                                 Toast.makeText(requireContext(), "Permission error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Toast.makeText(requireContext(), "Error loading image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                 });
 
         locationHelper = new LocationHelper(requireContext());
+    }
+
+    /**
+     * Gets the file size in bytes for a given URI
+     * 
+     * @param uri The URI of the file to check
+     * @return The size of the file in bytes, or 0 if size cannot be determined
+     */
+    private long getFileSize(Uri uri) {
+        try {
+            return requireContext().getContentResolver()
+                    .openAssetFileDescriptor(uri, "r")
+                    .getLength();
+        } catch (Exception e) {
+            Log.e("AddModelFragment", "Error getting file size: " + e.getMessage());
+            return 0;
+        }
     }
 
     private void openGallery() {
