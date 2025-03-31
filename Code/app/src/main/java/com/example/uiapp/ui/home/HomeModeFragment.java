@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import com.airbnb.lottie.LottieAnimationView;
 
 import com.bumptech.glide.Glide;
 import com.example.uiapp.MainActivity;
@@ -130,9 +131,31 @@ public class HomeModeFragment extends Fragment implements OnItemEntryClick {
             listOfMyMoods.addAll(moodEntries);
             //
             List<MoodEntry> singleMoodEntry = new ArrayList<>();
+
+
             if (!moodEntries.isEmpty()) {
-                singleMoodEntry.add(moodEntries.get(0)); //
+                MoodEntry latestMood = moodEntries.get(0); // Get the latest mood entry
+                singleMoodEntry.add(latestMood);
+
+                // Update octopus animation based on the latest mood
+                if (latestMood.getMood().equals("Happy")) {
+                    binding.animationView.setAnimation(R.raw.happy_octopus); // Set happy octopus animation
+                } else if (latestMood.getMood().equals("Sad")) {
+                    binding.animationView.setAnimation(R.raw.sad_octopus); // Set sad octopus animation
+                } else if (latestMood.getMood().equals("Angry")) {
+                    binding.animationView.setAnimation(R.raw.angry_octopus); // Set angry octopus animation
+                } else {
+                    binding.animationView.setAnimation(R.raw.basic_octopus); // Default animation
+                }
+
+                binding.animationView.playAnimation(); // Start the animation
             }
+
+
+
+
+
+
             myMoodsAdapter.updateList(singleMoodEntry);
             toggleVisibility(moodEntries, binding.rvMyMoods, binding.tvNoMyDataFound);
             hideProgressDialog();
