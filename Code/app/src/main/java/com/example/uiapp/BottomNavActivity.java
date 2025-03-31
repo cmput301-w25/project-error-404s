@@ -25,7 +25,7 @@ public class BottomNavActivity extends AppCompatActivity {
         binding = ActivityBottomNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
         MaterialCardView navViewCard = findViewById(R.id.nav_view_card);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -34,7 +34,7 @@ public class BottomNavActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_bottom_nav);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(binding.bottomNavView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.editModeFragment) {
